@@ -22,7 +22,7 @@
                     <Label Content="Prénom(s) : " Margin="400,10,400,10"/>
                     <TextBox x:Name="PrenomEmployeTextBox" Margin="400,10,400,10" Width="500"/>
                     <Label Content="Date de naissance : " Margin="400,10,400,10"/>
-                    <DatePicker x:Name="DateNaissancePicker" Width="200" Height="30" SelectedDate="{Binding DateNaissance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <DatePicker x:Name="DateNaissanceEmployePicker" Width="200" Height="30" SelectedDate="{Binding DateNaissance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Label Content="Email : " Margin="400,10,400,10"/>
                     <TextBox x:Name="EmailEmployeTextBox" Margin="400,10,400,10" Width="500"/>
                     <Label Content="Téléphone : " Margin="400,10,400,10"/>
@@ -30,7 +30,7 @@
                     <Label Content="Adresse : " Margin="400,10,400,10"/>
                     <TextBox x:Name="AdresseEmployeTextBox" Margin="400,10,400,10" Width="500"/>
                     <Label Content="Genre : " Margin="400,10,400,10"/>
-                    <ComboBox x:Name="SexeComboBox" Width="500" Height="30" SelectedIndex="0">
+                    <ComboBox x:Name="SexeEmployeComboBox" Width="500" Height="30" SelectedIndex="0">
                         <ComboBoxItem Content="Homme" />
                         <ComboBoxItem Content="Femme" />
                     </ComboBox>
@@ -41,7 +41,7 @@
                     <Label Content="Poste : " Margin="400,10,400,10"/>
                     <ComboBox x:Name="PostesComboBox" Width="500" Height="30" DisplayMemberPath="Nom" SelectedValuePath="Id"/>
                     <Label Content="Date d'integration : " Margin="400,10,400,10"/>
-                    <DatePicker x:Name="DateIntegrationPicker" Width="500" Height="30" SelectedDate="{Binding DateIntegration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <DatePicker x:Name="DateIntegrationEmployePicker" Width="500" Height="30" SelectedDate="{Binding DateIntegration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Button Content="Insérer" Click="Inserer_Click" Tag="employes" Margin="1250,10,10,10" Width="200"/>
 
@@ -164,8 +164,8 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <!-- DataGrid pour afficher les roles -->
-                <DataGrid x:Name="EmployesDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Visibility="{Binding EmployesVisible, Converter={StaticResource BoolToVisConverter}}">
+                <!-- DataGrid pour afficher les employes -->
+                <DataGrid x:Name="EmployesDataGrid" AutoGenerateColumns="False"  SelectionChanged="EmployeSelectionne" CanUserAddRows="False" Visibility="{Binding EmployesVisible, Converter={StaticResource BoolToVisConverter}}">
                     <DataGrid.Columns>
                         <!-- Colonne pour l'ID -->
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="50"/>
@@ -177,16 +177,7 @@
                         <DataGridTextColumn Header="Prénom(s)" Binding="{Binding Prenom}" Width="200"/>
 
                         <!-- Colonne pour l'adresse du salarie -->
-                        <DataGridTextColumn Header="Adresse" Binding="{Binding Adresse}" Width="200"/>
-
-                        <!-- Colonne pour le email du salarie -->
-                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
-
-                        <!-- Colonne pour le tel du salarie -->
-                        <DataGridTextColumn Header="Tel" Binding="{Binding Tel}" Width="200"/>
-
-                        <!-- Colonne pour le pays du salarie -->
-                        <DataGridTextColumn Header="Nationalité" Binding="{Binding Nationalite}" Width="200"/>
+                        <DataGridTextColumn Header="Poste" Binding="{Binding NomPoste}" Width="200"/>
 
                         <!-- Colonne pour le sexe du salarie -->
                         <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" Width="200"/>
@@ -206,6 +197,44 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
+                
+                <!-- Formulaire de détails de l'employé -->
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Visibility="{Binding InfoEmployeVisible, Converter={StaticResource BoolToVisConverter}}" >
+
+                    <TextBlock Text="Nom" Margin="400,10,400,10" />
+                    <TextBox x:Name="NomTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+
+                    <TextBlock Text="Prénom" Margin="400,10,400,10"/>
+                    <TextBox x:Name="PrenomTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+
+                    <TextBlock Text="Email" Margin="400,10,400,10" />
+                    <TextBox x:Name="EmailTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+
+                    <TextBlock Text="Tel" Margin="400,10,400,10"/>
+                    <TextBox x:Name="TelTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+
+                    <TextBlock Text="Adresse" Margin="400,10,400,10"/>
+                    <TextBox x:Name="AdresseTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+
+                    <TextBlock Text="Poste" Margin="400,10,400,10"/>
+                    <TextBox x:Name="PosteTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+
+                    <TextBlock Text="Departement" Margin="400,10,400,10"/>
+                    <TextBox x:Name="DepartementTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+
+                    <TextBlock Text="Genre" Margin="400,10,400,10"/>
+                    <TextBox x:Name="SexeTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+
+                    <TextBlock Text="Nationalite" Margin="400,10,400,10"/>
+                    <TextBox x:Name="NationaliteTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+
+                    <TextBlock Text="Date d'Intégration" Margin="400,10,400,10" />
+                    <DatePicker x:Name="DateIntegrationPicker" Margin="400,10,400,10" Width="500" IsEnabled="False"/>
+
+                    <TextBlock Text="Date de naissance" Margin="400,10,400,10" />
+                    <DatePicker x:Name="DateNaissancePicker" Margin="400,10,400,10" Width="500" IsEnabled="False"/>
+                    <!-- Autres champs ici -->
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

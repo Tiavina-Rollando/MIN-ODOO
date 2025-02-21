@@ -22,5 +22,9 @@ namespace Gestion_RH.Classes
 
         public Departement? Departement { get; set; }
 
+        public string NomDepartement => Departement?.Nom ?? string.Empty;
+
+
+        public string StatutTexte => Statut ? "Occupé" : "Vaccant";
     }
 }

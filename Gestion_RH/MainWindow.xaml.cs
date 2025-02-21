@@ -23,6 +23,7 @@ namespace Gestion_RH
         private bool _employesVisible;
         private bool _ajoutEmployeVisible;
         private bool _ajoutBouttonVisible;
+        private bool _infoEmployeVisible;
 
         public bool AjoutBouttonVisible
         {
@@ -31,6 +32,15 @@ namespace Gestion_RH
             {
                 _ajoutBouttonVisible = value;
                 OnPropertyChanged(nameof(AjoutBouttonVisible));
+            }
+        }
+        public bool InfoEmployeVisible
+        {
+            get { return _infoEmployeVisible; }
+            set
+            {
+                _infoEmployeVisible = value;
+                OnPropertyChanged(nameof(InfoEmployeVisible));
             }
         }
         public bool AjoutEmployeVisible
@@ -118,6 +128,7 @@ namespace Gestion_RH
             EmployesVisible = false;
             AjoutEmployeVisible = false;
             AjoutBouttonVisible = true;
+            InfoEmployeVisible = false;
         }
 
 
@@ -143,6 +154,32 @@ namespace Gestion_RH
             }
         }
 
+        public void AfficherEmployeDetails(Employe employe)
+        {
+            InfoEmployeVisible = true;
+            // Remplir les champs du formulaire avec les données de l'employé
+            NomTextBox.Text = employe.Nom;
+            PrenomTextBox.Text = employe.Prenom;
+            EmailTextBox.Text = employe.Email;
+            TelTextBox.Text = employe.Tel;
+            AdresseTextBox.Text = employe.Adresse;
+            PosteTextBox.Text = employe.NomPoste;
+            DepartementTextBox.Text = employe.Poste?.Departement?.Nom ?? "Aucun" ;
+            SexeTextBox.Text = employe.Genre;
+            NationaliteTextBox.Text = employe.Nation?.Peuple;
+            DateIntegrationPicker.SelectedDate = employe.DateIntegration;
+            DateNaissancePicker.SelectedDate = employe.DateNaissance;
+        }
+
+        private void EmployeSelectionne(object sender, RoutedEventArgs e)
+        {
+            var employe = EmployesDataGrid.SelectedItem;
+            if (employe is Employe employeI)
+            {
+                AfficherEmployeDetails(employeI);
+            }
+        }
+
         private void Home_Click(object sender, RoutedEventArgs e)
         {
             AjoutVisible = false;
@@ -164,28 +201,20 @@ namespace Gestion_RH
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
         public void Afficher(string classe)
         {
             using var dbContext = new ApplicationDbContext();
-        
-            if(classe == "employes")
+
+            if (classe == "employes")
             {
                 var employes = dbContext.Employes
-                    .Include(p => p.Nation)  // 👈 Charger aussi les nations
-                    .Select(p => new
-                    {
-                        p.Id,
-                        p.Nom,
-                        p.Prenom,
-                        p.Adresse,
-                        p.Email,
-                        p.Tel,
-                        p.DateIntegration,
-                        Genre = p.Sexe ? "Homme" : "Femme",  // 🔥 Condition ici
-                        Nationalite = p.Nation != null ? p.Nation.Peuple : "Non attribué"  // 👈 Afficher le nom du département
-                    })
+                    .Include(p => p.Nation)
+                    .Include(p => p.Role)
+                    .Include(p => p.Poste)
+                    .Include(p => p.Poste.Departement)
                     .ToList();
+                EmployesDataGrid.ItemsSource = employes;
 
                 // Affecte les données au DataGrid
                 EmployesDataGrid.ItemsSource = employes;
@@ -223,7 +252,7 @@ namespace Gestion_RH
                 // Affecte les données au DataGrid
                 PostesDataGrid.ItemsSource = postes;
             }
-      
+
         }
         private void Afficher_Click(object sender, RoutedEventArgs e)
         {
@@ -234,18 +263,30 @@ namespace Gestion_RH
                 switch (classe)
                 {
                     case "departements":
+                        InfoEmployeVisible = false;
                         DepartementsVisible = !DepartementsVisible;
                         break;
                     case "postes":
+                        InfoEmployeVisible = false;
                         PostesVisible = !PostesVisible;
                         break;
                     case "nations":
+                        InfoEmployeVisible = false;
                         NationsVisible = !NationsVisible;
                         break;
                     case "roles":
+                        InfoEmployeVisible = false;
                         RolesVisible = !RolesVisible;
                         break;
                     case "employes":
+                        if(EmployesDataGrid.SelectedItem == null)
+                        {
+                            InfoEmployeVisible = false;
+                        }
+                        else
+                        {
+                        InfoEmployeVisible = !InfoEmployeVisible;
+                        }
                         EmployesVisible = !EmployesVisible;
                         break;
                 }
@@ -337,51 +378,40 @@ namespace Gestion_RH
         {
             if (sender is Button button && button.Tag is string classe)
             {
-                if(classe == "employes")
+                if (classe == "employes")
                 {
-                    // Demande de confirmation
-                    MessageBoxResult result = MessageBox.Show(
-                        $"Genre : {SexeComboBox.SelectedItem.ToString()}",
-                        "Confirmation",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Warning);
-
-                    if (result == MessageBoxResult.Yes)
+                    Employe novice = new Employe()
                     {
+                        Nom = NomEmployeTextBox.Text.Trim(),
+                        Prenom = PrenomEmployeTextBox.Text.Trim(),
+                        Email = EmailEmployeTextBox.Text.Trim(),
+                        Adresse = AdresseEmployeTextBox.Text.Trim(),
+                        Tel = TelEmployeTextBox.Text.Trim(),
+                        Sexe = ((ComboBoxItem)SexeEmployeComboBox.SelectedItem).Content.ToString() == "Homme",
+                        IdNation = (int)PaysComboBox.SelectedValue,
+                        IdPoste = (int)PostesComboBox.SelectedValue,
+                        IdRole = (int)RolesComboBox.SelectedValue,
+                        DateIntegration = DateIntegrationEmployePicker.SelectedDate ?? DateTime.Now,
+                        DateNaissance = DateNaissanceEmployePicker.SelectedDate
 
-                        Employe novice = new Employe
-                        {
-                            Nom = NomEmployeTextBox.Text.Trim(),
-                            Prenom = PrenomEmployeTextBox.Text.Trim(),
-                            Email = EmailEmployeTextBox.Text.Trim(),
-                            Adresse = AdresseEmployeTextBox.Text.Trim(),
-                            Tel = TelEmployeTextBox.Text.Trim(),
-                            Sexe = ((ComboBoxItem)SexeComboBox.SelectedItem).Content.ToString() == "Homme",
-                            IdNation = (int)PaysComboBox.SelectedValue,
-                            IdPoste = (int)PostesComboBox.SelectedValue,
-                            IdRole = (int)RolesComboBox.SelectedValue,
-                            DateIntegration = DateIntegrationPicker.SelectedDate ?? DateTime.Now,
-                            DateNaissance = DateNaissancePicker.SelectedDate
+                    };
 
-                        };
+                    if (!string.IsNullOrEmpty(novice.Nom))
+                    {
+                        using var dbContext = new ApplicationDbContext();
 
-                        if (!string.IsNullOrEmpty(novice.Nom))
-                        {
-                            using var dbContext = new ApplicationDbContext();
+                        dbContext.Employes.Add(novice);
+                        dbContext.SaveChanges();
+                        MessageBox.Show("Employé bien enregistré.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // Rafraîchir la liste des départements
+                        Afficher("employes");
 
-                            dbContext.Employes.Add(novice);
-                            dbContext.SaveChanges();
-                            MessageBox.Show("Employé bien enregistré.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                            // Rafraîchir la liste des départements
-                            Afficher("employes");
-
-                            // Vider le champ de saisie
-                            NomEmployeTextBox.Clear();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Veuillez entrer un nom valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        }
+                        // Vider le champ de saisie
+                        NomEmployeTextBox.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Veuillez entrer un nom valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
             }

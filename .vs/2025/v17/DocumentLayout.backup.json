@@ -7,6 +7,14 @@
       "RelativeMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|solutionrelative:gestion_rh\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|d:\\tiavina\\projet\\c#\\source\\repos\\2025\\gestion_rh\\classes\\employe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|solutionrelative:gestion_rh\\classes\\employe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|d:\\tiavina\\projet\\c#\\source\\repos\\2025\\gestion_rh\\classes\\poste.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|solutionrelative:gestion_rh\\classes\\poste.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|d:\\tiavina\\projet\\c#\\source\\repos\\2025\\gestion_rh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|solutionrelative:gestion_rh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -22,11 +30,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Poste.cs",
+              "DocumentMoniker": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Classes\\Poste.cs",
+              "RelativeDocumentMoniker": "Gestion_RH\\Classes\\Poste.cs",
+              "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Classes\\Poste.cs",
+              "RelativeToolTip": "Gestion_RH\\Classes\\Poste.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAIA6wBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T19:23:23.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Employe.cs",
+              "DocumentMoniker": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Classes\\Employe.cs",
+              "RelativeDocumentMoniker": "Gestion_RH\\Classes\\Employe.cs",
+              "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Classes\\Employe.cs",
+              "RelativeToolTip": "Gestion_RH\\Classes\\Employe.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAqwD0AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T19:09:54.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "TagFormatConverter.cs",
               "DocumentMoniker": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Converters\\TagFormatConverter.cs",
               "RelativeDocumentMoniker": "Gestion_RH\\Converters\\TagFormatConverter.cs",
@@ -44,14 +78,14 @@
               "RelativeDocumentMoniker": "Gestion_RH\\MainWindow.xaml.cs",
               "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\MainWindow.xaml.cs",
               "RelativeToolTip": "Gestion_RH\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAIAAAAAAAAAAAAAwwJUAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAABQBAAAAAAAAAAAQwCEBAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-20T02:44:33.192Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Gestion_RH\\MainWindow.xaml",
