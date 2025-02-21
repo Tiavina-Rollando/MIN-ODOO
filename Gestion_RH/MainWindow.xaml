@@ -14,21 +14,21 @@
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel Margin="10">
-                <Button Content="Retour" Click="Home_Click" Margin="1250,10,10,10" Width="200" Visibility="{Binding AjoutEmployeVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                <Button Content="Retour" Click="Home_Click" Margin="1250,10,10,10" Width="200" Height="30" Visibility="{Binding AjoutEmployeVisible, Converter={StaticResource BoolToVisConverter}}"/>
                 <StackPanel Visibility="{Binding AjoutEmployeVisible, Converter={StaticResource BoolToVisConverter}}" >
 
                     <Label Content="Nom : " Margin="400,10,400,10"/>
-                    <TextBox x:Name="NomEmployeTextBox" Margin="400,10,400,10" Width="500"/>
+                    <TextBox x:Name="NomEmployeTextBox" Margin="400,10,400,10" Width="500" Height="30"/>
                     <Label Content="Prénom(s) : " Margin="400,10,400,10"/>
-                    <TextBox x:Name="PrenomEmployeTextBox" Margin="400,10,400,10" Width="500"/>
+                    <TextBox x:Name="PrenomEmployeTextBox" Margin="400,10,400,10" Width="500" Height="30"/>
                     <Label Content="Date de naissance : " Margin="400,10,400,10"/>
-                    <DatePicker x:Name="DateNaissanceEmployePicker" Width="200" Height="30" SelectedDate="{Binding DateNaissance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <DatePicker x:Name="DateNaissanceEmployePicker" Width="500" Height="30" SelectedDate="{Binding DateNaissance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Label Content="Email : " Margin="400,10,400,10"/>
-                    <TextBox x:Name="EmailEmployeTextBox" Margin="400,10,400,10" Width="500"/>
+                    <TextBox x:Name="EmailEmployeTextBox" Margin="400,10,400,10" Width="500" Height="30"/>
                     <Label Content="Téléphone : " Margin="400,10,400,10"/>
-                    <TextBox x:Name="TelEmployeTextBox" Margin="400,10,400,10" Width="500"/>
+                    <TextBox x:Name="TelEmployeTextBox" Margin="400,10,400,10" Height="30" Width="500"/>
                     <Label Content="Adresse : " Margin="400,10,400,10"/>
-                    <TextBox x:Name="AdresseEmployeTextBox" Margin="400,10,400,10" Width="500"/>
+                    <TextBox x:Name="AdresseEmployeTextBox" Margin="400,10,400,10" Width="500" Height="30"/>
                     <Label Content="Genre : " Margin="400,10,400,10"/>
                     <ComboBox x:Name="SexeEmployeComboBox" Width="500" Height="30" SelectedIndex="0">
                         <ComboBoxItem Content="Homme" />
@@ -43,32 +43,32 @@
                     <Label Content="Date d'integration : " Margin="400,10,400,10"/>
                     <DatePicker x:Name="DateIntegrationEmployePicker" Width="500" Height="30" SelectedDate="{Binding DateIntegration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                    <Button Content="Insérer" Click="Inserer_Click" Tag="employes" Margin="1250,10,10,10" Width="200"/>
+                    <Button Content="Insérer" Click="Inserer_Click" Tag="employes" Margin="1250,10,10,10" Height="30" Width="200"/>
 
                 </StackPanel>
 
-                <Button Content="Ajouter" Click="AjouterListe_Click" Margin="10,10,1250,10" Width="200" Visibility="{Binding AjoutBouttonVisible, Converter={StaticResource BoolToVisConverter}}" />
+                <Button Content="Ajouter" Click="AjouterListe_Click" Margin="10,10,1250,10" Height="30" Width="200" Visibility="{Binding AjoutBouttonVisible, Converter={StaticResource BoolToVisConverter}}" />
                 <StackPanel Visibility="{Binding AjoutVisible, Converter={StaticResource BoolToVisConverter}}">
-                    <Button Content="Ajouter département" Click="Ajouter_Click" Tag="departements"  Margin="10,10,1200,10" Width="200"/>
-                    <Button Content="Ajouter postes" Click="Ajouter_Click" Tag="postes" Margin="10,10,1200,10" Width="200"/>
-                    <Button Content="Ajouter nations" Click="Ajouter_Click" Tag="nations" Margin="10,10,1200,10" Width="200"/>
-                    <Button Content="Ajouter employés" Click="Ajouter_Click" Tag="employes" Margin="10,10,1200,10" Width="200"/>
+                    <Button Content="Ajouter département" Click="Ajouter_Click" Tag="departements" Height="30" Margin="10,10,1200,10" Width="200"/>
+                    <Button Content="Ajouter postes" Click="Ajouter_Click" Tag="postes" Height="30" Margin="10,10,1200,10" Width="200"/>
+                    <Button Content="Ajouter nations" Click="Ajouter_Click" Tag="nations" Height="30" Margin="10,10,1200,10" Width="200"/>
+                    <Button Content="Ajouter employés" Click="Ajouter_Click" Tag="employes" Height="30" Margin="10,10,1200,10" Width="200"/>
                 </StackPanel>
 
-                <Button Content="Afficher tableau" Click="AfficherListe_Click" Margin="1250,10,10,10" Width="200"/>
+                <Button Content="Afficher tableau" Click="AfficherListe_Click" Height="30" Margin="1250,10,10,10" Width="200"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,10,10,10" Visibility="{Binding AfficherVisible, Converter={StaticResource BoolToVisConverter}}">
-                    <Button Content="Liste département" Click="Afficher_Click" Tag="departements" Width="200"/>
-                    <Button Content="Liste postes" Click="Afficher_Click" Tag="postes" Width="200"/>
-                    <Button Content="Liste nations" Click="Afficher_Click" Tag="nations" Width="200"/>
-                    <Button Content="Liste roles" Click="Afficher_Click" Tag="roles" Width="200"/>
-                    <Button Content="Liste employés" Click="Afficher_Click" Tag="employes" Width="200"/>
+                    <Button Content="Liste département" Click="Afficher_Click" Height="30" Tag="departements" Width="200"/>
+                    <Button Content="Liste postes" Click="Afficher_Click" Tag="postes" Height="30" Width="200"/>
+                    <Button Content="Liste nations" Click="Afficher_Click" Tag="nations" Height="30" Width="200"/>
+                    <Button Content="Liste roles" Click="Afficher_Click" Tag="roles" Height="30" Width="200"/>
+                    <Button Content="Liste employés" Click="Afficher_Click" Tag="employes" Height="30" Width="200"/>
                 </StackPanel>
 
                 <!-- DataGrid pour afficher les départements -->
-                <DataGrid x:Name="DepartementsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Visibility="{Binding DepartementsVisible, Converter={StaticResource BoolToVisConverter}}">
+                <DataGrid x:Name="DepartementsDataGrid" AutoGenerateColumns="False" Height="50" CanUserAddRows="False" Visibility="{Binding DepartementsVisible, Converter={StaticResource BoolToVisConverter}}">
                     <DataGrid.Columns>
                         <!-- Colonne pour l'ID -->
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="50"/>
+                        <DataGridTextColumn  Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="50"/>
 
                         <!-- Colonne pour le nom du département -->
                         <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
@@ -202,37 +202,37 @@
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Visibility="{Binding InfoEmployeVisible, Converter={StaticResource BoolToVisConverter}}" >
 
                     <TextBlock Text="Nom" Margin="400,10,400,10" />
-                    <TextBox x:Name="NomTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="NomTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
 
                     <TextBlock Text="Prénom" Margin="400,10,400,10"/>
-                    <TextBox x:Name="PrenomTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="PrenomTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
 
                     <TextBlock Text="Email" Margin="400,10,400,10" />
-                    <TextBox x:Name="EmailTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="EmailTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
 
                     <TextBlock Text="Tel" Margin="400,10,400,10"/>
-                    <TextBox x:Name="TelTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="TelTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
 
                     <TextBlock Text="Adresse" Margin="400,10,400,10"/>
-                    <TextBox x:Name="AdresseTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="AdresseTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True" />
 
                     <TextBlock Text="Poste" Margin="400,10,400,10"/>
-                    <TextBox x:Name="PosteTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="PosteTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True" />
 
                     <TextBlock Text="Departement" Margin="400,10,400,10"/>
-                    <TextBox x:Name="DepartementTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="DepartementTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True" />
 
                     <TextBlock Text="Genre" Margin="400,10,400,10"/>
-                    <TextBox x:Name="SexeTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="SexeTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True" />
 
                     <TextBlock Text="Nationalite" Margin="400,10,400,10"/>
-                    <TextBox x:Name="NationaliteTextBox" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="NationaliteTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True" />
 
                     <TextBlock Text="Date d'Intégration" Margin="400,10,400,10" />
-                    <DatePicker x:Name="DateIntegrationPicker" Margin="400,10,400,10" Width="500" IsEnabled="False"/>
+                    <DatePicker x:Name="DateIntegrationPicker" Margin="400,10,400,10" Width="500" Height="30" IsEnabled="False"/>
 
                     <TextBlock Text="Date de naissance" Margin="400,10,400,10" />
-                    <DatePicker x:Name="DateNaissancePicker" Margin="400,10,400,10" Width="500" IsEnabled="False"/>
+                    <DatePicker x:Name="DateNaissancePicker" Margin="400,10,400,10" Height="30" Width="500" IsEnabled="False"/>
                     <!-- Autres champs ici -->
                 </StackPanel>
             </StackPanel>

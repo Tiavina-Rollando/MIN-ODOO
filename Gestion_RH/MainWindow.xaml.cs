@@ -134,12 +134,12 @@ namespace Gestion_RH
 
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
-            AjoutVisible = !AjoutVisible;
-            AjoutBouttonVisible = false;
             if (sender is Button button && button.Tag is string classe)
             {
                 if (classe == "employes")
                 {
+                    AjoutVisible = !AjoutVisible;
+                    AjoutBouttonVisible = false;
                     using (var dbContext = new ApplicationDbContext())
                     {
                         var paysListe = dbContext.Nations.ToList();
@@ -150,6 +150,10 @@ namespace Gestion_RH
                         PostesComboBox.ItemsSource = posteListe;
                     }
                     AjoutEmployeVisible = !AjoutEmployeVisible;
+                }
+                else 
+                {
+                    MessageBox.Show($"Ajout de nouveaux {classe} pas encore disponible.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
@@ -409,7 +413,7 @@ namespace Gestion_RH
                         // Vider le champ de saisie
                         NomEmployeTextBox.Clear();
                     }
-                    else
+                    else 
                     {
                         MessageBox.Show("Veuillez entrer un nom valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
