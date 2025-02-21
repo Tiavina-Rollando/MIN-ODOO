@@ -8,7 +8,7 @@ namespace Gestion_RH.Classes
     public class Poste
     {
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public bool Statut { get; set; }
 
@@ -18,8 +18,7 @@ namespace Gestion_RH.Classes
 
 
         [ForeignKey("Departement")]
-        public long IdDepartement { get; set; }
-
+        public int IdDepartement { get; set; }
 
         public Departement? Departement { get; set; }
 

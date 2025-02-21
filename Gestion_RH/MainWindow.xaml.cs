@@ -20,8 +20,37 @@ namespace Gestion_RH
         private bool _postesVisible;
         private bool _nationsVisible;
         private bool _rolesVisible;
+        private bool _employesVisible;
+        private bool _ajoutEmployeVisible;
+        private bool _ajoutBouttonVisible;
 
-
+        public bool AjoutBouttonVisible
+        {
+            get { return _ajoutBouttonVisible; }
+            set
+            {
+                _ajoutBouttonVisible = value;
+                OnPropertyChanged(nameof(AjoutBouttonVisible));
+            }
+        }
+        public bool AjoutEmployeVisible
+        {
+            get { return _ajoutEmployeVisible; }
+            set
+            {
+                _ajoutEmployeVisible = value;
+                OnPropertyChanged(nameof(AjoutEmployeVisible));
+            }
+        }
+        public bool EmployesVisible
+        {
+            get { return _employesVisible; }
+            set
+            {
+                _employesVisible = value;
+                OnPropertyChanged(nameof(EmployesVisible));
+            }
+        }
         public bool AjoutVisible
         {
             get { return _ajoutVisible; }
@@ -86,14 +115,46 @@ namespace Gestion_RH
             PostesVisible = false;
             NationsVisible = false;
             RolesVisible = false;
+            EmployesVisible = false;
+            AjoutEmployeVisible = false;
+            AjoutBouttonVisible = true;
         }
 
+
         private void Ajouter_Click(object sender, RoutedEventArgs e)
+        {
+            AjoutVisible = !AjoutVisible;
+            AjoutBouttonVisible = false;
+            if (sender is Button button && button.Tag is string classe)
+            {
+                if (classe == "employes")
+                {
+                    using (var dbContext = new ApplicationDbContext())
+                    {
+                        var paysListe = dbContext.Nations.ToList();
+                        PaysComboBox.ItemsSource = paysListe;
+                        var roleListe = dbContext.Roles.ToList();
+                        RolesComboBox.ItemsSource = roleListe;
+                        var posteListe = dbContext.Postes.ToList();
+                        PostesComboBox.ItemsSource = posteListe;
+                    }
+                    AjoutEmployeVisible = !AjoutEmployeVisible;
+                }
+            }
+        }
+
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+            AjoutVisible = false;
+            AjoutEmployeVisible = false;
+            AjoutBouttonVisible = true;
+        }
+        private void AjouterListe_Click(object sender, RoutedEventArgs e)
         {
             AjoutVisible = !AjoutVisible; // Basculer la visibilité
         }
 
-        private void Afficher_Click(object sender, RoutedEventArgs e)
+        private void AfficherListe_Click(object sender, RoutedEventArgs e)
         {
             AfficherVisible = !AfficherVisible; // Basculer la visibilité
         }
@@ -103,125 +164,226 @@ namespace Gestion_RH
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public void AfficheDepartements()
+        
+        public void Afficher(string classe)
         {
             using var dbContext = new ApplicationDbContext();
-            var departements = dbContext.Departements.ToList();
-
-            // Affecte les données au DataGrid
-            DepartementsDataGrid.ItemsSource = departements;
-        }
-        public void AffichePostes()
-        {
-            using var dbContext = new ApplicationDbContext();
-            var postes = dbContext.Postes
-            .Include(p => p.Departement)  // 👈 Charger aussi les départements
-            .Select(p => new
+        
+            if(classe == "employes")
             {
-                p.Id,
-                p.Nom,
-                StatutTexte = p.Statut ? "Occupé" : "Vacant",  // 🔥 Condition ici
-                NomDepartement = p.Departement != null ? p.Departement.Nom : "Non attribué"  // 👈 Afficher le nom du département
-            })
-            .ToList();
+                var employes = dbContext.Employes
+                    .Include(p => p.Nation)  // 👈 Charger aussi les nations
+                    .Select(p => new
+                    {
+                        p.Id,
+                        p.Nom,
+                        p.Prenom,
+                        p.Adresse,
+                        p.Email,
+                        p.Tel,
+                        p.DateIntegration,
+                        Genre = p.Sexe ? "Homme" : "Femme",  // 🔥 Condition ici
+                        Nationalite = p.Nation != null ? p.Nation.Peuple : "Non attribué"  // 👈 Afficher le nom du département
+                    })
+                    .ToList();
 
-            DepartementsDataGrid.ItemsSource = postes;
-            // Affecte les données au DataGrid
-            PostesDataGrid.ItemsSource = postes;
-        }
-        public void AfficheRoles()
-        {
-            using var dbContext = new ApplicationDbContext();
-            var roles = dbContext.Roles.ToList();
-
-            // Affecte les données au DataGrid
-            RolesDataGrid.ItemsSource = roles;
-        }
-        public void AfficheNations()
-        {
-            using var dbContext = new ApplicationDbContext();
-            var nations = dbContext.Nations.ToList();
-
-            // Affecte les données au DataGrid
-            NationsDataGrid.ItemsSource = nations;
-        }
-        private void AfficherDepartement_Click(object sender, RoutedEventArgs e) 
-        {
-            AfficheDepartements();
-            DepartementsVisible = !DepartementsVisible; // Basculer la visibilité
-        }
-        private void AfficherPoste_Click(object sender, RoutedEventArgs e)
-        {
-            AffichePostes(); 
-            PostesVisible = !PostesVisible; // Basculer la visibilité
-        }
-        private void AfficherNation_Click(object sender, RoutedEventArgs e)
-        {
-            AfficheNations();
-            NationsVisible = !NationsVisible; // Basculer la visibilité
-        }
-        private void AfficherRole_Click(object sender, RoutedEventArgs e)
-        {
-            AfficheRoles();
-            RolesVisible = !RolesVisible; // Basculer la visibilité
-        }
-
-        private void SupprimerDepartement_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button && button.Tag is long id)
+                // Affecte les données au DataGrid
+                EmployesDataGrid.ItemsSource = employes;
+            }
+            if (classe == "departements")
             {
-                // Demande de confirmation à l'utilisateur
-                MessageBoxResult result = MessageBox.Show(
-                    "Êtes-vous sûr de vouloir supprimer ce département ?",
-                    "Confirmation",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes)
+                var departements = dbContext.Departements.ToList();
+                // Affecte les données au DataGrid
+                DepartementsDataGrid.ItemsSource = departements;
+            }
+            if (classe == "roles")
+            {
+                var roles = dbContext.Roles.ToList();
+                // Affecte les données au DataGrid
+                RolesDataGrid.ItemsSource = roles;
+            }
+            if (classe == "nations")
+            {
+                var nations = dbContext.Nations.ToList();
+                // Affecte les données au DataGrid
+                NationsDataGrid.ItemsSource = nations;
+            }
+            if (classe == "postes")
+            {
+                var postes = dbContext.Postes
+                .Include(p => p.Departement)  // 👈 Charger aussi les départements
+                .Select(p => new
                 {
-                    // Supprimer le département de la base de données
-                    using var dbContext = new ApplicationDbContext();
-                    var departement = dbContext.Departements.Find(id);
+                    p.Id,
+                    p.Nom,
+                    StatutTexte = p.Statut ? "Occupé" : "Vacant",  // 🔥 Condition ici
+                    NomDepartement = p.Departement != null ? p.Departement.Nom : "Non attribué"  // 👈 Afficher le nom du département
+                })
+                .ToList();
+                // Affecte les données au DataGrid
+                PostesDataGrid.ItemsSource = postes;
+            }
+      
+        }
+        private void Afficher_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is string classe)
+            {
+                Afficher(classe);
 
-                    if (departement != null)
+                switch (classe)
+                {
+                    case "departements":
+                        DepartementsVisible = !DepartementsVisible;
+                        break;
+                    case "postes":
+                        PostesVisible = !PostesVisible;
+                        break;
+                    case "nations":
+                        NationsVisible = !NationsVisible;
+                        break;
+                    case "roles":
+                        RolesVisible = !RolesVisible;
+                        break;
+                    case "employes":
+                        EmployesVisible = !EmployesVisible;
+                        break;
+                }
+            }
+        }
+
+        private void Supprimer_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Supprimer ?");
+            if (sender is Button button)
+            {
+                // Afficher ce que contient le sender et le Tag pour déboguer
+                MessageBox.Show($"Sender: {sender.GetType().Name}, Tag: {button.Tag}");
+
+                if (button.Tag is string tag)
+                {
+                    // Déboguer le contenu du Tag
+                    MessageBox.Show($"Tag: {tag}");
+
+                    var parts = tag.Split('|');
+                    if (parts.Length != 2 || !int.TryParse(parts[1], out int id))
                     {
-                        dbContext.Departements.Remove(departement);
-                        dbContext.SaveChanges();
-
-                        // Rafraîchir la liste des départements
-                        AfficheDepartements();
-
-                        MessageBox.Show("Département supprimé avec succès !");
+                        MessageBox.Show("Erreur de format dans le Tag");
+                        return;
                     }
-                    else
+                    string classe = parts[0];
+
+                    // Demande de confirmation
+                    MessageBoxResult result = MessageBox.Show(
+                        "Êtes-vous sûr de vouloir supprimer ceci?",
+                        "Confirmation",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
                     {
-                        MessageBox.Show("Le département sélectionné n'existe pas.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        using var dbContext = new ApplicationDbContext();
+
+                        switch (classe)
+                        {
+                            case "departements":
+                                var departement = dbContext.Departements.Find(id);
+                                if (departement != null)
+                                {
+                                    dbContext.Departements.Remove(departement);
+                                    dbContext.SaveChanges();
+                                    MessageBox.Show("Département supprimé avec succès !");
+                                }
+                                break;
+
+                            case "postes":
+                                var poste = dbContext.Postes.Find(id);
+                                if (poste != null)
+                                {
+                                    dbContext.Postes.Remove(poste);
+                                    dbContext.SaveChanges();
+                                    MessageBox.Show("Poste supprimé avec succès !");
+                                }
+                                break;
+
+                            case "nations":
+                                var nation = dbContext.Nations.Find(id);
+                                if (nation != null)
+                                {
+                                    dbContext.Nations.Remove(nation);
+                                    dbContext.SaveChanges();
+                                    MessageBox.Show("Pays supprimé avec succès !");
+                                }
+                                break;
+
+                            case "employes":
+                                var employe = dbContext.Employes.Find(id);
+                                if (employe != null)
+                                {
+                                    dbContext.Employes.Remove(employe);
+                                    dbContext.SaveChanges();
+                                    MessageBox.Show("Employé supprimé avec succès !");
+                                }
+                                break;
+                        }
+                        // Rafraîchir la liste
+                        Afficher(classe);
                     }
                 }
             }
         }
-        private void AjouterDepartement_Click(object sender, RoutedEventArgs e)
+
+        private void Inserer_Click(object sender, RoutedEventArgs e)
         {
-            string nomDepartement = NomDepartementTextBox.Text.Trim();
-
-            if (!string.IsNullOrEmpty(nomDepartement))
+            if (sender is Button button && button.Tag is string classe)
             {
-                using var dbContext = new ApplicationDbContext();
-                var nouveauDepartement = new Departement { Nom = nomDepartement };
+                if(classe == "employes")
+                {
+                    // Demande de confirmation
+                    MessageBoxResult result = MessageBox.Show(
+                        $"Genre : {SexeComboBox.SelectedItem.ToString()}",
+                        "Confirmation",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning);
 
-                dbContext.Departements.Add(nouveauDepartement);
-                dbContext.SaveChanges();
+                    if (result == MessageBoxResult.Yes)
+                    {
 
-                // Rafraîchir la liste des départements
-                AfficheDepartements();
+                        Employe novice = new Employe
+                        {
+                            Nom = NomEmployeTextBox.Text.Trim(),
+                            Prenom = PrenomEmployeTextBox.Text.Trim(),
+                            Email = EmailEmployeTextBox.Text.Trim(),
+                            Adresse = AdresseEmployeTextBox.Text.Trim(),
+                            Tel = TelEmployeTextBox.Text.Trim(),
+                            Sexe = ((ComboBoxItem)SexeComboBox.SelectedItem).Content.ToString() == "Homme",
+                            IdNation = (int)PaysComboBox.SelectedValue,
+                            IdPoste = (int)PostesComboBox.SelectedValue,
+                            IdRole = (int)RolesComboBox.SelectedValue,
+                            DateIntegration = DateIntegrationPicker.SelectedDate ?? DateTime.Now,
+                            DateNaissance = DateNaissancePicker.SelectedDate
 
-                // Vider le champ de saisie
-                NomDepartementTextBox.Clear();
-            }
-            else
-            {
-                MessageBox.Show("Veuillez entrer un nom de département valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        };
+
+                        if (!string.IsNullOrEmpty(novice.Nom))
+                        {
+                            using var dbContext = new ApplicationDbContext();
+
+                            dbContext.Employes.Add(novice);
+                            dbContext.SaveChanges();
+                            MessageBox.Show("Employé bien enregistré.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                            // Rafraîchir la liste des départements
+                            Afficher("employes");
+
+                            // Vider le champ de saisie
+                            NomEmployeTextBox.Clear();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Veuillez entrer un nom valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+                    }
+                }
             }
         }
     }

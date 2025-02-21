@@ -8,7 +8,7 @@ namespace Gestion_RH.Classes
     public class Nation
     {
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(255)]

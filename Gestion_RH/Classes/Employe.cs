@@ -9,7 +9,7 @@ namespace Gestion_RH.Classes
     public class Employe
     {
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(255)]
@@ -28,6 +28,7 @@ namespace Gestion_RH.Classes
         [MaxLength(50)]
         public string Matricule { get; set; } = string.Empty;
 
+        [MaxLength(50)]
         public string Mdp { get; set; } = string.Empty;
 
         [EmailAddress]
@@ -54,6 +55,10 @@ namespace Gestion_RH.Classes
 
         [ForeignKey("Poste")]
         public int IdPoste { get; set; }
+
+        public Nation? Nation { get; set; }
+        public Role? Role { get; set; }
+        public Poste? Poste { get; set; }
 
     }
 }

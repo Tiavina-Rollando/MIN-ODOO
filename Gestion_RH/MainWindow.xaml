@@ -3,33 +3,65 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Gestion_RH"
+        xmlns:local="clr-namespace:Gestion_RH.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="800">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+        <local:TagFormatConverter x:Key="TagFormatConverter" />
     </Window.Resources>
 
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-
             <StackPanel Margin="10">
+                <Button Content="Retour" Click="Home_Click" Margin="1250,10,10,10" Width="200" Visibility="{Binding AjoutEmployeVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                <StackPanel Visibility="{Binding AjoutEmployeVisible, Converter={StaticResource BoolToVisConverter}}" >
 
-                <TextBox x:Name="NomDepartementTextBox" Margin="400,10,400,10" Width="500"/>
-                <Button Content="Ajouter" Click="Ajouter_Click" Margin="10,10,1300,10" Width="200"/>
-                <StackPanel Visibility="{Binding AjoutVisible, Converter={StaticResource BoolToVisConverter}}">
-                    <Button Content="Ajouter département" Click="AjouterDepartement_Click" Margin="10,10,1300,10" Width="200"/>
-                    <Button Content="Ajouter postes" Click="AjouterDepartement_Click" Margin="10,10,1300,10" Width="200"/>
-                    <Button Content="Ajouter nations" Click="AjouterDepartement_Click" Margin="10,10,1300,10" Width="200"/>
-                    <Button Content="Ajouter employés" Click="AjouterDepartement_Click" Margin="10,10,1300,10" Width="200"/>
+                    <Label Content="Nom : " Margin="400,10,400,10"/>
+                    <TextBox x:Name="NomEmployeTextBox" Margin="400,10,400,10" Width="500"/>
+                    <Label Content="Prénom(s) : " Margin="400,10,400,10"/>
+                    <TextBox x:Name="PrenomEmployeTextBox" Margin="400,10,400,10" Width="500"/>
+                    <Label Content="Date de naissance : " Margin="400,10,400,10"/>
+                    <DatePicker x:Name="DateNaissancePicker" Width="200" Height="30" SelectedDate="{Binding DateNaissance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Content="Email : " Margin="400,10,400,10"/>
+                    <TextBox x:Name="EmailEmployeTextBox" Margin="400,10,400,10" Width="500"/>
+                    <Label Content="Téléphone : " Margin="400,10,400,10"/>
+                    <TextBox x:Name="TelEmployeTextBox" Margin="400,10,400,10" Width="500"/>
+                    <Label Content="Adresse : " Margin="400,10,400,10"/>
+                    <TextBox x:Name="AdresseEmployeTextBox" Margin="400,10,400,10" Width="500"/>
+                    <Label Content="Genre : " Margin="400,10,400,10"/>
+                    <ComboBox x:Name="SexeComboBox" Width="500" Height="30" SelectedIndex="0">
+                        <ComboBoxItem Content="Homme" />
+                        <ComboBoxItem Content="Femme" />
+                    </ComboBox>
+                    <Label Content="Pays : " Margin="400,10,400,10"/>
+                    <ComboBox x:Name="PaysComboBox" Width="500" Height="30" DisplayMemberPath="Nom" SelectedValuePath="Id"/>
+                    <Label Content="Rôle : " Margin="400,10,400,10"/>
+                    <ComboBox x:Name="RolesComboBox" Width="500" Height="30" DisplayMemberPath="Nom" SelectedValuePath="Id"/>
+                    <Label Content="Poste : " Margin="400,10,400,10"/>
+                    <ComboBox x:Name="PostesComboBox" Width="500" Height="30" DisplayMemberPath="Nom" SelectedValuePath="Id"/>
+                    <Label Content="Date d'integration : " Margin="400,10,400,10"/>
+                    <DatePicker x:Name="DateIntegrationPicker" Width="500" Height="30" SelectedDate="{Binding DateIntegration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Button Content="Insérer" Click="Inserer_Click" Tag="employes" Margin="1250,10,10,10" Width="200"/>
+
                 </StackPanel>
 
-                <Button Content="Afficher tableau" Click="Afficher_Click" Margin="1300,10,10,10" Width="200"/>
+                <Button Content="Ajouter" Click="AjouterListe_Click" Margin="10,10,1250,10" Width="200" Visibility="{Binding AjoutBouttonVisible, Converter={StaticResource BoolToVisConverter}}" />
+                <StackPanel Visibility="{Binding AjoutVisible, Converter={StaticResource BoolToVisConverter}}">
+                    <Button Content="Ajouter département" Click="Ajouter_Click" Tag="departements"  Margin="10,10,1200,10" Width="200"/>
+                    <Button Content="Ajouter postes" Click="Ajouter_Click" Tag="postes" Margin="10,10,1200,10" Width="200"/>
+                    <Button Content="Ajouter nations" Click="Ajouter_Click" Tag="nations" Margin="10,10,1200,10" Width="200"/>
+                    <Button Content="Ajouter employés" Click="Ajouter_Click" Tag="employes" Margin="10,10,1200,10" Width="200"/>
+                </StackPanel>
+
+                <Button Content="Afficher tableau" Click="AfficherListe_Click" Margin="1250,10,10,10" Width="200"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,10,10,10" Visibility="{Binding AfficherVisible, Converter={StaticResource BoolToVisConverter}}">
-                    <Button Content="Liste département" Click="AfficherDepartement_Click" Width="200"/>
-                    <Button Content="Liste postes" Click="AfficherPoste_Click" Width="200"/>
-                    <Button Content="Liste nations" Click="AfficherNation_Click" Width="200"/>
-                    <Button Content="Liste roles" Click="AfficherRole_Click" Width="200"/>
+                    <Button Content="Liste département" Click="Afficher_Click" Tag="departements" Width="200"/>
+                    <Button Content="Liste postes" Click="Afficher_Click" Tag="postes" Width="200"/>
+                    <Button Content="Liste nations" Click="Afficher_Click" Tag="nations" Width="200"/>
+                    <Button Content="Liste roles" Click="Afficher_Click" Tag="roles" Width="200"/>
+                    <Button Content="Liste employés" Click="Afficher_Click" Tag="employes" Width="200"/>
                 </StackPanel>
 
                 <!-- DataGrid pour afficher les départements -->
@@ -48,7 +80,7 @@
                         <DataGridTemplateColumn Header="Actions" Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="SupprimerDepartement_Click" Tag="{Binding Id}" Background="Transparent" BorderThickness="0">
+                                    <Button Click="Supprimer_Click" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='departements'}" Background="Transparent" BorderThickness="0">
                                         <Image Source="Assets/trash-icon.png" Width="20" Height="20" />
                                     </Button>
                                 </DataTemplate>
@@ -76,7 +108,7 @@
                         <DataGridTemplateColumn Header="Actions" Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="SupprimerDepartement_Click" Tag="{Binding Id}" Background="Transparent" BorderThickness="0">
+                                    <Button Click="Supprimer_Click" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='postes'}" Background="Transparent" BorderThickness="0">
                                         <Image Source="Assets/trash-icon.png" Width="20" Height="20" />
                                     </Button>
                                 </DataTemplate>
@@ -101,7 +133,7 @@
                         <DataGridTemplateColumn Header="Actions" Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="SupprimerDepartement_Click" Tag="{Binding Id}" Background="Transparent" BorderThickness="0">
+                                    <Button Click="Supprimer_Click" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='nations'}" Background="Transparent" BorderThickness="0">
                                         <Image Source="Assets/trash-icon.png" Width="20" Height="20" />
                                     </Button>
                                 </DataTemplate>
@@ -123,7 +155,50 @@
                         <DataGridTemplateColumn Header="Actions" Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Click="SupprimerDepartement_Click" Tag="{Binding Id}" Background="Transparent" BorderThickness="0">
+                                    <Button Click="Supprimer_Click" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='roles'}" Background="Transparent" BorderThickness="0">
+                                        <Image Source="Assets/trash-icon.png" Width="20" Height="20" />
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- DataGrid pour afficher les roles -->
+                <DataGrid x:Name="EmployesDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Visibility="{Binding EmployesVisible, Converter={StaticResource BoolToVisConverter}}">
+                    <DataGrid.Columns>
+                        <!-- Colonne pour l'ID -->
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="50"/>
+
+                        <!-- Colonne pour le nom du salarie -->
+                        <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
+
+                        <!-- Colonne pour le prenom du salarie -->
+                        <DataGridTextColumn Header="Prénom(s)" Binding="{Binding Prenom}" Width="200"/>
+
+                        <!-- Colonne pour l'adresse du salarie -->
+                        <DataGridTextColumn Header="Adresse" Binding="{Binding Adresse}" Width="200"/>
+
+                        <!-- Colonne pour le email du salarie -->
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+
+                        <!-- Colonne pour le tel du salarie -->
+                        <DataGridTextColumn Header="Tel" Binding="{Binding Tel}" Width="200"/>
+
+                        <!-- Colonne pour le pays du salarie -->
+                        <DataGridTextColumn Header="Nationalité" Binding="{Binding Nationalite}" Width="200"/>
+
+                        <!-- Colonne pour le sexe du salarie -->
+                        <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" Width="200"/>
+
+                        <!-- Colonne pour la date d'integration du salarie -->
+                        <DataGridTextColumn Header="Date d'integration" Binding="{Binding DateIntegration}" Width="200"/>
+
+                        <!-- Colonne pour le bouton Supprimer -->
+                        <DataGridTemplateColumn Header="Actions" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="Supprimer_Click" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='employes'}" Background="Transparent" BorderThickness="0">
                                         <Image Source="Assets/trash-icon.png" Width="20" Height="20" />
                                     </Button>
                                 </DataTemplate>
