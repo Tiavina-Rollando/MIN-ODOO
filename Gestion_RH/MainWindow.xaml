@@ -30,7 +30,7 @@
                     <Label Content="Adresse : " Margin="400,10,400,10"/>
                     <TextBox x:Name="AdresseEmployeTextBox" Margin="400,10,400,10" Width="500" Height="30"/>
                     <Label Content="Genre : " Margin="400,10,400,10"/>
-                    <ComboBox x:Name="SexeEmployeComboBox" Width="500" Height="30" SelectedIndex="0">
+                    <ComboBox x:Name="SexeEmployeComboBox" Width="500" Height="30">
                         <ComboBoxItem Content="Homme" />
                         <ComboBoxItem Content="Femme" />
                     </ComboBox>
@@ -65,7 +65,7 @@
                 </StackPanel>
 
                 <!-- DataGrid pour afficher les départements -->
-                <DataGrid x:Name="DepartementsDataGrid" AutoGenerateColumns="False" Height="50" CanUserAddRows="False" Visibility="{Binding DepartementsVisible, Converter={StaticResource BoolToVisConverter}}">
+                <DataGrid x:Name="DepartementsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Visibility="{Binding DepartementsVisible, Converter={StaticResource BoolToVisConverter}}">
                     <DataGrid.Columns>
                         <!-- Colonne pour l'ID -->
                         <DataGridTextColumn  Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="50"/>
@@ -168,22 +168,22 @@
                 <DataGrid x:Name="EmployesDataGrid" AutoGenerateColumns="False"  SelectionChanged="EmployeSelectionne" CanUserAddRows="False" Visibility="{Binding EmployesVisible, Converter={StaticResource BoolToVisConverter}}">
                     <DataGrid.Columns>
                         <!-- Colonne pour l'ID -->
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="50"/>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True" />
 
                         <!-- Colonne pour le nom du salarie -->
-                        <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
+                        <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*" IsReadOnly="True" />
 
                         <!-- Colonne pour le prenom du salarie -->
-                        <DataGridTextColumn Header="Prénom(s)" Binding="{Binding Prenom}" Width="200"/>
+                        <DataGridTextColumn Header="Prénom(s)" Binding="{Binding Prenom}" Width="200" IsReadOnly="True" />
 
                         <!-- Colonne pour l'adresse du salarie -->
-                        <DataGridTextColumn Header="Poste" Binding="{Binding NomPoste}" Width="200"/>
+                        <DataGridTextColumn Header="Poste" Binding="{Binding NomPoste}" Width="200" IsReadOnly="true"/>
 
                         <!-- Colonne pour le sexe du salarie -->
-                        <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" Width="200"/>
+                        <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" Width="200" IsReadOnly="true"/>
 
                         <!-- Colonne pour la date d'integration du salarie -->
-                        <DataGridTextColumn Header="Date d'integration" Binding="{Binding DateIntegration}" Width="200"/>
+                        <DataGridTextColumn Header="Date d'integration" Binding="{Binding DateIntegration}" Width="200" IsReadOnly="True" />
 
                         <!-- Colonne pour le bouton Supprimer -->
                         <DataGridTemplateColumn Header="Actions" Width="100">
@@ -201,39 +201,62 @@
                 <!-- Formulaire de détails de l'employé -->
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Visibility="{Binding InfoEmployeVisible, Converter={StaticResource BoolToVisConverter}}" >
 
-                    <TextBlock Text="Nom" Margin="400,10,400,10" />
-                    <TextBox x:Name="NomTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <Button Content="Cacher" Click="HideInfo_Click" Margin="1250,10,10,10" Width="200" Height="30"/>
+                    <Button Content="Modifier" Click="UpdateEmploye_Click" Margin="10,10,1250,10" Height="30" Width="200"/>
+                    <Button x:Name="AjouterEmpreinteBoutton" Content="Assigner une empreinte" Click="AssignDigit_Click" Margin="10,10,1250,10" Height="30" Width="200"/>
+                    <Button x:Name="AjouterPhotoBoutton"  Content="Ajouter une photo" Click="AssignPhoto_Click" Margin="10,10,1250,10" Height="30" Width="200"/>
+                    <Button x:Name="ChangerPhotoBoutton" Content="Changer la photo" Click="AssignPhoto_Click" Margin="10,10,1250,10" Height="30" Width="200" Visibility="Collapsed"/>
+                    <Button x:Name="SupprimerPhotoBoutton" Content="Supprimer la photo" Click="DeletePhoto_Click" Margin="10,10,1250,10" Height="30" Width="200" Visibility="Collapsed"/>
 
-                    <TextBlock Text="Prénom" Margin="400,10,400,10"/>
-                    <TextBox x:Name="PrenomTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <Image Name="PhotoEmployeImage" Width="200" Height="200" Margin="400,-100,400,200"/>
+                    <TextBlock Text="Nom" Margin="400,-150,400,10" />
+                    <TextBox x:Name="NomTextBox" Height="30" Margin="400,-160,400,10" Width="500"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}" IsReadOnly="True" />
+                    <TextBox x:Name="NomTextUpdateBox" Height="30" Margin="400,-160,400,10" Width="500"  Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}"/>
+
+                    <TextBlock Text="Prénom" Margin="400,-40,400,10"/>
+                    <TextBox x:Name="PrenomTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}" />
+                    <TextBox x:Name="PrenomTextUpdateBox" Height="30" Margin="400,10,400,10" Width="500"  Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
                     <TextBlock Text="Email" Margin="400,10,400,10" />
-                    <TextBox x:Name="EmailTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="EmailTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    <TextBox x:Name="EmailTextUpdateBox" Height="30" Margin="400,10,400,10" Width="500"  Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
                     <TextBlock Text="Tel" Margin="400,10,400,10"/>
-                    <TextBox x:Name="TelTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True" />
+                    <TextBox x:Name="TelTextBox" Height="30" Margin="400,10,400,10" Width="500" IsReadOnly="True"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    <TextBox x:Name="TelTextUpdateBox" Height="30" Margin="400,10,400,10" Width="500"  Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
                     <TextBlock Text="Adresse" Margin="400,10,400,10"/>
-                    <TextBox x:Name="AdresseTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True" />
+                    <TextBox x:Name="AdresseTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    <TextBox x:Name="AdresseTextUpdateBox" Height="30" Margin="400,10,400,10" Width="500"  Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
                     <TextBlock Text="Poste" Margin="400,10,400,10"/>
-                    <TextBox x:Name="PosteTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True" />
+                    <TextBox x:Name="PosteTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    <ComboBox x:Name="PostesUpdateComboBox" Width="500" Height="30" DisplayMemberPath="Nom" SelectedValuePath="Id" Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
-                    <TextBlock Text="Departement" Margin="400,10,400,10"/>
-                    <TextBox x:Name="DepartementTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True" />
+                    <TextBlock Text="Departement" Margin="400,10,400,10" Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    <TextBox x:Name="DepartementTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
                     <TextBlock Text="Genre" Margin="400,10,400,10"/>
-                    <TextBox x:Name="SexeTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True" />
+                    <TextBox x:Name="SexeTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    <ComboBox x:Name="SexeUpdateComboBox" Width="500" Height="30" Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}">
+                        <ComboBoxItem Content="Homme" />
+                        <ComboBoxItem Content="Femme" />
+                    </ComboBox>
 
                     <TextBlock Text="Nationalite" Margin="400,10,400,10"/>
-                    <TextBox x:Name="NationaliteTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True" />
+                    <TextBox x:Name="NationaliteTextBox" Margin="400,10,400,10" Width="500" Height="30" IsReadOnly="True"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    <ComboBox x:Name="PaysUpdateComboBox" Width="500" Height="30" DisplayMemberPath="Nom" SelectedValuePath="Id" Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
                     <TextBlock Text="Date d'Intégration" Margin="400,10,400,10" />
-                    <DatePicker x:Name="DateIntegrationPicker" Margin="400,10,400,10" Width="500" Height="30" IsEnabled="False"/>
+                    <DatePicker x:Name="DateIntegrationPicker" Margin="400,10,400,10" Width="500" Height="30" IsEnabled="False"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    <DatePicker x:Name="DateIntegrationUpdatePicker" Width="500" Height="30" SelectedDate="{Binding DateIntegration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
                     <TextBlock Text="Date de naissance" Margin="400,10,400,10" />
-                    <DatePicker x:Name="DateNaissancePicker" Margin="400,10,400,10" Height="30" Width="500" IsEnabled="False"/>
-                    <!-- Autres champs ici -->
+                    <DatePicker x:Name="DateNaissancePicker" Margin="400,10,400,10" Height="30" Width="500" IsEnabled="False"  Visibility="{Binding RenseignementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    <DatePicker x:Name="DateNaissanceUpdatePicker" Width="500" Height="30" SelectedDate="{Binding DateNaissance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}"/>
+
+                    <Button Content="Enregistrer" Click="SaveUpdateEmploye_Click" Tag="employes" Margin="1250,10,10,10" Height="30" Width="200" Visibility="{Binding UpdateBoxVisible, Converter={StaticResource BoolToVisConverter}}"/>
+
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

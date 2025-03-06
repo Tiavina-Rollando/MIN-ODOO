@@ -24,7 +24,9 @@ namespace Gestion_RH
         private bool _ajoutEmployeVisible;
         private bool _ajoutBouttonVisible;
         private bool _infoEmployeVisible;
-
+        private bool _renseignementsVisible;
+        private bool _updateRenseignementsVisible;
+        private Employe dernierEmployeSelectionne = new Employe();
         public bool AjoutBouttonVisible
         {
             get { return _ajoutBouttonVisible; }
@@ -115,6 +117,24 @@ namespace Gestion_RH
                 OnPropertyChanged(nameof(NationsVisible));
             }
         }
+        public bool RenseignementsVisible
+        {
+            get { return _renseignementsVisible; }
+            set
+            {
+                _renseignementsVisible = value;
+                OnPropertyChanged(nameof(RenseignementsVisible));
+            }
+        }
+        public bool UpdateBoxVisible
+        {
+            get { return _updateRenseignementsVisible; }
+            set
+            {
+                _updateRenseignementsVisible = value;
+                OnPropertyChanged(nameof(UpdateBoxVisible));
+            }
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -129,6 +149,18 @@ namespace Gestion_RH
             AjoutEmployeVisible = false;
             AjoutBouttonVisible = true;
             InfoEmployeVisible = false;
+
+            using (var dbContext = new ApplicationDbContext())
+            {
+                var paysListe = dbContext.Nations.ToList();
+                PaysComboBox.ItemsSource = paysListe;
+                PaysUpdateComboBox.ItemsSource = paysListe;
+                var roleListe = dbContext.Roles.ToList();
+                RolesComboBox.ItemsSource = roleListe;
+                var posteListe = dbContext.Postes.ToList();
+                PostesComboBox.ItemsSource = posteListe;
+                PostesUpdateComboBox.ItemsSource = posteListe;
+            }
         }
 
 
@@ -140,15 +172,6 @@ namespace Gestion_RH
                 {
                     AjoutVisible = !AjoutVisible;
                     AjoutBouttonVisible = false;
-                    using (var dbContext = new ApplicationDbContext())
-                    {
-                        var paysListe = dbContext.Nations.ToList();
-                        PaysComboBox.ItemsSource = paysListe;
-                        var roleListe = dbContext.Roles.ToList();
-                        RolesComboBox.ItemsSource = roleListe;
-                        var posteListe = dbContext.Postes.ToList();
-                        PostesComboBox.ItemsSource = posteListe;
-                    }
                     AjoutEmployeVisible = !AjoutEmployeVisible;
                 }
                 else 
@@ -158,10 +181,21 @@ namespace Gestion_RH
             }
         }
 
+        private BitmapImage ByteArrayToImage(byte[] byteArray)
+        {
+            using (MemoryStream ms = new MemoryStream(byteArray))
+            {
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = ms;
+                bitmap.EndInit();
+                return bitmap;
+            }
+        }
+
         public void AfficherEmployeDetails(Employe employe)
         {
-            InfoEmployeVisible = true;
-            // Remplir les champs du formulaire avec les données de l'employé
             NomTextBox.Text = employe.Nom;
             PrenomTextBox.Text = employe.Prenom;
             EmailTextBox.Text = employe.Email;
@@ -172,16 +206,53 @@ namespace Gestion_RH
             SexeTextBox.Text = employe.Genre;
             NationaliteTextBox.Text = employe.Nation?.Peuple;
             DateIntegrationPicker.SelectedDate = employe.DateIntegration;
-            DateNaissancePicker.SelectedDate = employe.DateNaissance;
+            DateNaissancePicker.SelectedDate = employe.DateNaissance; 
+            if (employe.Photo != null && employe.Photo.Length > 0)
+            {
+                PhotoEmployeImage.Source = ByteArrayToImage(employe.Photo);
+                AjouterPhotoBoutton.Visibility = Visibility.Collapsed;
+                ChangerPhotoBoutton.Visibility = Visibility.Visible;
+                SupprimerPhotoBoutton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                AjouterPhotoBoutton.Visibility = Visibility.Visible;
+                ChangerPhotoBoutton.Visibility = Visibility.Collapsed;
+                SupprimerPhotoBoutton.Visibility = Visibility.Collapsed;
+                PhotoEmployeImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/pdpVide.jpg"));
+            }
+            if (employe.Empreinte != null && employe.Empreinte.Length > 0)
+            {
+                AjouterEmpreinteBoutton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                AjouterEmpreinteBoutton.Visibility = Visibility.Visible;
+            }
         }
 
-        private void EmployeSelectionne(object sender, RoutedEventArgs e)
+
+        private void EmployeSelectionne(object sender, SelectionChangedEventArgs e)
         {
-            var employe = EmployesDataGrid.SelectedItem;
-            if (employe is Employe employeI)
+            Employe employeSelectionne = new Employe();
+            employeSelectionne = (Employe)EmployesDataGrid.SelectedItem;
+           
+            if (employeSelectionne is Employe employe)
             {
-                AfficherEmployeDetails(employeI);
-            }
+                MessageBoxResult result = MessageBox.Show(
+                    $"Voir détails sur {employe?.Nom ?? ""} {employe?.Prenom ?? ""}?",
+                    "Confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    InfoEmployeVisible = true;
+                    RenseignementsVisible = true;
+                    UpdateBoxVisible = false;
+                    AfficherEmployeDetails(employe);
+                }
+             }
         }
 
         private void Home_Click(object sender, RoutedEventArgs e)
@@ -190,14 +261,19 @@ namespace Gestion_RH
             AjoutEmployeVisible = false;
             AjoutBouttonVisible = true;
         }
+
+        private void HideInfo_Click(object sender, RoutedEventArgs e)
+        {
+            InfoEmployeVisible = false;
+        }
         private void AjouterListe_Click(object sender, RoutedEventArgs e)
         {
-            AjoutVisible = !AjoutVisible; // Basculer la visibilité
+            AjoutVisible = !AjoutVisible;
         }
 
         private void AfficherListe_Click(object sender, RoutedEventArgs e)
         {
-            AfficherVisible = !AfficherVisible; // Basculer la visibilité
+            AfficherVisible = !AfficherVisible; 
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -219,41 +295,34 @@ namespace Gestion_RH
                     .Include(p => p.Poste.Departement)
                     .ToList();
                 EmployesDataGrid.ItemsSource = employes;
-
-                // Affecte les données au DataGrid
-                EmployesDataGrid.ItemsSource = employes;
-            }
+            };
             if (classe == "departements")
             {
                 var departements = dbContext.Departements.ToList();
-                // Affecte les données au DataGrid
                 DepartementsDataGrid.ItemsSource = departements;
             }
             if (classe == "roles")
             {
                 var roles = dbContext.Roles.ToList();
-                // Affecte les données au DataGrid
                 RolesDataGrid.ItemsSource = roles;
             }
             if (classe == "nations")
             {
                 var nations = dbContext.Nations.ToList();
-                // Affecte les données au DataGrid
                 NationsDataGrid.ItemsSource = nations;
             }
             if (classe == "postes")
             {
                 var postes = dbContext.Postes
-                .Include(p => p.Departement)  // 👈 Charger aussi les départements
+                .Include(p => p.Departement)
                 .Select(p => new
                 {
                     p.Id,
                     p.Nom,
-                    StatutTexte = p.Statut ? "Occupé" : "Vacant",  // 🔥 Condition ici
-                    NomDepartement = p.Departement != null ? p.Departement.Nom : "Non attribué"  // 👈 Afficher le nom du département
+                    StatutTexte = p.Statut ? "Occupé" : "Vacant",
+                    NomDepartement = p.Departement != null ? p.Departement.Nom : "Non attribué"
                 })
                 .ToList();
-                // Affecte les données au DataGrid
                 PostesDataGrid.ItemsSource = postes;
             }
 
@@ -283,14 +352,7 @@ namespace Gestion_RH
                         RolesVisible = !RolesVisible;
                         break;
                     case "employes":
-                        if(EmployesDataGrid.SelectedItem == null)
-                        {
-                            InfoEmployeVisible = false;
-                        }
-                        else
-                        {
-                        InfoEmployeVisible = !InfoEmployeVisible;
-                        }
+                        InfoEmployeVisible = false;
                         EmployesVisible = !EmployesVisible;
                         break;
                 }
@@ -300,80 +362,71 @@ namespace Gestion_RH
         private void Supprimer_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Supprimer ?");
-            if (sender is Button button)
+            if (sender is Button button && button.Tag is string tag)
             {
-                // Afficher ce que contient le sender et le Tag pour déboguer
-                MessageBox.Show($"Sender: {sender.GetType().Name}, Tag: {button.Tag}");
-
-                if (button.Tag is string tag)
+                var parts = tag.Split('|');
+                if (parts.Length != 2 || !int.TryParse(parts[1], out int id))
                 {
-                    // Déboguer le contenu du Tag
-                    MessageBox.Show($"Tag: {tag}");
+                    MessageBox.Show("Erreur de format dans le Tag");
+                    return;
+                }
+                string classe = parts[0];
 
-                    var parts = tag.Split('|');
-                    if (parts.Length != 2 || !int.TryParse(parts[1], out int id))
+                // Demande de confirmation
+                MessageBoxResult result = MessageBox.Show(
+                    "Êtes-vous sûr de vouloir supprimer ceci?",
+                    "Confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    using var dbContext = new ApplicationDbContext();
+
+                    switch (classe)
                     {
-                        MessageBox.Show("Erreur de format dans le Tag");
-                        return;
-                    }
-                    string classe = parts[0];
+                        case "departements":
+                            var departement = dbContext.Departements.Find(id);
+                            if (departement != null)
+                            {
+                                dbContext.Departements.Remove(departement);
+                                dbContext.SaveChanges();
+                                MessageBox.Show("Département supprimé avec succès !");
+                            }
+                            break;
 
-                    // Demande de confirmation
-                    MessageBoxResult result = MessageBox.Show(
-                        "Êtes-vous sûr de vouloir supprimer ceci?",
-                        "Confirmation",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Warning);
+                        case "postes":
+                            var poste = dbContext.Postes.Find(id);
+                            if (poste != null)
+                            {
+                                dbContext.Postes.Remove(poste);
+                                dbContext.SaveChanges();
+                                MessageBox.Show("Poste supprimé avec succès !");
+                            }
+                            break;
 
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        using var dbContext = new ApplicationDbContext();
+                        case "nations":
+                            var nation = dbContext.Nations.Find(id);
+                            if (nation != null)
+                            {
+                                dbContext.Nations.Remove(nation);
+                                dbContext.SaveChanges();
+                                MessageBox.Show("Pays supprimé avec succès !");
+                            }
+                            break;
 
-                        switch (classe)
-                        {
-                            case "departements":
-                                var departement = dbContext.Departements.Find(id);
-                                if (departement != null)
-                                {
-                                    dbContext.Departements.Remove(departement);
-                                    dbContext.SaveChanges();
-                                    MessageBox.Show("Département supprimé avec succès !");
-                                }
-                                break;
-
-                            case "postes":
-                                var poste = dbContext.Postes.Find(id);
-                                if (poste != null)
-                                {
-                                    dbContext.Postes.Remove(poste);
-                                    dbContext.SaveChanges();
-                                    MessageBox.Show("Poste supprimé avec succès !");
-                                }
-                                break;
-
-                            case "nations":
-                                var nation = dbContext.Nations.Find(id);
-                                if (nation != null)
-                                {
-                                    dbContext.Nations.Remove(nation);
-                                    dbContext.SaveChanges();
-                                    MessageBox.Show("Pays supprimé avec succès !");
-                                }
-                                break;
-
-                            case "employes":
-                                var employe = dbContext.Employes.Find(id);
-                                if (employe != null)
-                                {
-                                    dbContext.Employes.Remove(employe);
-                                    dbContext.SaveChanges();
-                                    MessageBox.Show("Employé supprimé avec succès !");
-                                }
-                                break;
-                        }
-                        // Rafraîchir la liste
-                        Afficher(classe);
-                    }
+                        case "employes":
+                            var employe = dbContext.Employes.Find(id);
+                            if (employe != null)
+                            {
+                                dbContext.Employes.Remove(employe);
+                                dbContext.SaveChanges();
+                                MessageBox.Show("Employé supprimé avec succès !");
+                            }
+                            break;
+                    };
+                    InfoEmployeVisible = false;
+                    Afficher(classe);
                 }
             }
         }
@@ -397,21 +450,21 @@ namespace Gestion_RH
                         IdRole = (int)RolesComboBox.SelectedValue,
                         DateIntegration = DateIntegrationEmployePicker.SelectedDate ?? DateTime.Now,
                         DateNaissance = DateNaissanceEmployePicker.SelectedDate
-
                     };
-
+                    
                     if (!string.IsNullOrEmpty(novice.Nom))
                     {
                         using var dbContext = new ApplicationDbContext();
-
+                        
                         dbContext.Employes.Add(novice);
                         dbContext.SaveChanges();
                         MessageBox.Show("Employé bien enregistré.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        // Rafraîchir la liste des départements
+                        
                         Afficher("employes");
 
-                        // Vider le champ de saisie
                         NomEmployeTextBox.Clear();
+                        PrenomEmployeTextBox.Clear();
+                        
                     }
                     else 
                     {
@@ -420,5 +473,157 @@ namespace Gestion_RH
                 }
             }
         }
+
+        private void DeletePhoto_Click(object sender, RoutedEventArgs e)
+        {
+            if (EmployesDataGrid.SelectedItem is Employe employeSelectionne)
+            {
+
+                using var dbContext = new ApplicationDbContext();
+                var employe = dbContext.Employes.Find(employeSelectionne.Id);
+
+                if (employe != null)
+                {
+                    employe.Photo = Array.Empty<byte>();
+                    dbContext.SaveChanges();
+
+                    MessageBox.Show("Photo supprimée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // Mettre à jour l'affichage
+                    PhotoEmployeImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/pdpVide.jpg")); ;
+                    AjouterPhotoBoutton.Visibility = Visibility.Visible;
+                    ChangerPhotoBoutton.Visibility = Visibility.Collapsed;
+                    Afficher("employes");
+
+                }
+            }
+        }
+        private void AssignPhoto_Click(object sender , RoutedEventArgs e)
+        {
+            if (EmployesDataGrid.SelectedItem is Employe employeSelectionne)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    Filter = "Images (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png",
+                    Title = "Sélectionner une photo"
+                };
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    byte[] photoBytes = File.ReadAllBytes(openFileDialog.FileName);
+                    using var dbContext = new ApplicationDbContext();
+                    var employe = dbContext.Employes.Find(employeSelectionne.Id);
+
+                    if (employe != null)
+                    {
+                        employe.Photo = photoBytes;
+                        dbContext.SaveChanges();
+
+                        PhotoEmployeImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                        MessageBox.Show("Photo enregistrée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Afficher("employes");
+                        AjouterPhotoBoutton.Visibility = Visibility.Collapsed;
+                        ChangerPhotoBoutton.Visibility = Visibility.Visible;
+
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un employé avant d'ajouter une photo.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private byte[] GenererEmpreinteSimulee()
+        {
+            byte[] empreinteFausse = new byte[256]; // Simule une empreinte de 256 octets
+            Random random = new Random();
+            random.NextBytes(empreinteFausse);
+            return empreinteFausse;
+        }
+
+        private void AssignDigit_Click(object sender, RoutedEventArgs e)
+        {
+            if (EmployesDataGrid.SelectedItem is Employe employeSelectionne)
+            {
+                using var dbContext = new ApplicationDbContext();
+                var employe = dbContext.Employes.Find(employeSelectionne.Id);
+
+                if (employe != null)
+                {
+                    employe.Empreinte = GenererEmpreinteSimulee();
+                    dbContext.SaveChanges();
+
+                    MessageBox.Show("Empreinte enregistrée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Afficher("employes");
+                    AjouterEmpreinteBoutton.Visibility = Visibility.Collapsed;
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un employé avant d'ajouter une empreinte.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void UpdateEmploye_Click(object sender , RoutedEventArgs e)
+        {
+            RenseignementsVisible = false;
+            UpdateBoxVisible = true;
+
+            NomTextUpdateBox.Text = NomTextBox.Text;
+            PrenomTextUpdateBox.Text = PrenomTextBox.Text;
+            EmailTextUpdateBox.Text = EmailTextBox.Text;
+            AdresseTextUpdateBox.Text = AdresseTextBox.Text;
+            TelTextUpdateBox.Text = TelTextBox.Text;
+            DateIntegrationUpdatePicker.Text = DateIntegrationPicker.Text;
+            DateNaissanceUpdatePicker.Text = DateNaissancePicker.Text;
+
+        }
+
+        private void SaveUpdateEmploye_Click(object sender, RoutedEventArgs e)
+        {   
+            if (EmployesDataGrid.SelectedItem is Employe employeSelectionne)
+            {
+                using var dbContext = new ApplicationDbContext();
+                var employe = dbContext.Employes.Find(employeSelectionne.Id);
+
+                if (employe != null)
+                {
+                    employe.Nom = NomTextUpdateBox.Text.Trim();
+                    employe.Prenom = PrenomTextUpdateBox.Text.Trim();
+                    employe.Email = EmailTextUpdateBox.Text.Trim();
+                    employe.Adresse = AdresseTextUpdateBox.Text.Trim();
+                    employe.Tel = TelTextUpdateBox.Text.Trim();
+                    employe.Sexe = ((ComboBoxItem)SexeUpdateComboBox.SelectedItem).Content.ToString() == "Homme";
+                    employe.IdNation = (int)PaysUpdateComboBox.SelectedValue;
+                    employe.IdPoste = (int)PostesUpdateComboBox.SelectedValue;
+                    employe.DateIntegration = DateIntegrationUpdatePicker.SelectedDate ?? DateTime.Now;
+                    employe.DateNaissance = DateNaissanceUpdatePicker.SelectedDate;
+
+                    MessageBoxResult result = MessageBox.Show(
+                            $"Valider les mises à jour sur {employe?.Nom ?? ""} {employe?.Prenom ?? ""}?",
+                            "Confirmation",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        dbContext.SaveChanges();
+                        MessageBox.Show("Employé modifié avec succès.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        Afficher("employes");
+
+                        InfoEmployeVisible = false;
+                    } 
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un employé à modifier.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
     }
 }

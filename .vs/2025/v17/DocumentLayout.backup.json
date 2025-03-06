@@ -26,8 +26,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Gestion_RH\\MainWindow.xaml.cs",
+              "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Gestion_RH\\MainWindow.xaml.cs",
+              "ViewState": "AgIAABICAAAAAAAAAAAiwNIBAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T05:01:36.408Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -36,7 +49,7 @@
               "RelativeDocumentMoniker": "Gestion_RH\\Classes\\Poste.cs",
               "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Classes\\Poste.cs",
               "RelativeToolTip": "Gestion_RH\\Classes\\Poste.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAIA6wBcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAjwBcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-21T19:23:23.381Z"
             },
@@ -48,22 +61,9 @@
               "RelativeDocumentMoniker": "Gestion_RH\\Classes\\Employe.cs",
               "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Classes\\Employe.cs",
               "RelativeToolTip": "Gestion_RH\\Classes\\Employe.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAqwD0AAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-21T19:09:54.319Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "Gestion_RH\\MainWindow.xaml.cs",
-              "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\MainWindow.xaml.cs",
-              "RelativeToolTip": "Gestion_RH\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAIUAAAAAAAAAAAAowI0AAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-20T02:44:33.192Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",

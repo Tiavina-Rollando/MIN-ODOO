@@ -9,11 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\ca.png" />
+    <None Remove="Assets\pdpVide.jpg" />
     <None Remove="Assets\trash-icon.png" />
     <None Remove="Services\script.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\ca.png" />
+    <Resource Include="Assets\pdpVide.jpg" />
     <Content Include="Services\script.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
