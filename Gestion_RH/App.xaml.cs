@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using Gestion_RH.Pages;
 
 namespace Gestion_RH
 {
@@ -9,6 +10,7 @@ namespace Gestion_RH
     /// </summary>
     public partial class App : Application
     {
+        
     }
 
 }

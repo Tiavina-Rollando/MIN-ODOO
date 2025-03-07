@@ -171,3 +171,13 @@ D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\bin\Debug\net8.0-windows\Micro
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\App.baml
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Gestion_RH.sourcelink.json
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Fenetres\UpdateEmploye.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Pages\Accueil.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Pages\Info.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Pages\Login.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Pages\Suivie.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Fenetres\UpdateEmploye.baml
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Pages\Accueil.baml
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Pages\Info.baml
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Pages\Login.baml
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows\Pages\Suivie.baml

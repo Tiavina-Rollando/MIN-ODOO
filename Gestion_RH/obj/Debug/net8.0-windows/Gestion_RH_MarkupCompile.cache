@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\App.xaml
-21951181603
+7-663314486
 11382846367
-26351497633
+31-1303383910
 242577430392
-Fenetres\AddEmploye.xaml;MainWindow.xaml;
+Fenetres\AddEmploye.xaml;Fenetres\UpdateEmploye.xaml;MainWindow.xaml;Pages\Accueil.xaml;Pages\Info.xaml;Pages\Login.xaml;Pages\Suivie.xaml;
 
 False
 

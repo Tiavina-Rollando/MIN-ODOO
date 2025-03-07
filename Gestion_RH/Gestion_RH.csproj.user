@@ -10,12 +10,42 @@
     <Compile Update="Fenetres\AddEmploye.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Fenetres\UpdateEmploye.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Accueil.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Info.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Login.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Suivie.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Fenetres\AddEmploye.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Fenetres\UpdateEmploye.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Accueil.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Info.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Login.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Suivie.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
