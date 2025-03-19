@@ -22,13 +22,35 @@ namespace Gestion_RH.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("Gestion_RH.Classes.Consigne", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Designation")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TacheId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TacheId");
+
+                    b.ToTable("Consignes");
+                });
+
             modelBuilder.Entity("Gestion_RH.Classes.Departement", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nom")
                         .IsRequired()
@@ -45,11 +67,11 @@ namespace Gestion_RH.Migrations
 
             modelBuilder.Entity("Gestion_RH.Classes.Employe", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Adresse")
                         .IsRequired()
@@ -86,7 +108,8 @@ namespace Gestion_RH.Migrations
 
                     b.Property<string>("Mdp")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Nom")
                         .IsRequired()
@@ -112,16 +135,37 @@ namespace Gestion_RH.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdNation");
+
+                    b.HasIndex("IdPoste");
+
+                    b.HasIndex("IdRole");
+
                     b.ToTable("Employes");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.EmployeTache", b =>
+                {
+                    b.Property<int>("EmployeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TacheId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeId", "TacheId");
+
+                    b.HasIndex("TacheId");
+
+                    b.ToTable("EmployeTaches");
                 });
 
             modelBuilder.Entity("Gestion_RH.Classes.Nation", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<byte[]>("Drapeau")
                         .IsRequired()
@@ -144,11 +188,11 @@ namespace Gestion_RH.Migrations
 
             modelBuilder.Entity("Gestion_RH.Classes.Poste", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("IdDepartement")
                         .HasColumnType("int");
@@ -163,16 +207,18 @@ namespace Gestion_RH.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdDepartement");
+
                     b.ToTable("Postes");
                 });
 
             modelBuilder.Entity("Gestion_RH.Classes.Role", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nom")
                         .IsRequired()
@@ -182,6 +228,154 @@ namespace Gestion_RH.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.Support", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("Fichier")
+                        .IsRequired()
+                        .HasColumnType("LONGBLOB");
+
+                    b.Property<string>("NomFichier")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TacheId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TacheId");
+
+                    b.ToTable("Supports");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.Tache", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateExpedition")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateRendu")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("Deadline")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Statut")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Taches");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.Consigne", b =>
+                {
+                    b.HasOne("Gestion_RH.Classes.Tache", "Tache")
+                        .WithMany("Consignes")
+                        .HasForeignKey("TacheId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tache");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.Employe", b =>
+                {
+                    b.HasOne("Gestion_RH.Classes.Nation", "Nation")
+                        .WithMany()
+                        .HasForeignKey("IdNation")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gestion_RH.Classes.Poste", "Poste")
+                        .WithMany()
+                        .HasForeignKey("IdPoste")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gestion_RH.Classes.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("IdRole")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Nation");
+
+                    b.Navigation("Poste");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.EmployeTache", b =>
+                {
+                    b.HasOne("Gestion_RH.Classes.Employe", "Employe")
+                        .WithMany("EmployeTaches")
+                        .HasForeignKey("EmployeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gestion_RH.Classes.Tache", "Tache")
+                        .WithMany("EmployeTaches")
+                        .HasForeignKey("TacheId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employe");
+
+                    b.Navigation("Tache");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.Poste", b =>
+                {
+                    b.HasOne("Gestion_RH.Classes.Departement", "Departement")
+                        .WithMany()
+                        .HasForeignKey("IdDepartement")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Departement");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.Support", b =>
+                {
+                    b.HasOne("Gestion_RH.Classes.Tache", "Tache")
+                        .WithMany("Supports")
+                        .HasForeignKey("TacheId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tache");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.Employe", b =>
+                {
+                    b.Navigation("EmployeTaches");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.Tache", b =>
+                {
+                    b.Navigation("Consignes");
+
+                    b.Navigation("EmployeTaches");
+
+                    b.Navigation("Supports");
                 });
 #pragma warning restore 612, 618
         }

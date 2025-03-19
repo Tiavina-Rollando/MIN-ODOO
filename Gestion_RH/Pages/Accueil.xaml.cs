@@ -36,9 +36,31 @@ namespace Gestion_RH.Pages
         private bool _employesVisible;
         private bool _ajoutEmployeVisible;
         private bool _ajoutBouttonVisible;
+        private bool _taskVisible;
         private ObservableCollection<Employe> ListeEmployes { get; set; }
         private ICollectionView _viewEmployes;
 
+        private ObservableCollection<Tache> _taches;
+        public ObservableCollection<Tache> Taches
+        {
+            get => _taches;
+            set
+            {
+                _taches = value;
+                OnPropertyChanged(nameof(Taches));
+            }
+        }
+        public void ChargerTachesDepuisBDD()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                Taches.Clear();
+                foreach (var tache in db.Taches.Include(t => t.Supports).ToList())
+                {
+                    Taches.Add(tache);
+                }
+            }
+        }
         public bool AjoutBouttonVisible
         {
             get { return _ajoutBouttonVisible; }
@@ -56,6 +78,15 @@ namespace Gestion_RH.Pages
             {
                 _ajoutEmployeVisible = value;
                 OnPropertyChanged(nameof(AjoutEmployeVisible));
+            }
+        }
+        public bool TaskVisible
+        {
+            get { return _taskVisible; }
+            set
+            {
+                _taskVisible = value;
+                OnPropertyChanged(nameof(TaskVisible));
             }
         }
         public bool EmployesVisible
@@ -125,7 +156,8 @@ namespace Gestion_RH.Pages
         public Accueil()
         {
             InitializeComponent();
-        
+            Taches = new ObservableCollection<Tache>();
+
             DataContext = this;
             AjoutVisible = false;
             AfficherVisible = false;
@@ -134,6 +166,7 @@ namespace Gestion_RH.Pages
             NationsVisible = false;
             RolesVisible = false;
             EmployesVisible = false;
+            TaskVisible = false;
             AjoutEmployeVisible = false;
             AjoutBouttonVisible = true;
         
@@ -147,6 +180,12 @@ namespace Gestion_RH.Pages
                 if (classe == "employes")
                 {
                     AddEmploye addWindow = new AddEmploye();
+                    addWindow.ShowDialog();
+
+                }
+                else if (classe == "taches")
+                {
+                    AddTask addWindow = new AddTask();
                     addWindow.ShowDialog();
 
                 }
@@ -288,6 +327,21 @@ namespace Gestion_RH.Pages
                         EmployesVisible = !EmployesVisible;
                         break;
                 }
+            }
+        }
+
+        private void Suivi_Click(object sender, RoutedEventArgs e)
+        {
+            TaskVisible = !TaskVisible;
+
+            ChargerTachesDepuisBDD();
+        }
+        private void Detail_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null && button.Tag is Tache task)
+            {
+                NavigationService.Navigate(new Detail(task));
             }
         }
 

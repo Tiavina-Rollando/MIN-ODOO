@@ -43,42 +43,36 @@ namespace Gestion_RH.Fenetres
 
         private void Inserer_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is string classe)
+            Employe novice = new Employe()
             {
-                if (classe == "employes")
-                {
-                    Employe novice = new Employe()
-                    {
-                        Nom = NomEmployeTextBox.Text.Trim(),
-                        Prenom = PrenomEmployeTextBox.Text.Trim(),
-                        Email = EmailEmployeTextBox.Text.Trim(),
-                        Adresse = AdresseEmployeTextBox.Text.Trim(),
-                        Tel = TelEmployeTextBox.Text.Trim(),
-                        Sexe = ((ComboBoxItem)SexeEmployeComboBox.SelectedItem).Content.ToString() == "Homme",
-                        IdNation = (int)PaysComboBox.SelectedValue,
-                        IdPoste = (int)PostesComboBox.SelectedValue,
-                        IdRole = (int)RolesComboBox.SelectedValue,
-                        DateIntegration = DateIntegrationEmployePicker.SelectedDate ?? DateTime.Now,
-                        DateNaissance = DateNaissanceEmployePicker.SelectedDate
-                    };
+                Nom = NomEmployeTextBox.Text.Trim(),
+                Prenom = PrenomEmployeTextBox.Text.Trim(),
+                Email = EmailEmployeTextBox.Text.Trim(),
+                Adresse = AdresseEmployeTextBox.Text.Trim(),
+                Tel = TelEmployeTextBox.Text.Trim(),
+                Sexe = ((ComboBoxItem)SexeEmployeComboBox.SelectedItem).Content.ToString() == "Homme",
+                IdNation = (int)PaysComboBox.SelectedValue,
+                IdPoste = (int)PostesComboBox.SelectedValue,
+                IdRole = (int)RolesComboBox.SelectedValue,
+                DateIntegration = DateIntegrationEmployePicker.SelectedDate ?? DateTime.Now,
+                DateNaissance = DateNaissanceEmployePicker.SelectedDate
+            };
 
-                    if (!string.IsNullOrEmpty(novice.Nom))
-                    {
-                        using var dbContext = new ApplicationDbContext();
+            if (!string.IsNullOrEmpty(novice.Nom))
+            {
+                using var dbContext = new ApplicationDbContext();
 
-                        dbContext.Employes.Add(novice);
-                        dbContext.SaveChanges();
-                        MessageBox.Show("Employé bien enregistré.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                dbContext.Employes.Add(novice);
+                dbContext.SaveChanges();
+                MessageBox.Show("Employé bien enregistré.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        NomEmployeTextBox.Clear();
-                        PrenomEmployeTextBox.Clear();
+                NomEmployeTextBox.Clear();
+                PrenomEmployeTextBox.Clear();
 
-                    }
-                    else
-                    {
-                        MessageBox.Show("Veuillez entrer un nom valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez entrer un nom valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

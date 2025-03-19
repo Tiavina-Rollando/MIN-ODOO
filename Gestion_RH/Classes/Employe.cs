@@ -61,6 +61,8 @@ namespace Gestion_RH.Classes
         public Nation? Nation { get; set; }
         public Role? Role { get; set; }
 
+        public ICollection<EmployeTache> EmployeTaches { get; set; }
+
         public string NomPoste => Poste?.Nom ?? string.Empty;
         public string NomDepartement => Poste?.Departement?.Nom ?? string.Empty;
         public string Genre => Sexe ? "Homme" : "Femme"; 

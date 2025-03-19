@@ -140,7 +140,7 @@
 
                     </UniformGrid>
 
-                    <Button Foreground="White" Style="{StaticResource RoundedButtonStyle}"  Content="Ajouter" Click="Inserer_Click" Tag="employes" Margin="10,10,10,10" Height="30" Width="200"/>
+                    <Button Foreground="White" Style="{StaticResource RoundedButtonStyle}"  Content="Ajouter" Click="Inserer_Click" Margin="10,10,10,10" Height="30" Width="200"/>
                 </StackPanel>
 
 

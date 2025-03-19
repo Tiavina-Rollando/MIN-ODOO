@@ -7,13 +7,28 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Fenetres\AddConsigne.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Fenetres\AddEmploye.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Fenetres\AddTask.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Fenetres\ChoixEmploye.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Fenetres\UpdateEmploye.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Fenetres\UpdateTache.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\Accueil.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Detail.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\Info.xaml.cs">
@@ -27,16 +42,31 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Fenetres\AddConsigne.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Fenetres\AddEmploye.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Fenetres\AddTask.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Fenetres\ChoixEmploye.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Fenetres\UpdateEmploye.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Fenetres\UpdateTache.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Accueil.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Detail.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Info.xaml">

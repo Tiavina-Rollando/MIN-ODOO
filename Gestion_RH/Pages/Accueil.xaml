@@ -69,9 +69,7 @@
 
                     <Button FontSize="16" Style="{StaticResource RoundedButtonStyle}"  Content="Ajouter" Click="AjouterListe_Click" Height="40" Margin="5"/>
                     <StackPanel Margin="25,0,0,0" Visibility="{Binding AjoutVisible, Converter={StaticResource BoolToVisConverter}}">
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Ajouter département" Click="Ajouter_Click" Tag="departements" Height="30" Margin="5"/>
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Ajouter postes" Click="Ajouter_Click" Tag="postes" Height="30" Margin="5"/>
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Ajouter nations" Click="Ajouter_Click" Tag="nations" Height="30" Margin="5"/>
+                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Ajouter tâches" Click="Ajouter_Click" Tag="taches" Height="30" Margin="5"/>
                         <Button Style="{StaticResource RoundedButtonStyle}" Content="Ajouter employés" Click="Ajouter_Click" Tag="employes" Height="30" Margin="5"/>
                     </StackPanel>
 
@@ -85,7 +83,7 @@
                     </StackPanel>
 
                     <Separator/>
-                    <Button FontSize="16" Style="{StaticResource RoundedButtonStyle}" Content="Suivi" Height="40" Margin="5"/>
+                    <Button FontSize="16" Style="{StaticResource RoundedButtonStyle}" Content="Suivi" Height="40" Margin="5" Click="Suivi_Click"/>
                 </StackPanel>
 
                 <!-- ✅ Espace qui pousse le bouton "Quitter" en bas -->
@@ -100,6 +98,24 @@
         <!-- ✅ Contenu principal (scrollable) -->
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20">
+
+                <TextBlock Text="Liste des tâches" FontSize="22" FontWeight="Bold" Foreground="#2C3E50"
+                           HorizontalAlignment="Center" Visibility="{Binding TaskVisible, Converter={StaticResource BoolToVisConverter}}"/>
+
+
+                <ListBox Name="TaskList" ItemsSource="{Binding Taches}" Margin="10,50,10,10" Visibility="{Binding TaskVisible, Converter={StaticResource BoolToVisConverter}}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" CornerRadius="10" Padding="10" Margin="5">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Nom}" FontSize="20" FontWeight="Bold" Foreground="#2C3E50"/>
+                                    <Button Content="Voir" Style="{StaticResource RoundedButtonStyle}" Click="Detail_Click" Tag="{Binding}" Margin="10,5,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
                 <!-- 📌 Liste des Départements -->
                 <TextBlock Text="Liste des départements" FontSize="22" FontWeight="Bold" Foreground="#2C3E50"
                            HorizontalAlignment="Center" Visibility="{Binding DepartementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
