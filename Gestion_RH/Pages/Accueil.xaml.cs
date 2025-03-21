@@ -39,11 +39,21 @@ namespace Gestion_RH.Pages
         private bool _taskVisible;
         private bool _suiviVisible;
         private bool _employeCardVisible;
+        private bool _acheve;
         private ObservableCollection<Employe> ListeEmployes { get; set; }
 
         private ICollectionView _viewEmployes;
 
 
+        public bool Acheve
+        {
+            get { return _acheve; }
+            set
+            {
+                _acheve = value;
+                OnPropertyChanged(nameof(Acheve));
+            }
+        }
 
         private ObservableCollection<Employe> _employesCard;
         public ObservableCollection<Employe> ListEmployesCard
@@ -217,7 +227,7 @@ namespace Gestion_RH.Pages
             InitializeComponent();
             Taches = new ObservableCollection<Tache>();
             ListEmployesCard = new ObservableCollection<Employe>();
-
+            
             DataContext = this;
             AjoutVisible = false;
             AfficherVisible = false;

@@ -5,11 +5,41 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:conv="clr-namespace:Gestion_RH.Converters"
       xmlns:view="clr-namespace:Gestion_RH.ViewModels"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Accueil">
     
     <Page.Resources>
+        <!-- Style des en-têtes -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#2C3E50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Style des cellules -->
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="5"/>
+        </Style>
+
+        <!-- Style des lignes alternées -->
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="White"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="Background" Value="#D6EAF8"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    
         <Style x:Key="RoundedButtonStyle" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -39,6 +69,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
         <conv:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter"/>
         <conv:TagFormatConverter x:Key="TagFormatConverter" />
+        <conv:BoolToVisibilityInvertedConverter x:Key="BoolToVisInvertedConverter"/>
     </Page.Resources>
 
     <Grid>
@@ -69,36 +100,101 @@
                 <StackPanel Grid.Row="0">
                     <TextBlock Text="Menu" FontSize="32" Foreground="White" HorizontalAlignment="Center"/>
                     <Separator/>
+                    <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Home" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Accueil" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
 
-                    <Button FontSize="14" Style="{StaticResource RoundedButtonStyle}"  Content="Ajouter" Click="AjouterListe_Click" Height="40" Margin="5"/>
+                    <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Click="AjouterListe_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="PlusSquare" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Ajouter" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
                     <StackPanel Margin="25,0,0,0" Visibility="{Binding AjoutVisible, Converter={StaticResource BoolToVisConverter}}">
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Ajouter tâches" Click="Ajouter_Click" Tag="taches" Height="30" Margin="5"/>
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Ajouter employés" Click="Ajouter_Click" Tag="employes" Height="30" Margin="5"/>
+                        <Button Cursor="Hand" Height="40" Margin="5" FontSize="13" Style="{StaticResource RoundedButtonStyle}" Click="Ajouter_Click" Tag="taches">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Tasks" Margin="5" Width="20" HorizontalAlignment="Left" Height="24"/>
+                                <TextBlock Text="Nouvelle tâche" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            </StackPanel>
+                        </Button>
+                        <Button Cursor="Hand" Height="40" Margin="5" FontSize="13" Style="{StaticResource RoundedButtonStyle}" Click="Ajouter_Click" Tag="employes">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="User" Margin="5" Width="20" HorizontalAlignment="Left" Height="24"/>
+                                <TextBlock Text="Nouveau employé" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
 
-                    <Button FontSize="14" Style="{StaticResource RoundedButtonStyle}" Content="Afficher tableau" Click="AfficherListe_Click" Height="40" Margin="5"/>
+                    <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Click="AfficherListe_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="List" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Afficher tableau" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
                     <StackPanel Margin="25,0,0,0" Visibility="{Binding AfficherVisible, Converter={StaticResource BoolToVisConverter}}">
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Liste département" Click="Afficher_Click" Tag="departements" Height="30" Margin="5"/>
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Liste postes" Click="Afficher_Click" Tag="postes" Height="30" Margin="5"/>
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Liste nations" Click="Afficher_Click" Tag="nations" Height="30" Margin="5"/>
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Liste rôles" Click="Afficher_Click" Tag="roles" Height="30" Margin="5"/>
+                        <Button Cursor="Hand" Height="40" Margin="5" FontSize="13" Style="{StaticResource RoundedButtonStyle}" Click="Afficher_Click" Tag="departements">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Building" Margin="5" Width="20" HorizontalAlignment="Left" Height="24"/>
+                                <TextBlock Text="Liste départements" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            </StackPanel>
+                        </Button>
+                        <Button Height="40" Cursor="Hand" Margin="5" FontSize="13" Style="{StaticResource RoundedButtonStyle}" Click="Afficher_Click" Tag="postes">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Briefcase" Margin="5" Width="20" HorizontalAlignment="Left" Height="24"/>
+                                <TextBlock Text="Liste postes" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            </StackPanel>
+                        </Button>
+                        <Button Height="40" Margin="5" Cursor="Hand" FontSize="13" Style="{StaticResource RoundedButtonStyle}" Click="Afficher_Click" Tag="nations">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Flag" Margin="5" Width="20" HorizontalAlignment="Left" Height="24"/>
+                                <TextBlock Text="Liste nations" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            </StackPanel>
+                        </Button>
+                        <Button Height="40" Margin="5" Cursor="Hand" FontSize="13" Style="{StaticResource RoundedButtonStyle}" Click="Afficher_Click" Tag="roles">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="BlackTie" Margin="5" Width="20" HorizontalAlignment="Left" Height="24"/>
+                                <TextBlock Text="Liste rôles" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            </StackPanel>
+                        </Button>
                         <!--<Button Style="{StaticResource RoundedButtonStyle}" Content="Liste employés" Click="Afficher_Click" Tag="employes" Height="30" Margin="5"/>-->
                     </StackPanel>
 
                     <Separator/>
-                    <Button FontSize="14" Style="{StaticResource RoundedButtonStyle}" Content="Suivi" Height="40" Margin="5" Click="Suivi_Click"/>
+
+                    <Button Height="45" Margin="5" FontSize="14" Cursor="Hand" Style="{StaticResource RoundedButtonStyle}" Click="Suivi_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Eye" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Suivie" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
                     <StackPanel Margin="25,0,0,0" Visibility="{Binding SuiviVisible, Converter={StaticResource BoolToVisConverter}}">
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Tâches" Click="Afficher_Click" Tag="tachesCard" Height="30" Margin="5"/>
-                        <Button Style="{StaticResource RoundedButtonStyle}" Content="Employés" Click="Afficher_Click" Tag="employesCard" Height="30" Margin="5"/>
+                        <Button Height="40" Margin="5" FontSize="13" Cursor="Hand" Style="{StaticResource RoundedButtonStyle}" Click="Afficher_Click" Tag="tachesCard">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Tasks" Margin="5" Width="20" HorizontalAlignment="Left" Height="24"/>
+                                <TextBlock Text="Tâches" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            </StackPanel>
+                        </Button>
+                        <Button Cursor="Hand" Height="40" Margin="5" FontSize="13" Style="{StaticResource RoundedButtonStyle}" Click="Afficher_Click" Tag="employesCard">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="User" Margin="5" Width="20" HorizontalAlignment="Left" Height="24"/>
+                                <TextBlock Text="Employés" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
 
                 </StackPanel>
 
                 <!-- ✅ Espace qui pousse le bouton "Quitter" en bas -->
                 <StackPanel Grid.Row="1"/>
-
-                <!-- ✅ Bouton "Quitter" fixé en bas -->
-                <Button FontSize="14" Style="{StaticResource RoundedButtonStyle}" Content="🚪Quitter" Click="Exit_Click" Height="40" Margin="5" Grid.Row="2"/>
+                <Button Height="50" Cursor="Hand" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Click="Exit_Click" Grid.Row="2">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="PowerOff" Margin="5" Width="24" HorizontalAlignment="Left" Height="24"/>
+                        <TextBlock Text="Quitter" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                    </StackPanel>
+                </Button>
             </Grid>
         </Border>
 
@@ -154,8 +250,16 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="110" CornerRadius="10" Padding="10" Margin="5">
+                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="130" CornerRadius="10" Padding="10" Margin="5">
                                     <StackPanel>
+                                        <Button Visibility="{Binding Statut, Converter={StaticResource BoolToVisConverter}}" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='taches'}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+                                            <Image Source="../Assets/coche-verte.png" Width="20" Height="20"/>
+                                        </Button>
+
+                                        <Button Click="Supprimer_Click" Visibility="{Binding Statut, Converter={StaticResource BoolToVisInvertedConverter}}" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='taches'}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+                                            <Image Source="../Assets/trash-icon.png" Width="20" Height="20"/>
+                                        </Button>
+                                        
                                         <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
                                         <TextBlock Text="{Binding DateExpedition}" Foreground="Gray" TextAlignment="Center"/>
                                         <TextBlock Text="{Binding Deadline}" Foreground="Red" TextAlignment="Center"/>
@@ -173,11 +277,17 @@
                 <TextBlock Text="Liste des départements" FontSize="22" FontWeight="Bold" Foreground="#2C3E50"
                            HorizontalAlignment="Center" Visibility="{Binding DepartementsVisible, Converter={StaticResource BoolToVisConverter}}"/>
                 <DataGrid x:Name="DepartementsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
-                          Visibility="{Binding DepartementsVisible, Converter={StaticResource BoolToVisConverter}}" Margin="0,10,0,30">
+          Visibility="{Binding DepartementsVisible, Converter={StaticResource BoolToVisConverter}}" Margin="0,10,0,30"
+          HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+
+                    <!-- Style personnalisé du DataGrid -->
+                    <DataGrid.Resources>
+                        
+                    </DataGrid.Resources>
+
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                        <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
-                        <DataGridTextColumn Header="Poste Vacant" Binding="{Binding PostVaccant}" Width="400"/>
+                        <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*" />
+                        <!--<DataGridTextColumn Header="Poste Vacant" Binding="{Binding PostVaccant}" Width="400"/>-->
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -187,8 +297,7 @@
                 <DataGrid x:Name="PostesDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
                           Visibility="{Binding PostesVisible, Converter={StaticResource BoolToVisConverter}}" Margin="0,10,0,30">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                        <DataGridTextColumn Header="Statut" Binding="{Binding StatutTexte}" Width="400"/>
+                        <!--<DataGridTextColumn Header="Statut" Binding="{Binding StatutTexte}" Width="400"/>-->
                         <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="400"/>
                         <DataGridTextColumn Header="Departement" Binding="{Binding NomDepartement}" Width="*"/>
                     </DataGrid.Columns>
@@ -200,7 +309,6 @@
                 <DataGrid x:Name="NationsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
                           Visibility="{Binding NationsVisible, Converter={StaticResource BoolToVisConverter}}" Margin="0,10,0,30">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                         <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
                         <DataGridTextColumn Header="Peuple" Binding="{Binding Peuple}" Width="400"/>
                     </DataGrid.Columns>
@@ -212,7 +320,6 @@
                 <DataGrid x:Name="RolesDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
                           Visibility="{Binding RolesVisible, Converter={StaticResource BoolToVisConverter}}" Margin="0,10,0,30">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                         <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
@@ -228,7 +335,6 @@
 
                 <DataGrid x:Name="EmployesDataGrid" AutoGenerateColumns="False"  SelectionChanged="EmployeSelectionne" CanUserAddRows="False" Visibility="{Binding EmployesVisible, Converter={StaticResource BoolToVisConverter}}" Margin="0,10,0,30" CanUserSortColumns="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                         <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*" CanUserSort="True"/>
                         <DataGridTextColumn Header="Prénom(s)" Binding="{Binding Prenom}" Width="200" CanUserSort="True"/>
                         <DataGridTextColumn Header="Poste" Binding="{Binding NomPoste}" Width="200" CanUserSort="True"/>

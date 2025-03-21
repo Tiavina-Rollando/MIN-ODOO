@@ -24,6 +24,26 @@ namespace Gestion_RH.Pages
         {
             InitializeComponent();
         }
+        //private async void BtnFingerprintLogin_Click(object sender, RoutedEventArgs e)
+        //{
+        //    bool authReussie = await AuthentifierUtilisateur();
+        //    if (authReussie)
+        //    {
+        //        MessageBox.Show("Connexion réussie !");
+        //        NavigationService.Navigate(new Accueil()); // Naviguer vers la page d'accueil
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Authentification échouée.");
+        //    }
+        //}
+
+        //public async Task<bool> AuthentifierUtilisateur()
+        //{
+        //    var resultat = await UserConsentVerifier.RequestVerificationAsync("Veuillez scanner votre empreinte");
+        //    return resultat == UserConsentVerificationResult.Verified;
+        //}
+
         private void BtnCodeLogin_Click(object sender, RoutedEventArgs e)
         {
             string code = txtCode.Password; // Récupérer le code entré

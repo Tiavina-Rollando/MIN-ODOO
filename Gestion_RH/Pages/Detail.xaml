@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:conv="clr-namespace:Gestion_RH.Converters"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
       xmlns:local="clr-namespace:Gestion_RH.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -56,26 +57,52 @@
                 <StackPanel Grid.Row="0">
                     <TextBlock Text="Menu" FontSize="32" Foreground="White" HorizontalAlignment="Center"/>
                     <Separator/>
-                    <Button Cursor="Hand" FontSize="14" Content="Modifier" Style="{StaticResource RoundedButtonStyle}" Click="UpdateTache_Click" Margin="5" Height="35" Width="200"/>
-                    <Button Cursor="Hand" FontSize="14" Content="Assigner à un employé"
-                        Style="{StaticResource RoundedButtonStyle}"
-                        Visibility="{Binding ResponsableVisible, Converter={StaticResource BoolToVisInvertedConverter}}"
-                        Click="AssignEmploye_Click"
-                        Margin="5" Height="35" Width="200"/>
-    
-                    <Button Cursor="Hand" FontSize="14" Content="Assigner à un autre employé"
-                        Style="{StaticResource RoundedButtonStyle}"
-                        Visibility="{Binding ResponsableVisible, Converter={StaticResource BoolToVisConverter}}"
-                        Click="AssignEmploye_Click"
-                        Margin="5" Height="35" Width="200"/>
-                    <Button Cursor="Hand" FontSize="14" Content="Marquer achevée" Visibility="{Binding RenduVisible, Converter={StaticResource BoolToVisInvertedConverter}}" Style="{StaticResource RoundedButtonStyle}" Click="Validate_Click" Margin="5" Height="35" Width="200"/>
+                    <Button Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Home" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Accueil" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
+                    <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Click="UpdateTache_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Edit" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Modifier" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Visibility="{Binding ResponsableVisible, Converter={StaticResource BoolToVisInvertedConverter}}" Click="AssignEmploye_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Paperclip" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Assigner à un employé" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Visibility="{Binding ResponsableVisible, Converter={StaticResource BoolToVisConverter}}" Click="AssignEmploye_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Paperclip" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Assigner à un autre employé" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Visibility="{Binding RenduVisible, Converter={StaticResource BoolToVisInvertedConverter}}" Style="{StaticResource RoundedButtonStyle}" Click="Validate_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Check" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Marquer achevée" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
                     <Separator/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1"/>
 
-                <Button Cursor="Hand" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Content="🚪Retour" Click="Home_Click" Height="40" Margin="5" Grid.Row="2"/>
-            </Grid>
+                <Button Cursor="Hand" Grid.Row="2" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Click="Home_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="ArrowCircleLeft" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                        <TextBlock Text="Retour" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                    </StackPanel>
+                </Button>
+
+             </Grid>
         </Border>
 
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">

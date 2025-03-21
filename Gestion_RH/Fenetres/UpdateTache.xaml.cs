@@ -100,6 +100,10 @@ namespace Gestion_RH.Fenetres
 
                     if (result == MessageBoxResult.Yes)
                     {
+                        foreach (var support in SupportList)
+                        {
+                            tache.Supports.Add(new Support { Fichier = support.Fichier, NomFichier = support.NomFichier });
+                        }
                         dbContext.SaveChanges();
                         MessageBox.Show("Tâche modifiée avec succès.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 

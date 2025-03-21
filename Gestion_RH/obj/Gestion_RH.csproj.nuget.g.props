@@ -23,5 +23,6 @@
     <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Tiavi\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.4</PkgMicrosoft_CodeAnalysis_Analyzers>
     <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\Tiavi\.nuget\packages\microsoft.entityframeworkcore.tools\9.0.2</PkgMicrosoft_EntityFrameworkCore_Tools>
     <PkgMaterialDesignThemes Condition=" '$(PkgMaterialDesignThemes)' == '' ">C:\Users\Tiavi\.nuget\packages\materialdesignthemes\5.2.1</PkgMaterialDesignThemes>
+    <PkgFontAwesome_WPF Condition=" '$(PkgFontAwesome_WPF)' == '' ">C:\Users\Tiavi\.nuget\packages\fontawesome.wpf\4.7.0.9</PkgFontAwesome_WPF>
   </PropertyGroup>
 </Project>
