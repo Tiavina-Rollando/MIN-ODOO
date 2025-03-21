@@ -9,10 +9,10 @@ namespace Gestion_RH.Classes
     public class EmployeTache
     {
         public int EmployeId { get; set; }
-        public Employe Employe { get; set; }
+        public Employe? Employe { get; set; }
 
         public int TacheId { get; set; }
-        public Tache Tache { get; set; }
+        public Tache? Tache { get; set; }
     }
 
 

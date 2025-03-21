@@ -59,7 +59,7 @@
 
                         <!-- 📌 Date d'expedition -->
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="🎂" FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="🏢" FontSize="18" VerticalAlignment="Center"/>
                             <TextBlock Text="Date d'expedition :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
                         <DatePicker x:Name="DateExpeditionPicker" Height="30" Width="300" Margin="5" />
@@ -80,7 +80,7 @@
                     <ItemsControl Name="SupportListView" ItemsSource="{Binding SupportList}" Margin="10">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" CornerRadius="10" Padding="10" Margin="5">
+                                <Border Background="#f2f2f2" Width="250" BorderBrush="#ccc" BorderThickness="1" CornerRadius="10" Padding="10" Margin="5">
                                     <StackPanel>
                                         <TextBlock Text="{Binding NomFichier}" FontWeight="Bold" Foreground="#2C3E50"/>
                                     </StackPanel>

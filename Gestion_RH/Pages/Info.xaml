@@ -42,6 +42,8 @@
             <ColumnDefinition Width="250"/>
             <!-- ✅ Contenu (scrollable) -->
             <ColumnDefinition Width="*"/>
+            <!-- ✅ Liste de Tache (scrollable) -->
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" Background="#2C3E50" Padding="10">
             <Grid>
@@ -60,11 +62,11 @@
                     <TextBlock Text="Menu" FontSize="32" Foreground="White" HorizontalAlignment="Center"/>
                     <Separator/>
 
-                    <Button Cursor="Hand" FontSize="16"  Content="Modifier" Style="{StaticResource RoundedButtonStyle}"   Click="UpdateEmploye_Click" Margin="5" Height="35" Width="200"/>
-                    <Button Cursor="Hand" FontSize="16" x:Name="AjouterEmpreinteBoutton" Style="{StaticResource RoundedButtonStyle}"   Content="Assigner une empreinte" Click="AssignDigit_Click" Margin="5" Height="35" Width="200"/>
-                    <Button Cursor="Hand" FontSize="16" x:Name="AjouterPhotoBoutton" Style="{StaticResource RoundedButtonStyle}"   Content="Ajouter une photo" Click="AssignPhoto_Click" Margin="5" Height="35" Width="200"/>
-                    <Button Cursor="Hand" FontSize="16" x:Name="ChangerPhotoBoutton" Style="{StaticResource RoundedButtonStyle}"   Content="Changer la photo" Click="AssignPhoto_Click" Margin="5" Height="35" Width="200" Visibility="Collapsed"/>
-                    <Button Cursor="Hand" FontSize="16" x:Name="SupprimerPhotoBoutton" Style="{StaticResource RoundedButtonStyle}"   Content="Supprimer la photo" Click="DeletePhoto_Click" Margin="5" Height="35" Width="200" Visibility="Collapsed"/>
+                    <Button Cursor="Hand" FontSize="14"  Content="Modifier" Style="{StaticResource RoundedButtonStyle}"   Click="UpdateEmploye_Click" Margin="5" Height="35" Width="200"/>
+                    <Button Cursor="Hand" FontSize="14" x:Name="AjouterEmpreinteBoutton" Style="{StaticResource RoundedButtonStyle}"   Content="Assigner une empreinte" Click="AssignDigit_Click" Margin="5" Height="35" Width="200"/>
+                    <Button Cursor="Hand" FontSize="14" x:Name="AjouterPhotoBoutton" Style="{StaticResource RoundedButtonStyle}"   Content="Ajouter une photo" Click="AssignPhoto_Click" Margin="5" Height="35" Width="200"/>
+                    <Button Cursor="Hand" FontSize="14" x:Name="ChangerPhotoBoutton" Style="{StaticResource RoundedButtonStyle}"   Content="Changer la photo" Click="AssignPhoto_Click" Margin="5" Height="35" Width="200" Visibility="Collapsed"/>
+                    <!--<Button Cursor="Hand" FontSize="16" x:Name="SupprimerPhotoBoutton" Style="{StaticResource RoundedButtonStyle}"   Content="Supprimer la photo" Click="DeletePhoto_Click" Margin="5" Height="35" Width="200" Visibility="Collapsed"/>-->
                     <Separator/>
 
                 </StackPanel>
@@ -73,7 +75,7 @@
                 <StackPanel Grid.Row="1"/>
 
                 <!-- ✅ Bouton "Retour" fixé en bas -->
-                <Button  Cursor="Hand" FontSize="16" Style="{StaticResource RoundedButtonStyle}"   Content="🚪Retour" Click="Home_Click" Height="40" Margin="5" Grid.Row="2"/>
+                <Button  Cursor="Hand" FontSize="14" Style="{StaticResource RoundedButtonStyle}"   Content="🚪Retour" Click="Home_Click" Height="40" Margin="5" Grid.Row="2"/>
             </Grid>
         </Border>
         
@@ -183,5 +185,34 @@
             </Border>
         </ScrollViewer>
 
+        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+            <Border  Background="#2C3E50" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Tâches" FontSize="32" Foreground="White" HorizontalAlignment="Center"/>
+                    <Separator/>
+                    <WrapPanel Orientation="Vertical" Margin="10">
+                        <ItemsControl ItemsSource="{Binding Taches}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="110" CornerRadius="10" Padding="10" Margin="5">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding DateExpedition}" Foreground="Gray" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding Deadline}" Foreground="Red" TextAlignment="Center"/>
+                                            <Button Content="Détails"  Style="{StaticResource RoundedButtonStyle}" Click="Detail_Click" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
     </Grid>
 </Page>

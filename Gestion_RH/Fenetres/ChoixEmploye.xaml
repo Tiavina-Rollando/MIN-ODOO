@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:conv="clr-namespace:Gestion_RH.Converters"
         xmlns:view="clr-namespace:Gestion_RH.ViewModels"
-        Title="Choix Employé" Height="650" Width="1250">
+        Title="Choix Employé" Height="350" Width="880">
 
     <Window.DataContext>
         <view:ChoixEmployeViewModel/>
@@ -46,11 +46,17 @@
 
             <!-- Utilisation de WrapPanel pour afficher les cartes horizontalement -->
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <WrapPanel ItemWidth="300" Background="Beige" ItemHeight="750" Margin="5">
-                    <ItemsControl Width="300" ItemsSource="{Binding ListeEmployes}">
+
+                <WrapPanel Orientation="Horizontal" Margin="10">
+                    <ItemsControl ItemsSource="{Binding ListeEmployesCard}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="250" CornerRadius="10" Padding="10" Margin="5">
+                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="160" CornerRadius="10" Padding="10" Margin="5">
                                     <StackPanel>
                                         <!-- ✅ Image de l’employé -->
                                         <Ellipse Width="50" Height="50" Stroke="Gray" StrokeThickness="2" HorizontalAlignment="Center">
@@ -58,17 +64,17 @@
                                                 <ImageBrush ImageSource="{Binding Photo, Converter={StaticResource ByteArrayToImageConverter}}" Stretch="UniformToFill"/>
                                             </Ellipse.Fill>
                                         </Ellipse>
-                                        <TextBlock Text="{Binding Nom}" Foreground="#2C3E50"/>
-                                        <TextBlock Text="{Binding Prenom}" Foreground="#2C3E50"/>
-                                        <TextBlock Text="{Binding NomPoste}" Foreground="Gray"/>
-                                        <TextBlock Text="{Binding NomDepartement}" Foreground="Gray"/>
-                                        <Button Content="Choisir" Style="{StaticResource RoundedButtonStyle}" Width="100" Tag="{Binding Id}" Margin="10,5,0,0"/>
+                                        <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
+                                        <TextBlock Text="{Binding Prenom}" Foreground="Gray" TextAlignment="Center"/>
+                                        <TextBlock Text="{Binding NomPoste}" Foreground="Red" TextAlignment="Center"/>
+                                        <Button Content="Choisir"  Style="{StaticResource RoundedButtonStyle}" Click="Choose_Click" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </WrapPanel>
+                
             </ScrollViewer>
 
         </StackPanel>

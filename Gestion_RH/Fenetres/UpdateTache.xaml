@@ -3,10 +3,104 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:Gestion_RH.Converters"
         xmlns:local="clr-namespace:Gestion_RH.Fenetres"
         mc:Ignorable="d"
         Title="UpdateTache" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+            BorderBrush="{TemplateBinding BorderBrush}" 
+            BorderThickness="{TemplateBinding BorderThickness}"
+            CornerRadius="5"  Padding="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2C3E50"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="DarkGray"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#2980B9"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="DarkBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <conv:TagFormatConverter x:Key="TagFormatConverter" />
+    </Window.Resources>
+
     <Grid>
-        
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Border Background="White" CornerRadius="15" Padding="20" Margin="20" BorderBrush="#D1D1D1" BorderThickness="1">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                </Border.Effect>
+
+                <StackPanel>
+
+                    <TextBlock Text="Mettre à jour la tâche" FontSize="22" FontWeight="Bold"
+    Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,20"/>
+
+                    <!-- ✅ Utilisation d'UniformGrid pour un affichage propre -->
+                    <UniformGrid Columns="2" HorizontalAlignment="Center" Margin="10" Width="650">
+
+                        <!-- 📌 Objet avec Icône -->
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="🆔" FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Objet :" FontWeight="Bold" Margin="5,5,0,0"/>
+                        </StackPanel>
+                        <TextBox x:Name="NomTacheTextBox" Height="30" Width="300" Margin="5"/>
+
+                        <!-- 📌 Date d'expedition -->
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="🏢" FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Date d'expedition :" FontWeight="Bold" Margin="5,5,0,0"/>
+                        </StackPanel>
+                        <DatePicker x:Name="DateExpeditionPicker" Height="30" Width="300" Margin="5" />
+
+
+                        <!-- 📌 Date deadline -->
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="🏢" FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Date deadline :" FontWeight="Bold" Margin="5,5,0,0"/>
+                        </StackPanel>
+                        <DatePicker x:Name="DateDeadlinePicker" Height="30" Width="300" Margin="5"/>
+
+                        <Button Foreground="White" Style="{StaticResource RoundedButtonStyle}" Background="#2C3E50"  Content="Ajouter support(s)" Click="AddSupport_Click" Tag="employes" Margin="10,10,10,10" Height="30" Width="200"/>
+                        <Button Foreground="White" Style="{StaticResource RoundedButtonStyle}"  Background="#2C3E50" Content="Ajouter consigne(s)" Click="AddConsigne_Click" Tag="employes" Margin="10,10,10,10" Height="30" Width="200"/>
+
+
+                    </UniformGrid>
+                    <ItemsControl Name="SupportListView" ItemsSource="{Binding SupportList}" Margin="10">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" CornerRadius="10" Width="250" Padding="10" Margin="5">
+                                    <StackPanel>
+                                        <Button Click="Supprimer_Click" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='support'}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+                                            <Image Source="../Assets/trash-icon.png" Width="20" Height="20"/>
+                                        </Button>
+                                        <TextBlock Text="{Binding NomFichier}" FontWeight="Bold" Foreground="#2C3E50"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+
+                    <Button Foreground="White" Style="{StaticResource RoundedButtonStyle}" Background="#2980B9" Content="Enregistrer" Click="SaveUpdateTask_Click" Tag="employes" Margin="10,10,10,10" Height="30" Width="200"/>
+                </StackPanel>
+
+
+            </Border>
+        </ScrollViewer>
     </Grid>
 </Window>

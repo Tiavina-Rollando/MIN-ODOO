@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:conv="clr-namespace:Gestion_RH.Converters"
       xmlns:local="clr-namespace:Gestion_RH.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -35,6 +36,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <conv:BoolToVisibilityInvertedConverter x:Key="BoolToVisInvertedConverter"/>
     </Page.Resources>
 
     <Grid>
@@ -54,15 +56,25 @@
                 <StackPanel Grid.Row="0">
                     <TextBlock Text="Menu" FontSize="32" Foreground="White" HorizontalAlignment="Center"/>
                     <Separator/>
-                    <Button Cursor="Hand" FontSize="16" Content="Modifier" Style="{StaticResource RoundedButtonStyle}" Click="UpdateTache_Click" Margin="5" Height="35" Width="200"/>
-                    <Button Cursor="Hand" FontSize="16" Content="Assigner à un employé" Style="{StaticResource RoundedButtonStyle}" Click="AssignEmploye_Click" Margin="5" Height="35" Width="200"/>
-                    <Button Cursor="Hand" FontSize="16" Content="Marquer achevée" Style="{StaticResource RoundedButtonStyle}" Click="Validate_Click" Margin="5" Height="35" Width="200"/>
+                    <Button Cursor="Hand" FontSize="14" Content="Modifier" Style="{StaticResource RoundedButtonStyle}" Click="UpdateTache_Click" Margin="5" Height="35" Width="200"/>
+                    <Button Cursor="Hand" FontSize="14" Content="Assigner à un employé"
+                        Style="{StaticResource RoundedButtonStyle}"
+                        Visibility="{Binding ResponsableVisible, Converter={StaticResource BoolToVisInvertedConverter}}"
+                        Click="AssignEmploye_Click"
+                        Margin="5" Height="35" Width="200"/>
+    
+                    <Button Cursor="Hand" FontSize="14" Content="Assigner à un autre employé"
+                        Style="{StaticResource RoundedButtonStyle}"
+                        Visibility="{Binding ResponsableVisible, Converter={StaticResource BoolToVisConverter}}"
+                        Click="AssignEmploye_Click"
+                        Margin="5" Height="35" Width="200"/>
+                    <Button Cursor="Hand" FontSize="14" Content="Marquer achevée" Visibility="{Binding RenduVisible, Converter={StaticResource BoolToVisInvertedConverter}}" Style="{StaticResource RoundedButtonStyle}" Click="Validate_Click" Margin="5" Height="35" Width="200"/>
                     <Separator/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1"/>
 
-                <Button Cursor="Hand" FontSize="16" Style="{StaticResource RoundedButtonStyle}" Content="🚪Retour" Click="Home_Click" Height="40" Margin="5" Grid.Row="2"/>
+                <Button Cursor="Hand" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Content="🚪Retour" Click="Home_Click" Height="40" Margin="5" Grid.Row="2"/>
             </Grid>
         </Border>
 

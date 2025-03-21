@@ -91,21 +91,23 @@ namespace Gestion_RH.Pages
             ChargerSupportDepuisBDD(tache);
 
 
-            var employeTache = task.EmployeTaches.FirstOrDefault(); // Récupérer le premier employé assigné à la tâche
-
-            if (employeTache != null)
+            var responsable = tache.EmployeTaches.FirstOrDefault();
+            if (responsable != null)
             {
-                string employeNom = employeTache.Employe.Nom;  // Récupérer le nom de l'employé
-                string dep = employeTache.Employe.NomDepartement;  // Récupérer le nom de l'employé
+                string employeNom = responsable.Employe.Nom +" " + responsable.Employe.Prenom;
+                string dep = responsable.Employe.NomDepartement;
                 ResponsableTextBox.Text = employeNom;
                 DepartementTextBox.Text = dep;
-                Console.WriteLine($"L'employé assigné à cette tâche est : {employeNom}");
+                //Console.WriteLine($"L'employé assigné à cette tâche est : {employeNom}");
+                ResponsableVisible = true;
+                //MessageBox.Show($"La tache est deja assigne a {responsable.Employe.Nom}");
             }
             else
             {
                 ResponsableTextBox.Text = string.Empty;
                 DepartementTextBox.Text = string.Empty;
                 Console.WriteLine("Aucun employé assigné à cette tâche.");
+                ResponsableVisible = false;
             }
 
             // Remplir les champs de la tâche
@@ -118,13 +120,12 @@ namespace Gestion_RH.Pages
             StatutTextBox.Text = task.Statut? "Achevée":"Inachevée";
 
             RenduVisible = task.Statut;
-            ResponsableVisible = employeTache?.EmployeId != null;
             
         }
 
         private void AssignEmploye_Click(object sender, RoutedEventArgs e)
         {
-            ChoixEmploye assignWindow = new ChoixEmploye();
+            ChoixEmploye assignWindow = new ChoixEmploye(tache);
             assignWindow.ShowDialog();
         }
         private void UpdateTache_Click(object sender, RoutedEventArgs e)

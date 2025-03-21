@@ -37,8 +37,24 @@ namespace Gestion_RH.Pages
         private bool _ajoutEmployeVisible;
         private bool _ajoutBouttonVisible;
         private bool _taskVisible;
+        private bool _suiviVisible;
+        private bool _employeCardVisible;
         private ObservableCollection<Employe> ListeEmployes { get; set; }
+
         private ICollectionView _viewEmployes;
+
+
+
+        private ObservableCollection<Employe> _employesCard;
+        public ObservableCollection<Employe> ListEmployesCard
+        {
+            get => _employesCard;
+            set
+            {
+                _employesCard = value;
+                OnPropertyChanged(nameof(ListEmployesCard));
+            }
+        }
 
         private ObservableCollection<Tache> _taches;
         public ObservableCollection<Tache> Taches
@@ -50,15 +66,50 @@ namespace Gestion_RH.Pages
                 OnPropertyChanged(nameof(Taches));
             }
         }
+
         public void ChargerTachesDepuisBDD()
         {
             using (var db = new ApplicationDbContext())
             {
                 Taches.Clear();
-                foreach (var tache in db.Taches.Include(t => t.Supports).ToList())
+                foreach (var tache in db.Taches
+                            .Include(t => t.Supports)  
+                            .Include(t => t.EmployeTaches)
+                                .ThenInclude(et => et.Employe)
+                                    .ThenInclude(e => e.Poste)
+                                        .ThenInclude(p => p.Departement)
+                            .Include(t => t.Consignes)
+                            .ToList())
+
                 {
                     Taches.Add(tache);
                 }
+            }
+        }
+
+        public void ChargerEmployesDepuisBDD()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                ListEmployesCard.Clear();
+                ListEmployesCard = new ObservableCollection<Employe>(db.Employes
+                   .Include(p => p.Nation)
+                    .Include(p => p.Role)
+                    .Include(p => p.Poste)
+                    .Include(p => p.Poste.Departement)
+                    .Include(p => p.EmployeTaches)
+                        .ThenInclude(e => e.Tache)
+                    .ToList());
+            }
+        }
+
+        public bool EmployesCardVisible
+        {
+            get { return _employeCardVisible; }
+            set
+            {
+                _employeCardVisible = value;
+                OnPropertyChanged(nameof(EmployesCardVisible));
             }
         }
         public bool AjoutBouttonVisible
@@ -70,7 +121,15 @@ namespace Gestion_RH.Pages
                 OnPropertyChanged(nameof(AjoutBouttonVisible));
             }
         }
-        
+        public bool SuiviVisible
+        {
+            get { return _suiviVisible; }
+            set
+            {
+                _suiviVisible = value;
+                OnPropertyChanged(nameof(SuiviVisible));
+            }
+        }
         public bool AjoutEmployeVisible
         {
             get { return _ajoutEmployeVisible; }
@@ -157,6 +216,7 @@ namespace Gestion_RH.Pages
         {
             InitializeComponent();
             Taches = new ObservableCollection<Tache>();
+            ListEmployesCard = new ObservableCollection<Employe>();
 
             DataContext = this;
             AjoutVisible = false;
@@ -169,9 +229,17 @@ namespace Gestion_RH.Pages
             TaskVisible = false;
             AjoutEmployeVisible = false;
             AjoutBouttonVisible = true;
-        
+            SuiviVisible = false;
+            EmployesCardVisible = false;
         }
-
+        private void Choose_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null && btn.Tag is Employe employe)
+            {
+                AfficherEmployeDetails(employe);
+            }
+        }
 
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
@@ -271,11 +339,19 @@ namespace Gestion_RH.Pages
                 // ✅ Création d'une vue pour la recherche et le tri
                 _viewEmployes = CollectionViewSource.GetDefaultView(ListeEmployes); 
                 EmployesDataGrid.ItemsSource = _viewEmployes;
-            };
+            }
+            if (classe == "employesCard")
+            {
+                ChargerEmployesDepuisBDD();
+            }
             if (classe == "departements")
             {
                 var departements = dbContext.Departements.ToList();
                 DepartementsDataGrid.ItemsSource = departements;
+            }
+            if (classe == "tachesCard")
+            {
+                ChargerTachesDepuisBDD();
             }
             if (classe == "roles")
             {
@@ -326,15 +402,19 @@ namespace Gestion_RH.Pages
                     case "employes":
                         EmployesVisible = !EmployesVisible;
                         break;
+                    case "tachesCard":
+                        TaskVisible = !TaskVisible;
+                        break;
+                    case "employesCard":
+                        EmployesCardVisible = !EmployesCardVisible;
+                        break;
                 }
             }
         }
 
         private void Suivi_Click(object sender, RoutedEventArgs e)
         {
-            TaskVisible = !TaskVisible;
-
-            ChargerTachesDepuisBDD();
+            SuiviVisible = !SuiviVisible;
         }
         private void Detail_Click(object sender, RoutedEventArgs e)
         {

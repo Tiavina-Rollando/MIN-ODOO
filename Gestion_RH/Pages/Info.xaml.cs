@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,13 +24,36 @@ namespace Gestion_RH.Pages
     /// <summary>
     /// Logique d'interaction pour Info.xaml
     /// </summary>
-    public partial class Info : Page
+    public partial class Info : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private Employe employe;
+        private ObservableCollection<Tache> _taches;
+        public ObservableCollection<Tache> Taches
+        {
+            get => _taches;
+            set
+            {
+                _taches = value;
+                OnPropertyChanged(nameof(Taches));
+            }
+        }
         public Info(Employe emp)
         {
             InitializeComponent();
             employe = emp;
+            DataContext = this;
+            if (employe?.EmployeTaches != null)
+            {
+                Taches = new ObservableCollection<Tache>(employe.EmployeTaches.Select(et => et.Tache));
+                MessageBox.Show(Taches.First().Nom);
+            }
+
 
             NomTextBox.Text = employe.Nom;
             PrenomTextBox.Text = employe.Prenom;
@@ -46,13 +71,13 @@ namespace Gestion_RH.Pages
                 PhotoBrush.ImageSource = ByteArrayToImage(employe.Photo);
                 AjouterPhotoBoutton.Visibility = Visibility.Collapsed;
                 ChangerPhotoBoutton.Visibility = Visibility.Visible;
-                SupprimerPhotoBoutton.Visibility = Visibility.Visible;
+                //SupprimerPhotoBoutton.Visibility = Visibility.Visible;
             }
             else
             {
                 AjouterPhotoBoutton.Visibility = Visibility.Visible;
                 ChangerPhotoBoutton.Visibility = Visibility.Collapsed;
-                SupprimerPhotoBoutton.Visibility = Visibility.Collapsed;
+                //SupprimerPhotoBoutton.Visibility = Visibility.Collapsed;
                 PhotoBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Assets/pdpVide.jpg"));
             }
             if (employe.Empreinte != null && employe.Empreinte.Length > 0)
@@ -180,6 +205,13 @@ namespace Gestion_RH.Pages
         {
             NavigationService.Navigate(new Accueil()); // Naviguer vers la page d'accueil
         }
-
+        private void Detail_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null && button.Tag is Tache task)
+            {
+                NavigationService.Navigate(new Detail(task));
+            }
+        }
     }
 }

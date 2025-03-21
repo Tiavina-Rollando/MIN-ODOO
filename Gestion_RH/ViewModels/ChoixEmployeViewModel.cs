@@ -6,18 +6,18 @@ using System.Windows.Media.Imaging;
 using Gestion_RH.Classes;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gestion_RH.ViewModels  // Assure-toi que cet espace de noms est correct
+namespace Gestion_RH.ViewModels
 {
     public class ChoixEmployeViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Employe> _listeEmployes;
-        public ObservableCollection<Employe> ListeEmployes
+        private ObservableCollection<Employe> _listeEmployesCard;
+        public ObservableCollection<Employe> ListeEmployesCard
         {
-            get => _listeEmployes;
+            get => _listeEmployesCard;
             set
             {
-                _listeEmployes = value;
-                OnPropertyChanged(nameof(ListeEmployes));
+                _listeEmployesCard = value;
+                OnPropertyChanged(nameof(ListeEmployesCard));
             }
         }
 
@@ -30,7 +30,7 @@ namespace Gestion_RH.ViewModels  // Assure-toi que cet espace de noms est correc
         {
             using (var db = new ApplicationDbContext())
             {
-                ListeEmployes = new ObservableCollection<Employe>(db.Employes
+                ListeEmployesCard = new ObservableCollection<Employe>(db.Employes
                     .Include(p => p.Poste)
                     .Include(p => p.Poste.Departement)
                     .ToList());

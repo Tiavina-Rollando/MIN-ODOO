@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Gestion_RH.Classes;
+using Microsoft.Win32;
 
 namespace Gestion_RH.Fenetres
 {
@@ -43,6 +45,8 @@ namespace Gestion_RH.Fenetres
 
         private void Inserer_Click(object sender, RoutedEventArgs e)
         {
+            byte[] photoBytes = File.ReadAllBytes("../../../Assets/pdpVide.jpg");
+
             Employe novice = new Employe()
             {
                 Nom = NomEmployeTextBox.Text.Trim(),
@@ -50,6 +54,7 @@ namespace Gestion_RH.Fenetres
                 Email = EmailEmployeTextBox.Text.Trim(),
                 Adresse = AdresseEmployeTextBox.Text.Trim(),
                 Tel = TelEmployeTextBox.Text.Trim(),
+                Photo = photoBytes,
                 Sexe = ((ComboBoxItem)SexeEmployeComboBox.SelectedItem).Content.ToString() == "Homme",
                 IdNation = (int)PaysComboBox.SelectedValue,
                 IdPoste = (int)PostesComboBox.SelectedValue,
