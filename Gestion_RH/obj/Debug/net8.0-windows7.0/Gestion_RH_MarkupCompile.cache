@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\App.xaml
-12-1431679199
+1576568191
 11382846367
-49-882122816
+77-1225114875
 243420698374
-Fenetres\AddConsigne.xaml;Fenetres\AddEmploye.xaml;Fenetres\AddTask.xaml;Fenetres\ChoixEmploye.xaml;Fenetres\UpdateEmploye.xaml;Fenetres\UpdateTache.xaml;MainWindow.xaml;Pages\Accueil.xaml;Pages\Detail.xaml;Pages\Info.xaml;Pages\Login.xaml;Pages\Suivie.xaml;
+Fenetres\AddConsigne.xaml;Fenetres\AddEmploye.xaml;Fenetres\AddTask.xaml;Fenetres\ChoixEmploye.xaml;Fenetres\UpdateEmploye.xaml;Fenetres\UpdateTache.xaml;MainWindow.xaml;Pages\Accueil.xaml;Pages\BulletinPaie.xaml;Pages\Conge.xaml;Pages\Detail.xaml;Pages\Info.xaml;Pages\Login.xaml;Pages\Parametre.xaml;Pages\Suivie.xaml;
 
 False
 

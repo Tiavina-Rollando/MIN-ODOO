@@ -61,7 +61,19 @@ namespace Gestion_RH.Classes
         public Nation? Nation { get; set; }
         public Role? Role { get; set; }
 
-        public ICollection<EmployeTache> EmployeTaches { get; set; }
+        // Relations
+        public ICollection<Cv> Cv{ get; set; } = new List<Cv>();
+        public ICollection<DocRH> DocRH{ get; set; } = new List<DocRH>();
+        public ICollection<EmployeTache> EmployeTaches { get; set; } = new List<EmployeTache>();
+        public ICollection<Absence> Absences{ get; set; } = new List<Absence>();
+        public ICollection<Conge> Conges{ get; set; } = new List<Conge>();
+        public ICollection<Contrat> Contrats { get; set; } = new List<Contrat>();
+        public ICollection<HeureSup> HeureSups{ get; set; } = new List<HeureSup>();
+        public ICollection<Retard> Retards{ get; set; } = new List<Retard>();
+        public ICollection<Pointage> Pointages { get; set; } = new List<Pointage>();
+        public ICollection<PrimesEmploye>? PrimesEmployes { get; set; }
+        public ICollection<RetenuesEmploye>? RetenuesEmployes { get; set; }
+
 
         public string NomPoste => Poste?.Nom ?? string.Empty;
         public string NomDepartement => Poste?.Departement?.Nom ?? string.Empty;

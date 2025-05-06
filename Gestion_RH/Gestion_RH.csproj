@@ -9,9 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\add-icon.png" />
     <None Remove="Assets\ca.png" />
     <None Remove="Assets\coche-verte.png" />
+    <None Remove="Assets\menu.png" />
+    <None Remove="Assets\notification.png" />
     <None Remove="Assets\pdpVide.jpg" />
+    <None Remove="Assets\task.png" />
     <None Remove="Assets\trash-icon.png" />
     <None Remove="Services\script.sql" />
   </ItemGroup>
@@ -19,7 +23,10 @@
   <ItemGroup>
     <Resource Include="Assets\ca.png" />
     <Resource Include="Assets\coche-verte.png" />
+    <Resource Include="Assets\menu.png" />
+    <Resource Include="Assets\notification.png" />
     <Resource Include="Assets\pdpVide.jpg" />
+    <Resource Include="Assets\add-icon.png" />
     <Content Include="Services\script.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -43,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\task.png" />
     <Resource Include="Assets\trash-icon.png" />
   </ItemGroup>
 

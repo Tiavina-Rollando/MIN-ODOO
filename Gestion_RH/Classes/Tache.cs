@@ -15,6 +15,8 @@ namespace Gestion_RH.Classes
         public DateTime? DateRendu { get; set; } // Peut être null si la tâche n'est pas encore rendue
         public DateTime Deadline { get; set; }
         public bool Statut { get; set; } = false; // True = terminée, False = en cours
+        public decimal PrimeDeRisque { get; set; } = 0; 
+        public decimal PrimeObjectif { get; set; } = 0; 
 
         // Relations
         public ICollection<Support> Supports { get; set; } = new List<Support>();

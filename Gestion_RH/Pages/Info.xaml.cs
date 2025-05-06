@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -46,12 +47,16 @@ namespace Gestion_RH.Pages
         public Info(Employe emp)
         {
             InitializeComponent();
+            ((Storyboard)this.Resources["HideTaskPanel"]).Completed += (s, e) =>
+            {
+                TaskPanel.Visibility = Visibility.Collapsed;
+            };
             employe = emp;
             DataContext = this;
             if (employe?.EmployeTaches != null)
             {
                 Taches = new ObservableCollection<Tache>(employe.EmployeTaches.Select(et => et.Tache));
-                MessageBox.Show(Taches.First().Nom);
+                //MessageBox.Show(Taches.First().Nom);
             }
 
 
@@ -90,7 +95,18 @@ namespace Gestion_RH.Pages
             }
         }
 
+        private void BtnTasks_Click(object sender, RoutedEventArgs e)
+        {
+            TaskPanel.Visibility = Visibility.Visible;
+            var storyboard = (Storyboard)this.Resources["ShowTaskPanel"];
+            storyboard.Begin();
 
+        }
+        private void TextTasks_Click(object sender, RoutedEventArgs e)
+        {
+            var hide = (Storyboard)this.Resources["HideTaskPanel"];
+            hide.Begin();
+        }
         private BitmapImage ByteArrayToImage(byte[] byteArray)
         {
             using (MemoryStream ms = new MemoryStream(byteArray))
@@ -108,6 +124,15 @@ namespace Gestion_RH.Pages
             UpdateEmploye modifWindow = new UpdateEmploye(employe);
             modifWindow.ShowDialog();
 
+        }
+
+        private void Bull_Click(object sender, RoutedEventArgs e)
+        {
+            AfficherBulletin(employe);
+        }
+        public void AfficherBulletin(Employe employe)
+        {
+            NavigationService.Navigate(new BulletinPaie(employe));
         }
 
 

@@ -15,16 +15,11 @@ namespace Gestion_RH.Classes
         [Required]
         [MaxLength(255)]
         public string Nom { get; set; } = string.Empty;
-
-
         [ForeignKey("Departement")]
         public int IdDepartement { get; set; }
-
         public Departement? Departement { get; set; }
-
         public string NomDepartement => Departement?.Nom ?? string.Empty;
-
-
         public string StatutTexte => Statut ? "Occupé" : "Vaccant";
+        public ICollection<Contrat> Contrats { get; set; } = new List<Contrat>();
     }
 }

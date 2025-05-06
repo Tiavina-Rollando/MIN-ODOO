@@ -192,3 +192,9 @@ D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Ge
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Gestion_RH.genruntimeconfig.cache
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\ref\Gestion_RH.dll
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\bin\Debug\net8.0-windows7.0\FontAwesome.WPF.dll
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\BulletinPaie.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\BulletinPaie.baml
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\Conge.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\Conge.baml
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\Parametre.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\Parametre.baml

@@ -1,0 +1,110 @@
+LOGIN >	code
+ACCUEIL 
+	> Tableau de bord
+		
+		RH / ADMIN 
+		>> Nombre total des employes 
+		>> Statistiques sur les presences/absences du jour
+		>> Conges a approuver
+		>> Bulletins de paie generes ce mois
+		>> Recrutement en cours
+		>> Notifications importantes (contrats arrivant a terme, anniversaires de travail, etc ...)
+		>> Graphique de repartition par departement/poste
+		>> Calendrier des evenements RH (entretiens, reunions, formations)
+		
+		MANAGER
+		>> Avancement des taches ou projets (graphiques ou jauges)
+		>> Absences/conges de son equipe
+		>> Heures supplementaires recentes
+		>> Alertes : retards frequents, echeances de missions depassees
+		>> Performances individuelles (barres de progression ou icones)
+
+		EMPLOYE SIMPLE
+		>> Recapitulatif personnel (poste, department, anciennete)
+		>> Historique des pointages (presences, absences)
+		>> Solde de conges
+		>> Heures supplementaires
+		>> Dernier bulletin de paie telecharge
+		>> Taches assignees en cours
+		>> Notifications RH (ex : debut de formation, rappel entretien, etc...)
+	
+	> Employes
+		>> Liste
+		>> Ajout
+		>> Voir le profil complet d'un employe
+			>>> Voir fiche detaillee
+			>>> Modifier infos
+			>>> Ajouter une piece jointe (CV, diplomes, etc...)
+			>>> Voir bulletin de paie
+			>>> Voir historique de presences / absences
+			>>> Affecter une tache
+			>>> Changer de poste ou de departement
+			>>> Mettre fin au contrat
+			>>> Supprimer
+		>> Exporter la liste (PDF, Excel, ...)
+	> Taches
+		>> Liste
+		>> Ajout
+		>> Voir details d'une tache
+			>>> Voir fiche detaillee
+			>>> Modifier infos
+			>>> Ajouter une piece jointe (Support, Consignes, etc...)
+			>>> Suivi de l'etat
+			>>> Assigner a un ou plusieurs employes
+			>>> Supprimer
+		>> Exporter la liste (PDF, Excel, ...)
+
+	> Conges (Types : annuel, maladie, exceptionnel, maternite/paternite, absence justifiee)
+		>> Liste des demandes
+		>> Creer une demande (employe)
+		>> Voir details
+		>> Valider ou refuser 
+		>> Calendrier des conges (vue mensuelle)
+		>> Calcul automatique de solde/employe
+		>> Statistiques d'absence par mois/employes
+
+	> Pointages
+		>> Voir historique
+		>> Generer un rapport de presence/absence
+		>> Calcul automatique d'heures travaillees
+		>> Detection des retards/absences
+		>> Graphique de taux de presence par departement
+		>> Alerte de tentative de fraude
+		>> Exporter les donnees (PDF, excel)
+
+	> Paie 
+		>> Liste de bulletin de paie
+		>> Generer un bulletin de paie
+		>> Voir details d'un bulletin de paie
+		>> Modifier les composants d'un salaire
+		>> Exporter le bulletin (PDF)
+		>> Envoyer le bulletin par e-mail
+
+	> Parametres
+		>> Gestion es utilisateurs (Admin, Rh, Manager)
+		>> Definir les permissions
+		>> Changer mot de passe ou code secret
+		>> Configuration de l'entreprise (nom, logo, coordonnees, taux par defaut)
+		>> Donnees de bases 
+			>>> Listes 
+				>>>> roles 
+				>>>> departements 
+				>>>> postes 
+				>>>> nationnalites
+				>>>> types de contrat
+				>>>> types de conges
+		>> Parametre de paie
+			>>> Taux de cotisation (CNAPS, OSTIE, IRSA, etc...)
+			>>> Primes fices / variables
+			>>> Retenues personnalisables
+			>>> Modeles de bulletin de paie
+		>> Parametres de conge
+			>>> Nombre de jours de conge annuel par defaut
+			>>> Politique d'accumulation ou non des conges
+		>> Parametres de pointage
+			>>> Plage horaire de travail
+			>>> Tolerance de retard
+			>>> Association avec l'appareil Arduino (port COM, baudrate, etc...)
+		>> Notifications
+			>>> Parametres d'envoi d'email
+			>>> Modeles de messages pour paie, conge, retard, etc...

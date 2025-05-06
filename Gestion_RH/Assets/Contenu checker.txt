@@ -1,0 +1,58 @@
+1. INFORMATIONS SUR LES EMPLOYES
+	OK 	1.1. Fiche employe
+			nom, prenom, photo, contact, CIN, adresse, date de naissance, etc ...
+	
+	OK 	1.2. Informations professionnelles
+			poste, department, role, date d'embauche, statut (actif, inactif), etc ...
+
+		1.3. Fichiers joints
+			CV, diplomes, documents RH (contrat, lettres d'affectations, etc ...)
+
+2. GESTION DU TEMPS
+		2.1. Pointage (manuel, badgeuse, empreinte digitale, etc ...) 
+		2.2. Feuilles de temps ou rapport d'heure travaillees 
+		2.3. Gestion des presences et absences
+		2.4. Gestion des conges (demande, approbation, solde restant)
+		2.5. Heures supplementaires
+
+3. GESTION DES TACHES ET AFFECTATIONS
+	OK	3.1. Attribution des missions ou projets
+	OK	3.2. Suivi des deadlines et rendus
+	OK	3.3. Priorites et consignes
+	OK	3.4. Fichiers support
+	OK	3.5. Etat des taches (a faire, en cours, termine)
+
+4. SUIVI DE PERFORMANCE
+		4.1. Evaluations regulieres (mensuelles, trimestrielles, etc ...)
+		4.2. Notations ou scores
+		4.3. Historique des promotions / retrogradations
+		4.4. Suivi de la productivite
+
+5. GESTION DE LA PAIE
+		5.1. Salaire de base, prime, retenues
+		5.2. Bulletin de paie
+		5.3. Historique de paiements
+		5.4. Declarations fiscales et sociales
+
+6. RECRUTEMENT
+		6.1. Suivi des candidatures
+		6.2. Fiche de poste
+		6.3. Entretiens (dates, resultats)
+		6.4. Integration des nouveaux employes
+
+7. CONFORMITE ET SECURITE
+		7.1. Suivi des formations obligatoires (securite, hygiene, RGPD, etc ...)
+		7.2. Alertes en cas de non-conformite
+		7.3. Journal des acces / modifications
+
+8. FORMATION ET DEVELOPPEMENT
+		8.1. Catalogues de formations
+		8.2. Suivi des participations
+		8.3. Certifications obtenues
+		8.4. Plan de carriere et evolution
+
+9. PARAMETRES ET PERSONNALISATION
+		9.1. Gestion des utilisateurs et des roles (acces limite selon profils)
+		9.2. Multilingue si besoin
+		9.3. Notification et rappels
+		9.4. Tableau de bord personnalises

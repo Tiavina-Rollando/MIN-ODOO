@@ -9,6 +9,36 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Info">
     <Page.Resources>
+        <Storyboard x:Key="ShowTaskPanel">
+            <DoubleAnimation Storyboard.TargetName="TaskPanel"
+                 Storyboard.TargetProperty="Opacity"
+                 From="0" To="1" Duration="0:0:0.3" />
+            <DoubleAnimation Storyboard.TargetName="TaskPanel"
+                 Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                 From="-20" To="0" Duration="0:0:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="HideTaskPanel">
+            <DoubleAnimation Storyboard.TargetName="TaskPanel"
+             Storyboard.TargetProperty="Opacity"
+             From="1" To="0" Duration="0:0:0.3" />
+            <DoubleAnimation Storyboard.TargetName="TaskPanel"
+             Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)"
+             From="0" To="-20" Duration="0:0:0.3" />
+        </Storyboard>
+
+        <Style x:Key="NoHoverButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="RoundedButtonStyle" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -43,10 +73,8 @@
             <ColumnDefinition Width="250"/>
             <!-- ✅ Contenu (scrollable) -->
             <ColumnDefinition Width="*"/>
-            <!-- ✅ Liste de Tache (scrollable) -->
-            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Background="#2C3E50" Padding="10">
+        <Border Grid.Column="0" x:Name="TaskIcon" Visibility="Visible" Background="#2C3E50" Padding="10">
             <Grid>
                 <!-- Définition des lignes pour organiser l'affichage -->
                 <Grid.RowDefinitions>
@@ -62,6 +90,12 @@
                 <StackPanel Grid.Row="0">
                     <TextBlock Text="Menu" FontSize="32" Foreground="White" HorizontalAlignment="Center"/>
                     <Separator/>
+                    <Button Cursor="Hand" Height="45" Click="BtnTasks_Click" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Tasks" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Ses Tâches" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
                     <Button Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="Home" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
@@ -92,6 +126,12 @@
                             <TextBlock Text="Changer la photo" VerticalAlignment="Center" HorizontalAlignment="Right" />
                         </StackPanel>
                     </Button>
+                    <Button Cursor="Hand" Height="45" Margin="5" x:Name="BulletinBoutton" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Click="Bull_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="File" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                            <TextBlock Text="Bulletin de paie" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Button>
 
                     <!--<Button Cursor="Hand" FontSize="16" x:Name="SupprimerPhotoBoutton" Style="{StaticResource RoundedButtonStyle}"   Content="Supprimer la photo" Click="DeletePhoto_Click" Margin="5" Height="35" Width="200" Visibility="Collapsed"/>-->
                     <Separator/>
@@ -110,12 +150,13 @@
             </Grid>
         </Border>
         
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden">
             <Border Background="White" CornerRadius="15" Padding="20" Margin="20"
             BorderBrush="#D1D1D1" BorderThickness="1">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                 </Border.Effect>
+
 
                 <StackPanel>
                     <!-- ✅ Image circulaire avec effet d’ombre -->
@@ -126,9 +167,8 @@
                         </Ellipse.Fill>
                     </Ellipse>
 
-                    <TextBlock Text="Informations sur l'employé" FontSize="22" FontWeight="Bold"
+                    <TextBlock Text="Fiche l'employé" FontSize="22" FontWeight="Bold"
                        Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,20"/>
-
                     <!-- ✅ Utilisation d'UniformGrid pour un affichage propre -->
                     <UniformGrid Columns="2" HorizontalAlignment="Center" Margin="10">
 
@@ -167,20 +207,6 @@
                         </StackPanel>
                         <TextBox x:Name="AdresseTextBox" Height="30" Width="300" Margin="5" IsReadOnly="True"/>
 
-                        <!-- 📌 Poste -->
-                        <StackPanel Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="💼" FontSize="18" VerticalAlignment="Center"/>
-                            <TextBlock Text="Poste :" FontWeight="Bold" Margin="5,5,0,0"/>
-                        </StackPanel>
-                        <TextBox x:Name="PosteTextBox" Height="30" Width="300" Margin="5" IsReadOnly="True"/>
-
-                        <!-- 📌 Département -->
-                        <StackPanel Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="🏢" FontSize="18" VerticalAlignment="Center"/>
-                            <TextBlock Text="Département :" FontWeight="Bold" Margin="5,5,0,0"/>
-                        </StackPanel>
-                        <TextBox x:Name="DepartementTextBox" Height="30" Width="300" Margin="5" IsReadOnly="True"/>
-
                         <!-- 📌 Genre -->
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <TextBlock Text="🚻" FontSize="18" VerticalAlignment="Center"/>
@@ -202,6 +228,26 @@
                         </StackPanel>
                         <DatePicker x:Name="DateNaissancePicker" Height="30" Width="300" Margin="5" IsEnabled="False"/>
 
+                    </UniformGrid>
+
+                    <TextBlock Text="Informations professionnelles" FontSize="22" FontWeight="Bold"
+                        Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,20"/>
+                        <!-- ✅ Utilisation d'UniformGrid pour un affichage propre -->
+                        <UniformGrid Columns="2" HorizontalAlignment="Center" Margin="10">
+
+                            <!-- 📌 Poste -->
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="💼" FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Poste :" FontWeight="Bold" Margin="5,5,0,0"/>
+                        </StackPanel>
+                        <TextBox x:Name="PosteTextBox" Height="30" Width="300" Margin="5" IsReadOnly="True"/>
+
+                        <!-- 📌 Département -->
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="🏢" FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Département :" FontWeight="Bold" Margin="5,5,0,0"/>
+                        </StackPanel>
+                        <TextBox x:Name="DepartementTextBox" Height="30" Width="300" Margin="5" IsReadOnly="True"/>
 
                         <!-- 📌 Date d'integration -->
                         <StackPanel Orientation="Horizontal" Margin="5">
@@ -212,13 +258,28 @@
 
                     </UniformGrid>
 
+                    <TextBlock Text="Fichiers joints" FontSize="22" FontWeight="Bold"
+                        Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,20"/>
+                        
+                    <TextBlock Text="Documents RH" FontSize="22" FontWeight="Bold"
+                        Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,20"/>
+
                 </StackPanel>
             </Border>
         </ScrollViewer>
+        
+        <ScrollViewer x:Name="TaskPanel" Grid.Column="0" VerticalScrollBarVisibility="Hidden" Visibility="Collapsed" Opacity="0" RenderTransformOrigin="0.5,0">
+            <ScrollViewer.RenderTransform>
+                <TranslateTransform Y="-20"/>
+            </ScrollViewer.RenderTransform>
 
-        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
             <Border  Background="#2C3E50" Padding="10">
                 <StackPanel>
+                    <Button Cursor="Hand" Height="45" Margin="5" Style="{StaticResource RoundedButtonStyle}" Click="TextTasks_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="ArrowCircleLeft" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
+                        </StackPanel>
+                    </Button>
                     <TextBlock Text="Tâches" FontSize="32" Foreground="White" HorizontalAlignment="Center"/>
                     <Separator/>
                     <WrapPanel Orientation="Vertical" Margin="10">

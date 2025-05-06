@@ -110,7 +110,7 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                 </Border.Effect>
-
+                
                 <StackPanel>
                     <TextBlock Text="Détails sur la tâche" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,20"/>
 
@@ -142,14 +142,14 @@
                         <!-- 📌 Date d'expedition -->
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <TextBlock Text="🏢" FontSize="18" VerticalAlignment="Center"/>
-                            <TextBlock Text="Date d'intégration :" FontWeight="Bold" Margin="5,5,0,0"/>
+                            <TextBlock Text="Date d'expedition :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
                         <DatePicker x:Name="DateExpeditionPicker" Height="30" Width="300" Margin="5" IsEnabled="False"/>
 
                         <!-- 📌 Date deadline -->
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <TextBlock Text="🏢" FontSize="18" VerticalAlignment="Center"/>
-                            <TextBlock Text="Date d'intégration :" FontWeight="Bold" Margin="5,5,0,0"/>
+                            <TextBlock Text="Deadline :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
                         <DatePicker x:Name="DateDeadlinePicker" Height="30" Width="300" Margin="5" IsEnabled="False"/>
 

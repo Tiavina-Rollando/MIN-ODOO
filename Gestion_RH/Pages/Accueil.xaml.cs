@@ -29,6 +29,7 @@ namespace Gestion_RH.Pages
     {
         private bool _ajoutVisible;
         private bool _afficherVisible;
+        private bool _parametreVisible;
         private bool _departementsVisible;
         private bool _postesVisible;
         private bool _nationsVisible;
@@ -176,6 +177,16 @@ namespace Gestion_RH.Pages
                 OnPropertyChanged(nameof(AjoutVisible));
             }
         }
+
+        public bool ParametreVisible
+        {
+            get { return _parametreVisible; }
+            set
+            {
+                _parametreVisible = value;
+                OnPropertyChanged(nameof(ParametreVisible));
+            }
+        }
         public bool AfficherVisible
         {
             get { return _afficherVisible; }
@@ -230,6 +241,7 @@ namespace Gestion_RH.Pages
             
             DataContext = this;
             AjoutVisible = false;
+            ParametreVisible = false;
             AfficherVisible = false;
             DepartementsVisible = false;
             PostesVisible = false;
@@ -280,27 +292,6 @@ namespace Gestion_RH.Pages
             NavigationService.Navigate(new Info(employe));
         }
 
-
-        private void EmployeSelectionne(object sender, SelectionChangedEventArgs e)
-        {
-            Employe employeSelectionne = new Employe();
-            employeSelectionne = (Employe)EmployesDataGrid.SelectedItem;
-
-            if (employeSelectionne is Employe employe)
-            {
-                MessageBoxResult result = MessageBox.Show(
-                    $"Voir détails sur {employe?.Nom ?? ""} {employe?.Prenom ?? ""}?",
-                    "Confirmation",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    AfficherEmployeDetails(employe);
-                }
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
@@ -312,82 +303,29 @@ namespace Gestion_RH.Pages
         {
             AjoutVisible = !AjoutVisible;
         }
+        private void Parametre_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Parametre());
+        }
+        
 
         private void AfficherListe_Click(object sender, RoutedEventArgs e)
         {
             AfficherVisible = !AfficherVisible;
         }
 
-        private void txtRecherche_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string filtre = txtRecherche.Text.ToLower();
-            _viewEmployes.Filter = item =>
-            {
-                if (item is Employe employe)
-                {
-                    return employe.Nom.ToLower().Contains(filtre) || employe.Prenom.ToLower().Contains(filtre);
-                }
-                return false;
-            };
-        }
-
         public void Afficher(string classe)
         {
             using var dbContext = new ApplicationDbContext();
 
-            if (classe == "employes")
-            {
-                var employes = dbContext.Employes
-                    .Include(p => p.Nation)
-                    .Include(p => p.Role)
-                    .Include(p => p.Poste)
-                    .Include(p => p.Poste.Departement)
-                    .ToList();
-                
-                ListeEmployes = new ObservableCollection<Employe>(employes);
-
-                // ✅ Création d'une vue pour la recherche et le tri
-                _viewEmployes = CollectionViewSource.GetDefaultView(ListeEmployes); 
-                EmployesDataGrid.ItemsSource = _viewEmployes;
-            }
             if (classe == "employesCard")
             {
                 ChargerEmployesDepuisBDD();
-            }
-            if (classe == "departements")
-            {
-                var departements = dbContext.Departements.ToList();
-                DepartementsDataGrid.ItemsSource = departements;
             }
             if (classe == "tachesCard")
             {
                 ChargerTachesDepuisBDD();
             }
-            if (classe == "roles")
-            {
-                var roles = dbContext.Roles.ToList();
-                RolesDataGrid.ItemsSource = roles;
-            }
-            if (classe == "nations")
-            {
-                var nations = dbContext.Nations.ToList();
-                NationsDataGrid.ItemsSource = nations;
-            }
-            if (classe == "postes")
-            {
-                var postes = dbContext.Postes
-                .Include(p => p.Departement)
-                .Select(p => new
-                {
-                    p.Id,
-                    p.Nom,
-                    StatutTexte = p.Statut ? "Occupé" : "Vacant",
-                    NomDepartement = p.Departement != null ? p.Departement.Nom : "Non attribué"
-                })
-                .ToList();
-                PostesDataGrid.ItemsSource = postes;
-            }
-
         }
         private void Afficher_Click(object sender, RoutedEventArgs e)
         {
@@ -433,6 +371,11 @@ namespace Gestion_RH.Pages
             {
                 NavigationService.Navigate(new Detail(task));
             }
+        }
+
+        private void Conge_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Conge());
         }
 
         private void Supprimer_Click(object sender, RoutedEventArgs e)
