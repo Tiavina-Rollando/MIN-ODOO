@@ -17,5 +17,6 @@ namespace Gestion_RH.Classes
         [ForeignKey("Employe")]
         public int EmployeId { get; set; }
         public Employe? Employe { get; set; }
+        public string NomEmploye => Employe?.Nom +" "+ Employe?.Prenom ?? string.Empty;
     }
 }

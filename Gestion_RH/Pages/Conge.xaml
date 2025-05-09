@@ -42,6 +42,17 @@
             </Setter>
         </Style>
 
+        <!-- Style des lignes alternées -->
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="White"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="Background" Value="#D6EAF8"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+
         <Style x:Key="RoundedButtonStyle" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -98,11 +109,7 @@
                         </StackPanel>
                     </Button>
                     <Separator/>
-                    <Button Height="200" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <Calendar Name="cal"/>
-                        </StackPanel>
-                    </Button>
+                    <Calendar Name="calConge" SelectedDatesChanged="calConge_SelectedDatesChanged" />
                     <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="ClockOutline" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
@@ -127,12 +134,43 @@
         </Border>
 
         <ScrollViewer  Grid.Column="1" VerticalScrollBarVisibility="Auto" Visibility="Visible">
-            <Border Background="White" CornerRadius="15" Padding="20" Margin="20" BorderBrush="#D1D1D1" BorderThickness="1">
-                <Border.Effect>
-                    <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
-                </Border.Effect>
+            <StackPanel>
+                <!-- 📌 Liste des Employés -->
+                <TextBlock Text="Liste des congés" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" Visibility="{Binding EmployesVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
-            </Border>
+                <DataGrid x:Name="CongesDataGrid" AutoGenerateColumns="False"  CanUserAddRows="False" Visibility="{Binding CongesVisible, Converter={StaticResource BoolToVisConverter}}" Margin="0,10,0,30" CanUserSortColumns="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Motif" Binding="{Binding Motif}" Width="300" CanUserSort="True"/>
+                        <DataGridTextColumn Header="Date début" Binding="{Binding Debut}" Width="200" CanUserSort="True"/>
+                        <DataGridTextColumn Header="Date fin" Binding="{Binding Fin}" Width="200" CanUserSort="True"/>
+                        <DataGridTextColumn Header="Titulaire" Binding="{Binding NomEmploye}" Width="*" CanUserSort="True"/>
+                        <DataGridTemplateColumn Header="Statut" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Image Width="20" Height="20" HorizontalAlignment="Left">
+                                            <Image.Style>
+                                                <Style TargetType="Image">
+                                                    <Setter Property="Source" Value="../Assets/en-cours.png"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Statut}" Value="Terminé">
+                                                            <Setter Property="Source" Value="../Assets/coche-verte.png"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Statut}" Value="À venir">
+                                                            <Setter Property="Source" Value="../Assets/notification.png"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                        <TextBlock Text="{Binding Statut}" HorizontalAlignment="Center" Foreground="Black"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
         </ScrollViewer>
         
         <ScrollViewer x:Name="NotificationPanel" Grid.Column="0" VerticalScrollBarVisibility="Auto" Visibility="Collapsed" Opacity="0" RenderTransformOrigin="0.5,0">
