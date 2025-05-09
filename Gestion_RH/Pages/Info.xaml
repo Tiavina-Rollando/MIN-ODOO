@@ -260,7 +260,21 @@
 
                     <TextBlock Text="Fichiers joints" FontSize="22" FontWeight="Bold"
                         Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,20"/>
-                        
+                    
+                    <ItemsControl Name="ListView" ItemsSource="{Binding Lista}" Margin="10">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="500" CornerRadius="10" Padding="10" Margin="5">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding NomFichier}" FontWeight="Bold" Foreground="#2C3E50"/>
+                                        <Button Content="Télécharger"  Style="{StaticResource RoundedButtonStyle}" Width="100" Click="DownloadSupport_Click" Tag="{Binding Id}" Margin="10,5,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+
                     <TextBlock Text="Documents RH" FontSize="22" FontWeight="Bold"
                         Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,20"/>
 

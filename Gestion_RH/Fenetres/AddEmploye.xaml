@@ -136,10 +136,7 @@
                             <TextBlock Text="Date d'intégration :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
                         <DatePicker x:Name="DateIntegrationEmployePicker" Height="30" Width="300" Margin="5"/>
-
-
                     </UniformGrid>
-
                     <Button Foreground="White" Style="{StaticResource RoundedButtonStyle}"  Content="Ajouter" Click="Inserer_Click" Margin="10,10,10,10" Height="30" Width="200"/>
                 </StackPanel>
 

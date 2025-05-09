@@ -44,15 +44,41 @@ namespace Gestion_RH.Pages
                 OnPropertyChanged(nameof(Taches));
             }
         }
+
+        private ObservableCollection<Cv> _lista = new ObservableCollection<Cv>();
+        public ObservableCollection<Cv> Lista
+        {
+            get => _lista;
+            set
+            {
+                _lista = value;
+                OnPropertyChanged(nameof(Lista));
+            }
+        }
+        public void ChargerCvDepuisBDD(Employe emp)
+        {
+            foreach (var cv in emp.Cv.ToList())
+            {
+                MessageBox.Show(cv.NomFichier);
+                Lista.Add(cv);
+            }
+
+        }
         public Info(Employe emp)
         {
             InitializeComponent();
+
+
             ((Storyboard)this.Resources["HideTaskPanel"]).Completed += (s, e) =>
             {
                 TaskPanel.Visibility = Visibility.Collapsed;
             };
             employe = emp;
+
             DataContext = this;
+            
+            ChargerCvDepuisBDD(employe);
+            
             if (employe?.EmployeTaches != null)
             {
                 Taches = new ObservableCollection<Tache>(employe.EmployeTaches.Select(et => et.Tache));
@@ -238,5 +264,39 @@ namespace Gestion_RH.Pages
                 NavigationService.Navigate(new Detail(task));
             }
         }
+
+        private void DownloadSupport_Click(object sender, RoutedEventArgs e)
+        {
+            // On suppose que l'ID du support est passé via le Tag du bouton
+            int cvId = Convert.ToInt32(((Button)sender).Tag);
+
+            using (var context = new ApplicationDbContext())
+            {
+                // Récupérer le support en utilisant l'ID
+                var cv = context.Cvs.FirstOrDefault(s => s.Id == cvId);
+
+                if (cv != null)
+                {
+                    // Créer un SaveFileDialog pour permettre à l'utilisateur de choisir l'emplacement du fichier
+                    SaveFileDialog saveFileDialog = new SaveFileDialog
+                    {
+                        Filter = "Tous les fichiers (*.*)|*.*",
+                        FileName = "fichier_support"  // Nom par défaut
+                    };
+
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        // Écrire le tableau de bytes dans le fichier spécifié
+                        File.WriteAllBytes(saveFileDialog.FileName, cv.Fichier);
+                        MessageBox.Show("Fichier téléchargé avec succès !");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Support non trouvé.");
+                }
+            }
+        }
+
     }
 }

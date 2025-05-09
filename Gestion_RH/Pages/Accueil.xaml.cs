@@ -107,6 +107,7 @@ namespace Gestion_RH.Pages
                    .Include(p => p.Nation)
                     .Include(p => p.Role)
                     .Include(p => p.Poste)
+                    .Include(p => p.Cv)
                     .Include(p => p.Poste.Departement)
                     .Include(p => p.EmployeTaches)
                         .ThenInclude(e => e.Tache)

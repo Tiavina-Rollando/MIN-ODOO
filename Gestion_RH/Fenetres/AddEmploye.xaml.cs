@@ -42,7 +42,34 @@ namespace Gestion_RH.Fenetres
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        private void AddCV_Click(int id)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Tous les fichiers (*.*)|*.*",
+                Title = "Sélectionner un fichier"
+            };
 
+            if (openFileDialog.ShowDialog() == true)
+            {
+                byte[] fileBytes = File.ReadAllBytes(openFileDialog.FileName);
+                Cv CV = new Cv
+                    {
+                        NomFichier = System.IO.Path.GetFileName(openFileDialog.FileName),
+                        Fichier = fileBytes,
+                        EmployeId = id
+                    };
+            
+                if (!string.IsNullOrEmpty(CV.NomFichier))
+                {
+                    using var dbContext = new ApplicationDbContext();
+
+                    dbContext.Cvs.Add(CV);
+                    dbContext.SaveChanges();
+                    MessageBox.Show("Curriculum vitae bien ajouté.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
         private void Inserer_Click(object sender, RoutedEventArgs e)
         {
             byte[] photoBytes = File.ReadAllBytes("../../../Assets/pdpVide.jpg");
@@ -73,6 +100,15 @@ namespace Gestion_RH.Fenetres
 
                 NomEmployeTextBox.Clear();
                 PrenomEmployeTextBox.Clear();
+                // Confirmation ajout de CV
+
+                var resultat = MessageBox.Show("Voulez-vous ajouter un CV pour cet employé ?", "Ajouter CV", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (resultat == MessageBoxResult.Yes)
+                {
+                    AddCV_Click(novice.Id);
+                }
+
 
             }
             else
