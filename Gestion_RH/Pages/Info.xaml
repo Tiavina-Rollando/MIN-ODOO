@@ -96,12 +96,6 @@
                             <TextBlock Text="Ses Tâches" VerticalAlignment="Center" HorizontalAlignment="Right" />
                         </StackPanel>
                     </Button>
-                    <Button Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="Home" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
-                            <TextBlock Text="Accueil" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                        </StackPanel>
-                    </Button>
                     <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}" Click="UpdateEmploye_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="Edit" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
@@ -266,15 +260,23 @@
                             <DataTemplate>
                                 <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="500" CornerRadius="10" Padding="10" Margin="5">
                                     <StackPanel>
-                                        <TextBlock Text="{Binding NomFichier}" FontWeight="Bold" Foreground="#2C3E50"/>
+                                        <Button Click="SupprimerCV_Click" Tag="{Binding Id}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+                                            <Image Source="../Assets/trash-icon.png" Width="20" Height="20"/>
+                                        </Button>
+                                        <TextBlock Text="{Binding NomFichier}" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#2C3E50"/>
                                         <Button Content="Télécharger"  Style="{StaticResource RoundedButtonStyle}" Width="100" Click="DownloadSupport_Click" Tag="{Binding Id}" Margin="10,5,0,0"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-
-
+                    <!-- Bouton Ajouter un fichier -->
+                    <Button Click="AddCV_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" Margin="10">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="../Assets/add-icon.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock Text="Ajouter un fichier" FontWeight="SemiBold" Foreground="#2C3E50"/>
+                        </StackPanel>
+                    </Button>
                     <TextBlock Text="Documents RH" FontSize="22" FontWeight="Bold"
                         Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,20"/>
 

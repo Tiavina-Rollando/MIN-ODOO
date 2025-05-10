@@ -45,7 +45,7 @@ namespace Gestion_RH.Pages
             }
         }
 
-        private ObservableCollection<Cv> _lista = new ObservableCollection<Cv>();
+        private ObservableCollection<Cv> _lista;
         public ObservableCollection<Cv> Lista
         {
             get => _lista;
@@ -57,9 +57,9 @@ namespace Gestion_RH.Pages
         }
         public void ChargerCvDepuisBDD(Employe emp)
         {
+            _lista =  new ObservableCollection<Cv>();
             foreach (var cv in emp.Cv.ToList())
             {
-                MessageBox.Show(cv.NomFichier);
                 Lista.Add(cv);
             }
 
@@ -297,6 +297,64 @@ namespace Gestion_RH.Pages
                 }
             }
         }
+        private void AddCV_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Tous les fichiers (*.*)|*.*",
+                Title = "Sélectionner un fichier"
+            };
 
+            if (openFileDialog.ShowDialog() == true)
+            {
+                byte[] fileBytes = File.ReadAllBytes(openFileDialog.FileName);
+                Cv CV = new Cv
+                {
+                    NomFichier = System.IO.Path.GetFileName(openFileDialog.FileName),
+                    Fichier = fileBytes,
+                    EmployeId = employe.Id
+                };
+
+                if (!string.IsNullOrEmpty(CV.NomFichier))
+                {
+                    using var dbContext = new ApplicationDbContext();
+
+                    dbContext.Cvs.Add(CV);
+                    dbContext.SaveChanges();
+                    MessageBox.Show("Curriculum vitae bien ajouté.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Lista.Add(CV);
+                }
+            }
+        }
+        private void SupprimerCV_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is int id)
+            {
+                // Demande de confirmation
+                MessageBoxResult result = MessageBox.Show(
+                    "Êtes-vous sûr de vouloir supprimer cette pièce?",
+                    "Confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    using var dbContext = new ApplicationDbContext();
+
+                    var cv = dbContext.Cvs.Find(id);
+                    if (cv != null)
+                    {
+                        dbContext.Cvs.Remove(cv);
+                        dbContext.SaveChanges();
+                        MessageBox.Show("Pièce supprimée avec succès !");
+                        var element = Lista.FirstOrDefault(cv => cv.Id == id);
+                        if (element != null)
+                        {
+                            Lista.Remove(element);
+                        }
+                    }
+                };
+            }
+        }
     }
 }

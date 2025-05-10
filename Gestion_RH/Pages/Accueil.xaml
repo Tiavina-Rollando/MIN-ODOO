@@ -100,7 +100,7 @@
                 <StackPanel Grid.Row="0">
                     <TextBlock Text="Menu" FontSize="32" Foreground="White" HorizontalAlignment="Center"/>
                     <Separator/>
-                    <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                    <Button Cursor="Hand" Height="45" Margin="5" Click="NewHome_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
                         <StackPanel Orientation="Horizontal">
                             <fa:ImageAwesome Icon="Home" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
                             <TextBlock Text="Accueil" VerticalAlignment="Center" HorizontalAlignment="Right" />

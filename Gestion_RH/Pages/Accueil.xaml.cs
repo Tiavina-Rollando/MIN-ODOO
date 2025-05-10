@@ -450,6 +450,10 @@ namespace Gestion_RH.Pages
             }
         }
 
+        private void NewHome_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Accueil());
+        }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show(

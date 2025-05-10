@@ -75,26 +75,44 @@ namespace Gestion_RH.Pages
         }
         public void ChargerSupportDepuisBDD(Tache task)
         {
-            foreach (var support in task.Supports.ToList())
+            using (var context = new ApplicationDbContext())
             {
-                SupportLista.Add(support);
+                List<Support> supports = context.Supports
+                .Where(c => c.TacheId == task.Id)
+                .ToList();
+                foreach (var support in supports.ToList())
+                {
+                    SupportLista.Add(support);
+                }
             }
-           
         }
         public Detail(Tache task)
         {
             InitializeComponent();
-            tache = task;
+            var tacheId = task.Id;
+
+            using var dbContext = new ApplicationDbContext();
+
+            var tacheFound = dbContext.Taches
+                .Include(p => p.EmployeTaches)
+                    .ThenInclude(e => e.Employe)
+                        .ThenInclude(d => d.Poste.Departement)
+                .Where(c => c.Id == tacheId)
+                .FirstOrDefault();
+
+            if (tacheFound != null)
+            {
+                tache = tacheFound;
+            }
+
             SupportLista = new ObservableCollection<Support>();
-            DataContext = this;
 
             ChargerSupportDepuisBDD(tache);
-
 
             var responsable = tache.EmployeTaches.FirstOrDefault();
             if (responsable != null)
             {
-                string employeNom = responsable.Employe.Nom +" " + responsable.Employe.Prenom;
+                string employeNom = responsable.Employe.Nom + " " + responsable.Employe.Prenom;
                 string dep = responsable.Employe.NomDepartement;
                 ResponsableTextBox.Text = employeNom;
                 DepartementTextBox.Text = dep;
@@ -111,16 +129,19 @@ namespace Gestion_RH.Pages
             }
 
             // Remplir les champs de la tâche
-            ObjetTextBox.Text = task.Nom;
+            ObjetTextBox.Text = tache.Nom;
 
-            DateExpeditionPicker.SelectedDate = task.DateExpedition;
-            DateDeadlinePicker.SelectedDate = task.Deadline;
-            DateRenduPicker.SelectedDate = task.Statut ? task.DateRendu : null;
+            DateExpeditionPicker.SelectedDate = tache.DateExpedition;
+            DateDeadlinePicker.SelectedDate = tache.Deadline;
+            DateRenduPicker.SelectedDate = tache.Statut ? tache.DateRendu : null;
 
-            StatutTextBox.Text = task.Statut? "Achevée":"Inachevée";
+            StatutTextBox.Text = tache.Statut ? "Achevée" : "Inachevée";
 
-            RenduVisible = task.Statut;
-            
+            RenduVisible = tache.Statut;
+
+            DataContext = this;
+
+
         }
 
         private void AssignEmploye_Click(object sender, RoutedEventArgs e)
@@ -130,7 +151,7 @@ namespace Gestion_RH.Pages
         }
         private void UpdateTache_Click(object sender, RoutedEventArgs e)
         {
-            UpdateTache modifWindow = new UpdateTache(tache);
+            UpdateTache modifWindow = new UpdateTache(this,tache);
             modifWindow.ShowDialog();
 
         }
@@ -186,13 +207,18 @@ namespace Gestion_RH.Pages
                 }
             }
         }
+        public void Rafraichir()
+        {
+            MessageBox.Show("Il est temps de rafraichir la page");
+
+            NavigationService.Navigate(new Detail(tache)); 
+        }
 
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Accueil()); // Naviguer vers la page d'accueil
         }
-
 
     }
 }

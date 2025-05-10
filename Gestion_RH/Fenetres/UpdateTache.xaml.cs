@@ -13,8 +13,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gestion_RH.Classes;
+using Gestion_RH.Pages;
+using MaterialDesignThemes.Wpf;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
 
 namespace Gestion_RH.Fenetres
@@ -26,22 +30,31 @@ namespace Gestion_RH.Fenetres
     {
         private Tache tache;
         public ObservableCollection<string> Consignes { get; set; } = new ObservableCollection<string>();
-        public ObservableCollection<Support> SupportList { get; set; } = new ObservableCollection<Support>();
+        public ObservableCollection<Support> SupportList { get; set; }
 
-        public void ChargerSupports()
+        public void ChargerSupports(Tache task)
         {
-            foreach (var item in tache.Supports)
+            using (var context = new ApplicationDbContext())
             {
-                SupportList.Add(item);
+                List<Support> supports = context.Supports
+                .Where(c => c.TacheId == task.Id)
+                .ToList();
+                foreach (var support in supports.ToList())
+                {
+                    SupportList.Add(support);
+                }
             }
         }
-        public UpdateTache(Tache task)
+        private Detail _detailPage;
+
+        public UpdateTache(Detail detailPage, Tache task)
         {
             InitializeComponent();
-
-            DataContext = this;
+            _detailPage = detailPage;
+            SupportList = new ObservableCollection<Support>();
             tache = task;
-            ChargerSupports();
+            DataContext = this;
+            ChargerSupports(tache);
             NomTacheTextBox.Text = tache.Nom;
             DateExpeditionPicker.SelectedDate = tache.DateExpedition;
             DateDeadlinePicker.SelectedDate = tache.Deadline;
@@ -107,6 +120,8 @@ namespace Gestion_RH.Fenetres
                         dbContext.SaveChanges();
                         MessageBox.Show("Tâche modifiée avec succès.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                        this.Close();
+                        _detailPage.Rafraichir();
                     }
                 }
 
@@ -147,8 +162,11 @@ namespace Gestion_RH.Fenetres
                         dbContext.Supports.Remove(support);
                         dbContext.SaveChanges();
                         MessageBox.Show("Support supprimé avec succès !");
-
-                        this.InitializeComponent();
+                        var element = SupportList.FirstOrDefault(support => support.Id == id);
+                        if (element != null)
+                        {
+                            SupportList.Remove(element);
+                        }
                     }
                 }
             }
