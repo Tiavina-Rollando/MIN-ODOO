@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|d:\\tiavina\\projet\\c#\\source\\repos\\2025\\gestion_rh\\fenetres\\updatetache.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|solutionrelative:gestion_rh\\fenetres\\updatetache.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|d:\\tiavina\\projet\\c#\\source\\repos\\2025\\gestion_rh\\pages\\detail.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|solutionrelative:gestion_rh\\pages\\detail.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|d:\\tiavina\\projet\\c#\\source\\repos\\2025\\gestion_rh\\fenetres\\updatetache.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|solutionrelative:gestion_rh\\fenetres\\updatetache.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2780723F-BF79-4AF3-B1BA-0E7C81749EB7}|Gestion_RH\\Gestion_RH.csproj|d:\\tiavina\\projet\\c#\\source\\repos\\2025\\gestion_rh\\pages\\detail.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -62,7 +62,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Document",
@@ -74,8 +74,7 @@
               "RelativeToolTip": "Gestion_RH\\Pages\\Parametre.xaml.cs",
               "ViewState": "AgIAAHAAAAAAAAAAAAAuwH8AAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T09:46:14.767Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T09:46:14.767Z"
             },
             {
               "$type": "Document",
@@ -86,8 +85,7 @@
               "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Pages\\Detail.xaml",
               "RelativeToolTip": "Gestion_RH\\Pages\\Detail.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-10T09:15:19.761Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T09:15:19.761Z"
             },
             {
               "$type": "Document",
@@ -99,18 +97,17 @@
               "RelativeToolTip": "Gestion_RH\\Classes\\Support.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T07:09:38.099Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T07:09:38.099Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "UpdateTache.xaml.cs",
               "DocumentMoniker": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Fenetres\\UpdateTache.xaml.cs",
               "RelativeDocumentMoniker": "Gestion_RH\\Fenetres\\UpdateTache.xaml.cs",
               "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Fenetres\\UpdateTache.xaml.cs",
               "RelativeToolTip": "Gestion_RH\\Fenetres\\UpdateTache.xaml.cs",
-              "ViewState": "AgIAAGcAAAAAAAAAAAAAAHoAAABMAAAAAAAAAA==",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAwwIMAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-10T07:08:58.148Z",
               "EditorCaption": ""
@@ -124,8 +121,7 @@
               "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Fenetres\\UpdateTache.xaml",
               "RelativeToolTip": "Gestion_RH\\Fenetres\\UpdateTache.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-10T07:08:54.415Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T07:08:54.415Z"
             },
             {
               "$type": "Document",
@@ -137,8 +133,7 @@
               "RelativeToolTip": "Gestion_RH\\Fenetres\\AddEmploye.xaml.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAAqwCwAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T06:49:59.265Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T06:49:59.265Z"
             },
             {
               "$type": "Document",
@@ -149,8 +144,7 @@
               "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Pages\\Info.xaml",
               "RelativeToolTip": "Gestion_RH\\Pages\\Info.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-10T06:39:06.783Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T06:39:06.783Z"
             },
             {
               "$type": "Document",
@@ -162,8 +156,7 @@
               "RelativeToolTip": "Gestion_RH\\Pages\\Info.xaml.cs",
               "ViewState": "AgIAAE0BAAAAAAAAAAAAwGEBAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T06:39:24.556Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T06:39:24.556Z"
             },
             {
               "$type": "Document",
@@ -174,8 +167,7 @@
               "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Pages\\Accueil.xaml",
               "RelativeToolTip": "Gestion_RH\\Pages\\Accueil.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-10T06:33:03.551Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T06:33:03.551Z"
             },
             {
               "$type": "Document",
@@ -187,8 +179,7 @@
               "RelativeToolTip": "Gestion_RH\\Pages\\Accueil.xaml.cs",
               "ViewState": "AgIAAI4BAAAAAAAAAAAuwJkBAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T19:56:28.698Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T19:56:28.698Z"
             },
             {
               "$type": "Document",
@@ -212,18 +203,17 @@
               "RelativeToolTip": "Gestion_RH\\Pages\\Conge.xaml.cs",
               "ViewState": "AgIAAHsAAAAAAAAAAAAkwJMAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T19:49:18.041Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T19:49:18.041Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Detail.xaml.cs",
               "DocumentMoniker": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Pages\\Detail.xaml.cs",
               "RelativeDocumentMoniker": "Gestion_RH\\Pages\\Detail.xaml.cs",
               "ToolTip": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Pages\\Detail.xaml.cs",
               "RelativeToolTip": "Gestion_RH\\Pages\\Detail.xaml.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAmwFYAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAMIAAAAAAAAAAAAYwNEAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-09T19:49:05.88Z",
               "EditorCaption": ""

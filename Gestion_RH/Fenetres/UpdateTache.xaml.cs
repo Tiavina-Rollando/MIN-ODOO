@@ -30,7 +30,8 @@ namespace Gestion_RH.Fenetres
     {
         private Tache tache;
         public ObservableCollection<string> Consignes { get; set; } = new ObservableCollection<string>();
-        public ObservableCollection<Support> SupportList { get; set; }
+        public ObservableCollection<Support> SupportNewList { get; set; } 
+        public ObservableCollection<Support> SupportList { get; set; } = new ObservableCollection<Support>();
 
         public void ChargerSupports(Tache task)
         {
@@ -51,7 +52,7 @@ namespace Gestion_RH.Fenetres
         {
             InitializeComponent();
             _detailPage = detailPage;
-            SupportList = new ObservableCollection<Support>();
+            SupportNewList = new ObservableCollection<Support>();
             tache = task;
             DataContext = this;
             ChargerSupports(tache);
@@ -77,6 +78,11 @@ namespace Gestion_RH.Fenetres
             {
                 byte[] fileBytes = File.ReadAllBytes(openFileDialog.FileName);
                 SupportList.Add(new Support
+                {
+                    NomFichier = System.IO.Path.GetFileName(openFileDialog.FileName),
+                    Fichier = fileBytes
+                });
+                SupportNewList.Add(new Support
                 {
                     NomFichier = System.IO.Path.GetFileName(openFileDialog.FileName),
                     Fichier = fileBytes
@@ -113,7 +119,7 @@ namespace Gestion_RH.Fenetres
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        foreach (var support in SupportList)
+                        foreach (var support in SupportNewList)
                         {
                             tache.Supports.Add(new Support { Fichier = support.Fichier, NomFichier = support.NomFichier });
                         }
@@ -121,6 +127,8 @@ namespace Gestion_RH.Fenetres
                         MessageBox.Show("Tâche modifiée avec succès.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         this.Close();
+                        SupportNewList.Clear();
+                        SupportList.Clear();
                         _detailPage.Rafraichir();
                     }
                 }
