@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Gestion_RH.Pages"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Login">
@@ -38,28 +39,102 @@
     </Page.Resources>
 
     <Grid>
-        <Border Background="White" CornerRadius="10" Padding="20" Width="320" Height="270"
+        <Border Background="White" x:Name="ChooseCo" CornerRadius="10" Padding="20" Width="320" Height="200"
+    VerticalAlignment="Center" HorizontalAlignment="Center"
+    BorderBrush="#D1D1D1" BorderThickness="1" Visibility="Visible">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+            </Border.Effect>
+
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="Bienvenu(e)!" FontSize="22" FontWeight="Bold" Foreground="#2C3E50"
+               HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                <Button Style="{StaticResource RoundedButtonStyle}"  Content="Administrateur" Background="Transparent" Width="150" Foreground="Black" Height="32"
+            FontSize="16" Margin="0,15,0,5" Cursor="Hand" Click="BtnAdminCo_Click"/>
+
+                <Button Style="{StaticResource RoundedButtonStyle}"  Content="Employé" Background="Transparent" Width="150" Foreground="Black" Height="30"
+            FontSize="14" Margin="0,5,0,0" Cursor="Hand" Click="BtnEmployeCo_Click"/>
+            </StackPanel>
+        </Border>
+
+        <Border Background="White" x:Name="AdminCo" CornerRadius="10" Padding="20" Width="320" Height="270"
             VerticalAlignment="Center" HorizontalAlignment="Center"
-            BorderBrush="#D1D1D1" BorderThickness="1">
+            BorderBrush="#D1D1D1" BorderThickness="1" Visibility="Collapsed">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                 </Border.Effect>
 
+                <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Click="BtnRetour_Click" Style="{StaticResource RoundedButtonStyle}" Grid.Column="0" HorizontalAlignment="Left" BorderThickness="0" Background="Transparent">
+                        <fa:ImageAwesome Icon="ArrowCircleLeft" Margin="5" Width="22" Height="24" Foreground="#2C3E50"/>
+                    </Button>
+
+                    <TextBlock Text="Authentification" Grid.Column="1" FontSize="22" FontWeight="Bold" 
+               Foreground="#2C3E50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
                 <StackPanel HorizontalAlignment="Center">
-                <TextBlock Text="Authentification" FontSize="22" FontWeight="Bold" Foreground="#2C3E50"
-                       HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                        <TextBlock Text="Code :" Foreground="Gray" Margin="0,5,0,5"/>
+                        <PasswordBox x:Name="txtCode" Height="35" Width="200" Padding="5"
+             BorderBrush="#2C3E50" BorderThickness="1" FontSize="16" HorizontalAlignment="Center"/>
 
-                <TextBlock Text="Code :" Foreground="Gray" Margin="0,5,0,5"/>
-                <PasswordBox x:Name="txtCode" Height="35" Width="200" Padding="5"
-                         BorderBrush="#2C3E50" BorderThickness="1" FontSize="16" HorizontalAlignment="Center"/>
+                        <Button Style="{StaticResource RoundedButtonStyle}"  Content="Accéder" Background="#2980B9" Width="150" Foreground="White" Height="32"
+        FontSize="16" Margin="0,15,0,5" Cursor="Hand" Click="BtnCodeLogin_Click"/>
 
-                <Button Style="{StaticResource RoundedButtonStyle}"  Content="Accéder" Background="#2980B9" Width="150" Foreground="White" Height="32"
-                    FontSize="16" Margin="0,15,0,5" Cursor="Hand" Click="BtnCodeLogin_Click"/>
+                        <TextBlock Text="Ou" FontSize="14" Foreground="Gray" HorizontalAlignment="Center" Margin="0,5,0,5"/>
 
-                <TextBlock Text="Ou" FontSize="14" Foreground="Gray" HorizontalAlignment="Center" Margin="0,5,0,5"/>
+                        <Button Style="{StaticResource RoundedButtonStyle}"  Content="🔒 Accéder via empreinte" Background="#2C3E50" Width="200" Foreground="White" Height="30"
+        FontSize="14" Margin="0,5,0,0" Cursor="Hand" Click="BtnFingerprintLogin_Click"/>
 
-                <Button Style="{StaticResource RoundedButtonStyle}"  Content="🔒 Accéder via empreinte" Background="#2C3E50" Width="200" Foreground="White" Height="30"
-                    FontSize="14" Margin="0,5,0,0" Cursor="Hand" Click="BtnFingerprintLogin_Click"/>
+                    </StackPanel>  
+                </StackPanel>
+            </Border>
+        <Border Background="White" x:Name="EmployeCo" CornerRadius="10" Padding="20" Width="320" Height="350"
+    VerticalAlignment="Center" HorizontalAlignment="Center"
+    BorderBrush="#D1D1D1" BorderThickness="1" Visibility="Collapsed">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+            </Border.Effect>
+
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Click="BtnRetour_Click" Style="{StaticResource RoundedButtonStyle}" Grid.Column="0" HorizontalAlignment="Left" BorderThickness="0" Background="Transparent">
+                        <fa:ImageAwesome Icon="ArrowCircleLeft" Margin="5" Width="22" Height="24" Foreground="#2C3E50"/>
+                    </Button>
+
+                    <TextBlock Text="Connexion" Grid.Column="1" FontSize="22" FontWeight="Bold" 
+Foreground="#2C3E50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="E-mail :" Foreground="Gray" Margin="0,5,0,5"/>
+                    <TextBox x:Name="txtMail" Height="35" Width="200" Padding="5"
+BorderBrush="#2C3E50" BorderThickness="1" FontSize="16" HorizontalAlignment="Center"/>
+
+                    <TextBlock Text="Password :" Foreground="Gray" Margin="0,5,0,5"/>
+                    <PasswordBox x:Name="txtMdp" Height="35" Width="200" Padding="5"
+                BorderBrush="#2C3E50" BorderThickness="1" FontSize="16" HorizontalAlignment="Center"/>
+
+                    <Button Style="{StaticResource RoundedButtonStyle}"  Content="Se connecter" Background="#2980B9" Width="150" Foreground="White" Height="32"
+           FontSize="16" Margin="0,15,0,5" Cursor="Hand" Click="BtnCodeLogin_Click"/>
+
+                    <TextBlock Text="Ou" FontSize="14" Foreground="Gray" HorizontalAlignment="Center" Margin="0,5,0,5"/>
+
+                    <Button Style="{StaticResource RoundedButtonStyle}"  Content="🔒 Connexion via empreinte" Background="#2C3E50" Width="200" Foreground="White" Height="30"
+           FontSize="14" Margin="0,5,0,0" Cursor="Hand" Click="BtnFingerprintLogin_Click"/>
+
+                </StackPanel>
             </StackPanel>
         </Border>
     </Grid>

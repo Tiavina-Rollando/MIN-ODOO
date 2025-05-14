@@ -65,6 +65,21 @@ namespace Gestion_RH.Pages
             // Ici, tu peux ajouter l'intégration avec un lecteur biométrique si nécessaire.
         }
 
-
+        private void BtnAdminCo_Click(object sender, RoutedEventArgs e) 
+        {
+            ChooseCo.Visibility = Visibility.Collapsed;
+            AdminCo.Visibility = Visibility.Visible;
+        }
+        private void BtnEmployeCo_Click(object sender, RoutedEventArgs e)
+        {
+            ChooseCo.Visibility = Visibility.Collapsed;
+            EmployeCo.Visibility = Visibility.Visible;
+        }
+        private void BtnRetour_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeCo.Visibility = Visibility.Collapsed;
+            AdminCo.Visibility = Visibility.Collapsed;
+            ChooseCo.Visibility = Visibility.Visible;
+        }
     }
 }
