@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Gestion_RH.Classes;
+using Gestion_RH.Pages;
 using Microsoft.Win32;
 
 namespace Gestion_RH.Fenetres
@@ -27,10 +28,12 @@ namespace Gestion_RH.Fenetres
         public ObservableCollection<string> Consignes { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<Support> SupportList { get; set; } = new ObservableCollection<Support>();
 
-        public AddTask()
+        private Accueil _accueilPage;
+
+        public AddTask(Accueil accueilPage)
         {
             InitializeComponent();
-
+            _accueilPage = accueilPage;
             DataContext = this;
         }
         private void Inserer_Click(object sender, RoutedEventArgs e)
@@ -57,9 +60,8 @@ namespace Gestion_RH.Fenetres
                 dbContext.Taches.Add(task);
                 dbContext.SaveChanges();
                 MessageBox.Show("Tâche bien enregistrée.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                NomTacheTextBox.Clear();
-
+                _accueilPage.Rafraichir();
+                this.Close();
             }
             else
             {

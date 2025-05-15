@@ -1,0 +1,82 @@
+﻿<Page x:Class="Gestion_RH.Pages.Principale"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Gestion_RH.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Principale"
+      Background="#f5f7fa">
+    
+    <Grid Background="#F8F8F8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <DockPanel Background="#2980B9" LastChildFill="False">
+            <TextBlock Name="BienvenuText" FontSize="20" FontWeight="Bold" Foreground="White" Margin="30,0" VerticalAlignment="Center"/>
+            <!-- ✅ Image circulaire avec effet d’ombre -->
+            <Ellipse Width="50" Height="50" Stroke="Gray" StrokeThickness="2"
+HorizontalAlignment="Right" DockPanel.Dock="Right">
+                <Ellipse.Fill>
+                    <ImageBrush x:Name="PhotoBrush" Stretch="UniformToFill"/>
+                </Ellipse.Fill>
+            </Ellipse>
+        </DockPanel>
+
+        <!-- CONTENU PRINCIPAL -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Section du menu en haut -->
+                    <RowDefinition Height="*"/>
+                    <!-- Espace qui pousse "Quitter" en bas -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Bouton Quitter en bas -->
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top">
+                    <Button Content="📅 Demande de congé" Height="50" Click="DemanderConge_Click" Background="#2980B9" Foreground="White" FontWeight="Bold" Margin="5"/>
+                    <Button Content="📄 Consulter bulletins" Height="50" Background="#2980B9" Click="HistoriquePaie_Click" Foreground="White" FontWeight="Bold" Margin="5"/>
+                    <Button Content="🧾 Mes tâches" Height="50" Background="#2980B9" Foreground="White" FontWeight="Bold" Margin="5"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1"/>
+                <StackPanel Grid.Row="2">
+                    <Button Content="🔒 Modifier mot de passe" Height="50" Background="#27ae60" Foreground="White" Click="ChangerMdp_Click" FontWeight="Bold" Margin="5"/>
+                    <Button Content="🚪 Déconnexion" Height="50" Background="DarkRed" Foreground="White" FontWeight="Bold" Margin="5" Click="Quitter_Click"/>
+                </StackPanel>
+
+
+            </Grid>
+            <!-- Colonne gauche : actions rapides -->
+
+            <!-- Colonne droite : infos dynamiques -->
+            <StackPanel Grid.Column="1" VerticalAlignment="Top">
+                <Border Background="White" CornerRadius="10" Padding="15" Margin="5" BorderBrush="#ccc" BorderThickness="1" >
+                    <TextBlock Text="🏖️ Congés restants : 10 jours" FontSize="16"/>
+                </Border>
+
+                <Border Background="White" CornerRadius="10" Padding="15" Margin="5" BorderBrush="#ccc" BorderThickness="1">
+                    <TextBlock Text="📊 Dernier bulletin : Avril 2025 - Téléchargeable" FontSize="16"/>
+                </Border>
+
+                <Border Background="White" CornerRadius="10" Padding="15" Margin="5" BorderBrush="#ccc" BorderThickness="1">
+                    <TextBlock Text="✅ Prochaine tâche : Rapport mensuel - avant 17 Mai" FontSize="16"/>
+                </Border>
+
+                <Border Background="White" CornerRadius="10" Padding="15" Margin="5" BorderBrush="#ccc" BorderThickness="1">
+                    <TextBlock Text="📅 Historique récent : Tâche livrée le 10 Mai" FontSize="16"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
+

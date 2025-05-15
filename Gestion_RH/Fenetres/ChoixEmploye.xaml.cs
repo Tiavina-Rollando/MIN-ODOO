@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Gestion_RH.Classes;
+using Gestion_RH.Pages;
 
 namespace Gestion_RH.Fenetres
 {
@@ -24,10 +25,14 @@ namespace Gestion_RH.Fenetres
     public partial class ChoixEmploye : Window
     {
         private Tache task { get; set; }
-        public ChoixEmploye(Tache tache)
+
+        private Detail _detailPage;
+
+        public ChoixEmploye(Detail detailPage, Tache tache)
         {
             InitializeComponent();
             task = tache;
+            _detailPage = detailPage;
         }
         private void Choose_Click(object sender, RoutedEventArgs e)
         {
@@ -40,6 +45,7 @@ namespace Gestion_RH.Fenetres
                 dbContext.SaveChanges();
 
                 MessageBox.Show($"{employe.Prenom} sélectionné !");
+                _detailPage.Rafraichir();
                 this.Close();
             }
         }

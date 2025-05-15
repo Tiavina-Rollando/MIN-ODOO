@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Gestion_RH.Classes;
+using Gestion_RH.Pages;
 using Microsoft.Win32;
 
 namespace Gestion_RH.Fenetres
@@ -23,9 +24,12 @@ namespace Gestion_RH.Fenetres
     /// </summary>
     public partial class AddEmploye : Window, INotifyPropertyChanged
     {
-        public AddEmploye()
+        private Accueil _accueilPage;
+
+        public AddEmploye(Accueil accueilPage)
         {
             InitializeComponent();
+            _accueilPage = accueilPage;
             using (var dbContext = new ApplicationDbContext())
             {
                 var paysListe = dbContext.Nations.ToList();
@@ -97,11 +101,8 @@ namespace Gestion_RH.Fenetres
                 dbContext.Employes.Add(novice);
                 dbContext.SaveChanges();
                 MessageBox.Show("Employé bien enregistré.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                NomEmployeTextBox.Clear();
-                PrenomEmployeTextBox.Clear();
-                // Confirmation ajout de CV
-
+                _accueilPage.Rafraichir();
+                this.Close();
                 var resultat = MessageBox.Show("Voulez-vous ajouter un CV pour cet employé ?", "Ajouter CV", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (resultat == MessageBoxResult.Yes)

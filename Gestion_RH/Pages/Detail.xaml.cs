@@ -146,7 +146,7 @@ namespace Gestion_RH.Pages
 
         private void AssignEmploye_Click(object sender, RoutedEventArgs e)
         {
-            ChoixEmploye assignWindow = new ChoixEmploye(tache);
+            ChoixEmploye assignWindow = new ChoixEmploye(this,tache);
             assignWindow.ShowDialog();
         }
         private void UpdateTache_Click(object sender, RoutedEventArgs e)

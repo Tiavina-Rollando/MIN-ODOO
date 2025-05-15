@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Gestion_RH.Classes;
+using Gestion_RH.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Gestion_RH.Pages
 {
@@ -23,6 +27,20 @@ namespace Gestion_RH.Pages
         public Login()
         {
             InitializeComponent();
+        }
+
+        private void InitialiserMdp()
+        {
+            using var dbcontext = new ApplicationDbContext();
+            List<Employe> ListEmploye = new List<Employe>();
+            ListEmploye = dbcontext.Employes.ToList();
+            foreach (Employe employe in ListEmploye)
+            {
+                string password = "password";
+                string passHashed = PasswordHelper.Hasher(password);
+                employe.Mdp = passHashed;
+            }
+            dbcontext.SaveChanges();
         }
         //private async void BtnFingerprintLogin_Click(object sender, RoutedEventArgs e)
         //{
@@ -58,7 +76,25 @@ namespace Gestion_RH.Pages
                 MessageBox.Show("Code incorrect.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void BtnAccountLogin_Click(object sender, RoutedEventArgs e)
+        {
+            string email = EmailTextBox.Text;
+            string motDePasse = PasswordTextBox.Password;
 
+            using var dbContext = new ApplicationDbContext();
+            var employe = dbContext.Employes.SingleOrDefault(e => e.Email == email);
+
+            if (employe != null && PasswordHelper.Verifier(motDePasse, employe.Mdp))
+            {
+                MessageBox.Show("Connexion réussie !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                NavigationService.Navigate(new Principale(employe)); // Naviguer vers la page d'accueil pour employe
+            }
+            else
+            {
+                MessageBox.Show("Identification incorrecte.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
         private void BtnFingerprintLogin_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Empreinte digitale non configurée.", "Information", MessageBoxButton.OK, MessageBoxImage.Warning);

@@ -255,6 +255,14 @@ namespace Gestion_RH.Pages
             SuiviVisible = false;
             EmployesCardVisible = false;
         }
+
+        public void Rafraichir()
+        {
+            MessageBox.Show("Il est temps de rafraichir la page");
+
+            NavigationService.Navigate(new Accueil());
+        }
+
         private void Choose_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
@@ -270,15 +278,14 @@ namespace Gestion_RH.Pages
             {
                 if (classe == "employes")
                 {
-                    AddEmploye addWindow = new AddEmploye();
+                    AddEmploye addWindow = new AddEmploye(this);
                     addWindow.ShowDialog();
 
                 }
                 else if (classe == "taches")
                 {
-                    AddTask addWindow = new AddTask();
+                    AddTask addWindow = new AddTask(this);
                     addWindow.ShowDialog();
-
                 }
                 else
                 {

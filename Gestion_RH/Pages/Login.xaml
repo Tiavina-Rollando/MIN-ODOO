@@ -119,15 +119,15 @@ Foreground="#2C3E50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
                 <StackPanel HorizontalAlignment="Center">
                     <TextBlock Text="E-mail :" Foreground="Gray" Margin="0,5,0,5"/>
-                    <TextBox x:Name="txtMail" Height="35" Width="200" Padding="5"
+                    <TextBox x:Name="EmailTextBox" Height="35" Width="200" Padding="5"
 BorderBrush="#2C3E50" BorderThickness="1" FontSize="16" HorizontalAlignment="Center"/>
 
                     <TextBlock Text="Password :" Foreground="Gray" Margin="0,5,0,5"/>
-                    <PasswordBox x:Name="txtMdp" Height="35" Width="200" Padding="5"
+                    <PasswordBox x:Name="PasswordTextBox" Height="35" Width="200" Padding="5"
                 BorderBrush="#2C3E50" BorderThickness="1" FontSize="16" HorizontalAlignment="Center"/>
 
                     <Button Style="{StaticResource RoundedButtonStyle}"  Content="Se connecter" Background="#2980B9" Width="150" Foreground="White" Height="32"
-           FontSize="16" Margin="0,15,0,5" Cursor="Hand" Click="BtnCodeLogin_Click"/>
+           FontSize="16" Margin="0,15,0,5" Cursor="Hand" Click="BtnAccountLogin_Click"/>
 
                     <TextBlock Text="Ou" FontSize="14" Foreground="Gray" HorizontalAlignment="Center" Margin="0,5,0,5"/>
 

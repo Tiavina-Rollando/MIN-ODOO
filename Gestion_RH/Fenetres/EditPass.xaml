@@ -1,0 +1,92 @@
+﻿<Window x:Class="Gestion_RH.Fenetres.EditPass"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gestion_RH.Fenetres"
+        mc:Ignorable="d"
+        Title="Edit Password"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5"  Cursor="Hand"  Padding="5" Background="#2980B9" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2C3E50"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="DarkGray"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#2980B9"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="DarkBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Border Background="White" CornerRadius="15" Padding="20" Margin="20" BorderBrush="#D1D1D1" BorderThickness="1">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                </Border.Effect>
+
+                <StackPanel>
+
+                    <TextBlock Text="Modifier votre mot de passe" FontSize="22" FontWeight="Bold"
+           Foreground="#2C3E50" HorizontalAlignment="Center" Margin="0,20"/>
+
+                    <!-- ✅ Utilisation d'UniformGrid pour un affichage propre -->
+                    <UniformGrid Columns="2" HorizontalAlignment="Center" Margin="10" Width="650">
+
+                        
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="🆔" FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Mot de passe actuel :" FontWeight="Bold" Margin="5,5,0,0"/>
+                        </StackPanel>
+                        <PasswordBox x:Name="OldPassBox" Height="30" Width="300" Margin="5"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="🆔" FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Nouveau mot de passe :" FontWeight="Bold" Margin="5,5,0,0"/>
+                        </StackPanel>
+                        <PasswordBox x:Name="NewPassBox" Height="30" Width="300" Margin="5"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="🆔" FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Confirmer le nouveau mot de passe :" FontWeight="Bold" Margin="5,5,0,0"/>
+                        </StackPanel>
+                        <PasswordBox x:Name="NewPassConfBox" Height="30" Width="300" Margin="5"/>
+
+                    </UniformGrid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" Foreground="White" Style="{StaticResource RoundedButtonStyle}"  Content="Réinitialiser" Click="Reset_Click" Margin="10,10,10,10" Height="30" Width="200" HorizontalAlignment="Left"/>
+
+                        <Button Grid.Column="1" Foreground="White" Style="{StaticResource RoundedButtonStyle}"  Content="Enregistrer" Click="Save_Click" Margin="10,10,10,10" Height="30" Width="200" HorizontalAlignment="Right"/>
+                    </Grid>
+                </StackPanel>
+
+
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</Window>

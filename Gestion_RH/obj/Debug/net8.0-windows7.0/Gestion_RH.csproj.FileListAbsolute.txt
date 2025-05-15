@@ -198,3 +198,9 @@ D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pa
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\Conge.baml
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\Parametre.g.cs
 D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\Parametre.baml
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\Principale.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Pages\Principale.baml
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Fenetres\RequestConge.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Fenetres\RequestConge.baml
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Fenetres\EditPass.g.cs
+D:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\obj\Debug\net8.0-windows7.0\Fenetres\EditPass.baml

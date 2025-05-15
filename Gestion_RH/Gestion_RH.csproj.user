@@ -19,6 +19,12 @@
     <Compile Update="Fenetres\ChoixEmploye.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Fenetres\RequestConge.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Fenetres\EditPass.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Fenetres\UpdateEmploye.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -46,6 +52,9 @@
     <Compile Update="Pages\Parametre.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\Principale.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\Suivie.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -61,6 +70,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Fenetres\ChoixEmploye.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Fenetres\RequestConge.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Fenetres\EditPass.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Fenetres\UpdateEmploye.xaml">
@@ -91,6 +106,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Parametre.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Principale.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Suivie.xaml">
