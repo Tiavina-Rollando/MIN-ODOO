@@ -1,12 +1,15 @@
-﻿using System;
+﻿using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.WPF;
+using LiveChartsCore.Measure;
 using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -19,6 +22,7 @@ using Microsoft.EntityFrameworkCore;
 using Gestion_RH.Pages;
 using Gestion_RH.Fenetres;
 using System.Collections.ObjectModel;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace Gestion_RH.Pages
 {
@@ -27,34 +31,17 @@ namespace Gestion_RH.Pages
     /// </summary>
     public partial class Accueil : Page, INotifyPropertyChanged
     {
-        private bool _ajoutVisible;
-        private bool _afficherVisible;
-        private bool _parametreVisible;
-        private bool _departementsVisible;
-        private bool _postesVisible;
-        private bool _nationsVisible;
-        private bool _rolesVisible;
-        private bool _employesVisible;
-        private bool _ajoutEmployeVisible;
-        private bool _ajoutBouttonVisible;
-        private bool _taskVisible;
-        private bool _suiviVisible;
-        private bool _employeCardVisible;
-        private bool _acheve;
+        public ISeries[] LineSeries { get; set; }
+        public Axis[] XAxesL { get; set; }
+        public Axis[] YAxesL { get; set; }
+        public Axis[] XAxesC { get; set; }
+        public Axis[] YAxesC { get; set; }
+        public ISeries[] ColumnSeries { get; set; }
+        public ISeries[] PieSeries { get; set; }
+
         private ObservableCollection<Employe> ListeEmployes { get; set; }
 
         private ICollectionView _viewEmployes;
-
-
-        public bool Acheve
-        {
-            get { return _acheve; }
-            set
-            {
-                _acheve = value;
-                OnPropertyChanged(nameof(Acheve));
-            }
-        }
 
         private ObservableCollection<Employe> _employesCard;
         public ObservableCollection<Employe> ListEmployesCard
@@ -115,145 +102,72 @@ namespace Gestion_RH.Pages
             }
         }
 
-        public bool EmployesCardVisible
-        {
-            get { return _employeCardVisible; }
-            set
-            {
-                _employeCardVisible = value;
-                OnPropertyChanged(nameof(EmployesCardVisible));
-            }
-        }
-        public bool AjoutBouttonVisible
-        {
-            get { return _ajoutBouttonVisible; }
-            set
-            {
-                _ajoutBouttonVisible = value;
-                OnPropertyChanged(nameof(AjoutBouttonVisible));
-            }
-        }
-        public bool SuiviVisible
-        {
-            get { return _suiviVisible; }
-            set
-            {
-                _suiviVisible = value;
-                OnPropertyChanged(nameof(SuiviVisible));
-            }
-        }
-        public bool AjoutEmployeVisible
-        {
-            get { return _ajoutEmployeVisible; }
-            set
-            {
-                _ajoutEmployeVisible = value;
-                OnPropertyChanged(nameof(AjoutEmployeVisible));
-            }
-        }
-        public bool TaskVisible
-        {
-            get { return _taskVisible; }
-            set
-            {
-                _taskVisible = value;
-                OnPropertyChanged(nameof(TaskVisible));
-            }
-        }
-        public bool EmployesVisible
-        {
-            get { return _employesVisible; }
-            set
-            {
-                _employesVisible = value;
-                OnPropertyChanged(nameof(EmployesVisible));
-            }
-        }
-        public bool AjoutVisible
-        {
-            get { return _ajoutVisible; }
-            set
-            {
-                _ajoutVisible = value;
-                OnPropertyChanged(nameof(AjoutVisible));
-            }
-        }
-
-        public bool ParametreVisible
-        {
-            get { return _parametreVisible; }
-            set
-            {
-                _parametreVisible = value;
-                OnPropertyChanged(nameof(ParametreVisible));
-            }
-        }
-        public bool AfficherVisible
-        {
-            get { return _afficherVisible; }
-            set
-            {
-                _afficherVisible = value;
-                OnPropertyChanged(nameof(AfficherVisible));
-            }
-        }
-        public bool RolesVisible
-        {
-            get { return _rolesVisible; }
-            set
-            {
-                _rolesVisible = value;
-                OnPropertyChanged(nameof(RolesVisible));
-            }
-        }
-        public bool DepartementsVisible
-        {
-            get { return _departementsVisible; }
-            set
-            {
-                _departementsVisible = value;
-                OnPropertyChanged(nameof(DepartementsVisible));
-            }
-        }
-        public bool PostesVisible
-        {
-            get { return _postesVisible; }
-            set
-            {
-                _postesVisible = value;
-                OnPropertyChanged(nameof(PostesVisible));
-            }
-        }
-        public bool NationsVisible
-        {
-            get { return _nationsVisible; }
-            set
-            {
-                _nationsVisible = value;
-                OnPropertyChanged(nameof(NationsVisible));
-            }
-        }
-        
         public Accueil()
         {
             InitializeComponent();
             Taches = new ObservableCollection<Tache>();
             ListEmployesCard = new ObservableCollection<Employe>();
-            
+
+            LineSeries = new ISeries[]
+            {
+                new LineSeries<double>
+                {
+                    Values = new double[] { 3, 5, 2, 7, 4, 6, 3, 5, 2, 6, 3, 4 },
+                    Name = "Employés en congé"
+                }
+            };
+            XAxesL = new Axis[]
+            {
+                new Axis
+                {
+                    Labels = new string[] { "Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc" },
+                    LabelsRotation = 15 
+                }
+            };
+
+            YAxesL = new Axis[]
+            {
+                new Axis
+                {
+                    Name = "Nombre d'employés",
+                    MinLimit = 0
+                }
+            };
+
+            ColumnSeries = new ISeries[]
+            {
+                new ColumnSeries<int> { Values = new int[] { 5, 3, 7, 4, 1 } }
+            };
+
+            XAxesC = new Axis[]
+            {
+                new Axis
+                {
+                    Labels = new string[] { "IT", "Finance", "RH", "COM", "JC"},
+                    LabelsRotation = 15
+                }
+            };
+
+            YAxesC = new Axis[]
+            {
+                new Axis
+                {
+                    Name = "Nombre d'employés",
+                    MinLimit = 0
+                }
+            };
+
+            PieSeries = new ISeries[]
+            {
+                new PieSeries<double> { Values = new double[] { 40 }, Name = "Présents" },
+                new PieSeries<double> { Values = new double[] { 30 }, Name = "Absents" },
+                new PieSeries<double> { Values = new double[] { 30 }, Name = "En retard" }
+            };
+
             DataContext = this;
-            AjoutVisible = false;
-            ParametreVisible = false;
-            AfficherVisible = false;
-            DepartementsVisible = false;
-            PostesVisible = false;
-            NationsVisible = false;
-            RolesVisible = false;
-            EmployesVisible = false;
-            TaskVisible = false;
-            AjoutEmployeVisible = false;
-            AjoutBouttonVisible = true;
-            SuiviVisible = false;
-            EmployesCardVisible = false;
+            
+            ChargerTachesDepuisBDD();
+            ChecklistTasksBox.ItemsSource = Taches;
         }
 
         public void Rafraichir()
@@ -308,21 +222,13 @@ namespace Gestion_RH.Pages
         }
         
         
-        private void AjouterListe_Click(object sender, RoutedEventArgs e)
-        {
-            AjoutVisible = !AjoutVisible;
-        }
         private void Parametre_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Parametre());
         }
         
 
-        private void AfficherListe_Click(object sender, RoutedEventArgs e)
-        {
-            AfficherVisible = !AfficherVisible;
-        }
-
+        
         public void Afficher(string classe)
         {
             using var dbContext = new ApplicationDbContext();
@@ -345,35 +251,18 @@ namespace Gestion_RH.Pages
 
                 switch (classe)
                 {
-                    case "departements":
-                        DepartementsVisible = !DepartementsVisible;
-                        break;
-                    case "postes":
-                        PostesVisible = !PostesVisible;
-                        break;
-                    case "nations":
-                        NationsVisible = !NationsVisible;
-                        break;
-                    case "roles":
-                        RolesVisible = !RolesVisible;
-                        break;
-                    case "employes":
-                        EmployesVisible = !EmployesVisible;
-                        break;
                     case "tachesCard":
-                        TaskVisible = !TaskVisible;
+                        ListTask.Visibility = Visibility.Visible;
+                        ListEmploye.Visibility = Visibility.Collapsed;
                         break;
                     case "employesCard":
-                        EmployesCardVisible = !EmployesCardVisible;
+                        ListTask.Visibility = Visibility.Collapsed;
+                        ListEmploye.Visibility = Visibility.Visible;
                         break;
                 }
             }
         }
 
-        private void Suivi_Click(object sender, RoutedEventArgs e)
-        {
-            SuiviVisible = !SuiviVisible;
-        }
         private void Detail_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;

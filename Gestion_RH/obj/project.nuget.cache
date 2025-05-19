@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "s9i6IoVThx4=",
+  "dgSpecHash": "HhYdaI9+hIk=",
   "success": true,
   "projectFilePath": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Gestion_RH.csproj",
   "expectedPackageFiles": [
@@ -11,10 +11,16 @@
     "C:\\Users\\Tiavi\\.nuget\\packages\\countryflag.wpf\\1.0.0\\countryflag.wpf.1.0.0.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\fontawesome.wpf\\4.7.0.9\\fontawesome.wpf.4.7.0.9.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\google.protobuf\\3.26.1\\google.protobuf.3.26.1.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\harfbuzzsharp\\8.3.0.1\\harfbuzzsharp.8.3.0.1.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\harfbuzzsharp.nativeassets.macos\\8.3.0.1\\harfbuzzsharp.nativeassets.macos.8.3.0.1.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\harfbuzzsharp.nativeassets.win32\\8.3.0.1\\harfbuzzsharp.nativeassets.win32.8.3.0.1.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\k4os.compression.lz4\\1.3.8\\k4os.compression.lz4.1.3.8.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\k4os.compression.lz4.streams\\1.3.8\\k4os.compression.lz4.streams.1.3.8.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\k4os.hash.xxhash\\1.0.8\\k4os.hash.xxhash.1.0.8.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\livechartscore\\2.0.0-rc5.4\\livechartscore.2.0.0-rc5.4.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\livechartscore.skiasharpview\\2.0.0-rc5.4\\livechartscore.skiasharpview.2.0.0-rc5.4.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\livechartscore.skiasharpview.wpf\\2.0.0-rc5.4\\livechartscore.skiasharpview.wpf.2.0.0-rc5.4.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\materialdesigncolors\\5.2.1\\materialdesigncolors.5.2.1.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\materialdesignthemes\\5.2.1\\materialdesignthemes.5.2.1.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
@@ -61,7 +67,15 @@
     "C:\\Users\\Tiavi\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\mysql.data\\9.1.0\\mysql.data.9.1.0.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\mysqlconnector\\2.4.0\\mysqlconnector.2.4.0.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\opentk\\3.3.1\\opentk.3.3.1.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\opentk.glwpfcontrol\\3.3.0\\opentk.glwpfcontrol.3.3.0.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\9.0.0-preview.2.efcore.9.0.0\\pomelo.entityframeworkcore.mysql.9.0.0-preview.2.efcore.9.0.0.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\skiasharp\\3.119.0\\skiasharp.3.119.0.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\skiasharp.harfbuzz\\3.116.1\\skiasharp.harfbuzz.3.116.1.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\skiasharp.nativeassets.macos\\3.119.0\\skiasharp.nativeassets.macos.3.119.0.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\skiasharp.nativeassets.win32\\3.119.0\\skiasharp.nativeassets.win32.3.119.0.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\skiasharp.views.desktop.common\\3.116.1\\skiasharp.views.desktop.common.3.116.1.nupkg.sha512",
+    "C:\\Users\\Tiavi\\.nuget\\packages\\skiasharp.views.wpf\\3.116.1\\skiasharp.views.wpf.3.116.1.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
@@ -110,6 +124,36 @@
       "warningLevel": 1,
       "message": "Le package 'FontAwesome.WPF 4.7.0.9' a été restauré en utilisant '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' au lieu du framework cible du projet 'net8.0-windows7.0'. Ce package n'est peut-être pas totalement compatible avec votre projet.",
       "libraryId": "FontAwesome.WPF",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Le package 'OpenTK 3.3.1' a été restauré en utilisant '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' au lieu du framework cible du projet 'net8.0-windows7.0'. Ce package n'est peut-être pas totalement compatible avec votre projet.",
+      "libraryId": "OpenTK",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Le package 'OpenTK.GLWpfControl 3.3.0' a été restauré en utilisant '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' au lieu du framework cible du projet 'net8.0-windows7.0'. Ce package n'est peut-être pas totalement compatible avec votre projet.",
+      "libraryId": "OpenTK.GLWpfControl",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Le package 'SkiaSharp.Views.WPF 3.116.1' a été restauré en utilisant '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' au lieu du framework cible du projet 'net8.0-windows7.0'. Ce package n'est peut-être pas totalement compatible avec votre projet.",
+      "libraryId": "SkiaSharp.Views.WPF",
       "targetGraphs": [
         "net8.0-windows7.0"
       ]

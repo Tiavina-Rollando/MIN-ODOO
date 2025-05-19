@@ -6,6 +6,9 @@
       xmlns:conv="clr-namespace:Gestion_RH.Converters"
       xmlns:view="clr-namespace:Gestion_RH.ViewModels"
       xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF" 
+      xmlns:lvc1="clr-namespace:LiveChartsCore.SkiaSharpView;assembly=LiveChartsCore.SkiaSharpView"
+      xmlns:lvcw="clr-namespace:LiveChartsCore;assembly=LiveChartsCore"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Accueil">
@@ -164,135 +167,183 @@
             <StackPanel Margin="20">
                 <Grid x:Name="ContenuAccueil" Visibility="Visible">
                     <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Border Background="#fae5d3" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300" >
+                        <Border Background="#fae5d3" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                             </Border.Effect>
-                            <TextBlock Text="🏖️ Congés restants : 10 jours" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="🏖️ Congés du mois" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <lvc:CartesianChart 
+                                        Series="{Binding LineSeries}"
+                                        XAxes="{Binding XAxesL}"
+                                        YAxes="{Binding YAxesL}"
+                                        Height="200"
+                                        Width="1500" />
+                                </StackPanel>
+                            </ScrollViewer>
                         </Border>
 
-                        <Border Background="#aeb6bf " CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
+                        <Border Background="#aeb6bf " CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="570" Height="300">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                             </Border.Effect>
-                            <TextBlock Text="📊 Dernier bulletin : Avril 2025 - Téléchargeable" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="📊 Répartition par département" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <lvc:CartesianChart 
+                                    Series="{Binding ColumnSeries}"
+                                    XAxes="{Binding XAxesC}"
+                                    YAxes="{Binding YAxesC}"
+                                    Height="200"
+                                    Width="500" />
+                            </StackPanel>
                         </Border>
 
-                        <Border Background="White" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
+                        <Border Background="White" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="570" Height="300">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                             </Border.Effect>
-                            <TextBlock Text="✅ Prochaine tâche : Rapport mensuel - avant 17 Mai" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="✅ Présences / Absences du jour" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <lvc:PieChart Series="{Binding PieSeries}" Height="200" Width="500"/>
+                            </StackPanel>
                         </Border>
 
-                        <Border Background="#a9cce3 " CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
+                        <Border Background="#a9cce3" Width="570" Height="300" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                             </Border.Effect>
-                            <TextBlock Text="📅 Historique récent : Tâche livrée le 10 Mai" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <StackPanel>
+                                <TextBlock Text="📅 Tâche à livrer cette semaine" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <ListBox x:Name="ChecklistTasksBox" Margin="10" FontSize="20" Background="Transparent">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding Nom}" IsChecked="{Binding Statut}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#abebc6" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="570" Height="300" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock Text="📅 Congés à approuver" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <ListBox x:Name="ChecklistCongesBox" Margin="10">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="ANDRIAMANANTSOA Tiavina R." IsChecked="False" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
                         </Border>
                     </WrapPanel>
                 </Grid>
-                <!-- 📌 Liste des Employés -->
-                <TextBlock Text="Liste des employés" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" Visibility="{Binding EmployesCardVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                <StackPanel Name="ListEmploye" Visibility="Collapsed">
+                    <!-- 📌 Liste des Employés -->
+                    <TextBlock Text="Liste des employés" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" />
 
-                <WrapPanel Orientation="Horizontal" Margin="10" Visibility="{Binding EmployesCardVisible, Converter={StaticResource BoolToVisConverter}}">
-                    <ItemsControl ItemsSource="{Binding ListEmployesCard}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="180" Height="180" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
-                                    <StackPanel>
-                                        <Button Click="Supprimer_Click" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='employes'}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
-                                            <Image Source="../Assets/trash-icon.png" Width="20" Height="20"/>
-                                        </Button>
-                                        <!-- ✅ Image de l’employé -->
-                                        <Ellipse Width="50" Height="50" Stroke="Gray" StrokeThickness="2" HorizontalAlignment="Center">
-                                            <Ellipse.Fill>
-                                                <ImageBrush ImageSource="{Binding Photo, Converter={StaticResource ByteArrayToImageConverter}}" Stretch="UniformToFill"/>
-                                            </Ellipse.Fill>
-                                        </Ellipse>
+                    <WrapPanel Orientation="Horizontal" Margin="10">
+                        <ItemsControl ItemsSource="{Binding ListEmployesCard}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="180" Height="180" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
+                                        <StackPanel>
+                                            <Button Click="Supprimer_Click" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='employes'}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+                                                <Image Source="../Assets/trash-icon.png" Width="20" Height="20"/>
+                                            </Button>
+                                            <!-- ✅ Image de l’employé -->
+                                            <Ellipse Width="50" Height="50" Stroke="Gray" StrokeThickness="2" HorizontalAlignment="Center">
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="{Binding Photo, Converter={StaticResource ByteArrayToImageConverter}}" Stretch="UniformToFill"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
 
-                                        <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
-                                        <TextBlock Text="{Binding Prenom}" Foreground="Gray" TextAlignment="Center"/>
-                                        <TextBlock Text="{Binding NomPoste}" Foreground="Red" TextAlignment="Center"/>
-                                        <Button Content="Voir" Style="{StaticResource RoundedButtonStyle}" Click="Choose_Click" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <!-- ✅ Carte fixe d’ajout à la fin -->
-                    <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="180" Height="180" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                            <Button Click="Ajouter_Click" Tag="employes" Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="0" Cursor="Hand">
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10" Padding="10">
-                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <Image Source="../Assets/add-icon.png" Width="40" Height="40" Margin="0,20,0,10"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                        </StackPanel>
-                    </Border>
-                </WrapPanel>
+                                            <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding Prenom}" Foreground="Gray" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding NomPoste}" Foreground="Red" TextAlignment="Center"/>
+                                            <Button Content="Voir" Style="{StaticResource RoundedButtonStyle}" Click="Choose_Click" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <!-- ✅ Carte fixe d’ajout à la fin -->
+                        <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="180" Height="180" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <Button Click="Ajouter_Click" Tag="employes" Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="0" Cursor="Hand">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10" Padding="10">
+                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Image Source="../Assets/add-icon.png" Width="40" Height="40" Margin="0,20,0,10"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+                </StackPanel>
 
-                <TextBlock Text="Liste des tâches" FontSize="22" FontWeight="Bold" Foreground="#2C3E50"
-                           HorizontalAlignment="Center" Visibility="{Binding TaskVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                <StackPanel Name="ListTask" Visibility="Collapsed">
+                    <TextBlock Text="Liste des tâches" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center"/>
 
-                <WrapPanel Orientation="Horizontal" Margin="10" Visibility="{Binding TaskVisible, Converter={StaticResource BoolToVisConverter}}">
-                    <ItemsControl ItemsSource="{Binding Taches}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="130" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
-                                    <StackPanel>
-                                        <Button Visibility="{Binding Statut, Converter={StaticResource BoolToVisConverter}}" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='taches'}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
-                                            <Image Source="../Assets/coche-verte.png" Width="20" Height="20"/>
-                                        </Button>
+                    <WrapPanel Orientation="Horizontal" Margin="10">
+                        <ItemsControl ItemsSource="{Binding Taches}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="130" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
+                                        <StackPanel>
+                                            <Button Visibility="{Binding Statut, Converter={StaticResource BoolToVisConverter}}" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='taches'}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+                                                <Image Source="../Assets/coche-verte.png" Width="20" Height="20"/>
+                                            </Button>
 
-                                        <Button Click="Supprimer_Click" Visibility="{Binding Statut, Converter={StaticResource BoolToVisInvertedConverter}}" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='taches'}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
-                                            <Image Source="../Assets/trash-icon.png" Width="20" Height="20"/>
-                                        </Button>
+                                            <Button Click="Supprimer_Click" Visibility="{Binding Statut, Converter={StaticResource BoolToVisInvertedConverter}}" Tag="{Binding Id, Converter={StaticResource TagFormatConverter}, ConverterParameter='taches'}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+                                                <Image Source="../Assets/trash-icon.png" Width="20" Height="20"/>
+                                            </Button>
 
-                                        <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
-                                        <TextBlock Text="{Binding DateExpedition}" Foreground="Gray" TextAlignment="Center"/>
-                                        <TextBlock Text="{Binding Deadline}" Foreground="Red" TextAlignment="Center"/>
-                                        <Button Content="Détails"  Style="{StaticResource RoundedButtonStyle}" Click="Detail_Click" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <!-- ✅ Carte fixe d’ajout à la fin -->
-                    <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="130" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                            <Button Click="Ajouter_Click" Tag="taches" Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="0" Cursor="Hand">
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10" Padding="10">
-                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <Image Source="../Assets/add-icon.png" Width="40" Height="40" Margin="0,20,0,10"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                        </StackPanel>
-                    </Border>
-                </WrapPanel>
-
+                                            <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding DateExpedition}" Foreground="Gray" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding Deadline}" Foreground="Red" TextAlignment="Center"/>
+                                            <Button Content="Détails"  Style="{StaticResource RoundedButtonStyle}" Click="Detail_Click" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <!-- ✅ Carte fixe d’ajout à la fin -->
+                        <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="130" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <Button Click="Ajouter_Click" Tag="taches" Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="0" Cursor="Hand">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10" Padding="10">
+                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Image Source="../Assets/add-icon.png" Width="40" Height="40" Margin="0,20,0,10"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

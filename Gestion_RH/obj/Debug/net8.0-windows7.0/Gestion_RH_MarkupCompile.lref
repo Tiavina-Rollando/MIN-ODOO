@@ -4,6 +4,8 @@ FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Fenetres\AddConsigne.xaml;;
 FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Fenetres\AddEmploye.xaml;;
 FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Fenetres\AddTask.xaml;;
 FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Fenetres\ChoixEmploye.xaml;;
+FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Fenetres\EditPass.xaml;;
+FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Fenetres\RequestConge.xaml;;
 FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Fenetres\UpdateEmploye.xaml;;
 FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Fenetres\UpdateTache.xaml;;
 FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\MainWindow.xaml;;
@@ -16,6 +18,4 @@ FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Pages\Login.xaml;;
 FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Pages\Parametre.xaml;;
 FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Pages\Principale.xaml;;
 FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Pages\Suivie.xaml;;
-FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Fenetres\RequestConge.xaml;;
-FD:\Tiavina\Projet\C#\source\repos\2025\Gestion_RH\Fenetres\EditPass.xaml;;
 

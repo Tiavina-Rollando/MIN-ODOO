@@ -38,22 +38,8 @@ namespace Gestion_RH.Pages
         }
 
         private bool _afficherVisible;
-        private bool _departementsVisible;
-        private bool _postesVisible;
-        private bool _nationsVisible;
-        private bool _rolesVisible;
-        private bool _employesVisible;
-
         
-        public bool EmployesVisible
-        {
-            get { return _employesVisible; }
-            set
-            {
-                _employesVisible = value;
-                OnPropertyChanged(nameof(EmployesVisible));
-            }
-        }
+        
         public bool AfficherVisible
         {
             get { return _afficherVisible; }
@@ -63,55 +49,12 @@ namespace Gestion_RH.Pages
                 OnPropertyChanged(nameof(AfficherVisible));
             }
         }
-        public bool RolesVisible
-        {
-            get { return _rolesVisible; }
-            set
-            {
-                _rolesVisible = value;
-                OnPropertyChanged(nameof(RolesVisible));
-            }
-        }
-        public bool DepartementsVisible
-        {
-            get { return _departementsVisible; }
-            set
-            {
-                _departementsVisible = value;
-                OnPropertyChanged(nameof(DepartementsVisible));
-            }
-        }
-        public bool PostesVisible
-        {
-            get { return _postesVisible; }
-            set
-            {
-                _postesVisible = value;
-                OnPropertyChanged(nameof(PostesVisible));
-            }
-        }
-        public bool NationsVisible
-        {
-            get { return _nationsVisible; }
-            set
-            {
-                _nationsVisible = value;
-                OnPropertyChanged(nameof(NationsVisible));
-            }
-        }
-
+        
         public Parametre()
         {
             InitializeComponent();
             DataContext = this;
-
-            DepartementsVisible = false;
-            PostesVisible = false;
-            NationsVisible = false;
-            RolesVisible = false;
-            EmployesVisible = false;
             AfficherVisible = false;
-
         }
         private void AfficherListe_Click(object sender, RoutedEventArgs e)
         {
@@ -176,19 +119,19 @@ namespace Gestion_RH.Pages
                 switch (classe)
                 {
                     case "departements":
-                        DepartementsVisible = !DepartementsVisible;
+                        DepData.Visibility = Visibility.Visible;
                         break;
                     case "postes":
-                        PostesVisible = !PostesVisible;
+                        PostData.Visibility = Visibility.Visible;
                         break;
                     case "nations":
-                        NationsVisible = !NationsVisible;
+                        NationData.Visibility = Visibility.Visible; 
                         break;
                     case "roles":
-                        RolesVisible = !RolesVisible;
+                        RolData.Visibility = Visibility.Visible;
                         break;
                     case "employes":
-                        EmployesVisible = !EmployesVisible;
+                        EmpData.Visibility = Visibility.Visible;
                         break;
                 }
             }

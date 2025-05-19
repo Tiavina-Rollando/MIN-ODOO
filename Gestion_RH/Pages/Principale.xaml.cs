@@ -1,4 +1,8 @@
-﻿using System;
+﻿using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.WPF;
+using LiveChartsCore.Measure;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,13 +27,81 @@ namespace Gestion_RH.Pages
     /// </summary>
     public partial class Principale : Page
     {
+        public ISeries[] LineSeries { get; set; }
+        public Axis[] XAxesL { get; set; }
+        public Axis[] YAxesL { get; set; }
+        public Axis[] XAxesC { get; set; }
+        public Axis[] YAxesC { get; set; }
+        public ISeries[] ColumnSeries { get; set; }
+        public ISeries[] PieSeries { get; set; }
+        public List<Tache> tasks = new List<Tache>();
+
         private Employe user { get; set; } = new Employe();
         public Principale(Employe sujet)
         {
             InitializeComponent();
             user = sujet;
             chargerEmploye(user);
+            List<EmployeTache> taskOwn = user.EmployeTaches.ToList();
+
+            foreach ( EmployeTache tO in taskOwn)
+            {
+                tasks.Add(tO.Tache);
+            }
+            ChecklistTasksBox.ItemsSource = tasks;
             BienvenuText.Text = $"Bienvenu(e) dans votre espace, {user.Prenom} {user.Nom} 👋";
+
+            LineSeries = new ISeries[]
+            {
+                new LineSeries<double>
+                {
+                    Values = new double[] { 600, 650, 800, 750, 400, 600, 300, 550, 280, 650, 380, 450 },
+                    Name = "K Ariary"
+                }
+            };
+            XAxesL = new Axis[]
+            {
+                new Axis
+                {
+                    Labels = new string[] { "Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc" },
+                    LabelsRotation = 15
+                }
+            };
+
+            YAxesL = new Axis[]
+            {
+                new Axis
+                {
+                    Name = "Salaire",
+                    MinLimit = 0
+                }
+            };
+
+            ColumnSeries = new ISeries[]
+            {
+                new ColumnSeries<int> { Values = new int[] { 2, 0, 0, 7, 0, 1, 0, 10, 0, 0, 0, 0 } }
+            };
+
+            XAxesC = XAxesL;
+
+            YAxesC = new Axis[]
+            {
+                new Axis
+                {
+                    Name = "Nombre de jours",
+                    MinLimit = 0
+                }
+            };
+
+            PieSeries = new ISeries[]
+            {
+                new PieSeries<double> { Values = new double[] { 28 }, Name = "Présents" },
+                new PieSeries<double> { Values = new double[] { 2 }, Name = "Absents" },
+                new PieSeries<double> { Values = new double[] { 3 }, Name = "En retard" }
+            };
+
+            DataContext = this;
+
         }
         private BitmapImage ByteArrayToImage(byte[] byteArray)
         {

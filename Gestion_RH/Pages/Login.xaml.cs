@@ -82,7 +82,10 @@ namespace Gestion_RH.Pages
             string motDePasse = PasswordTextBox.Password;
 
             using var dbContext = new ApplicationDbContext();
-            var employe = dbContext.Employes.SingleOrDefault(e => e.Email == email);
+            var employe = dbContext.Employes
+                .Include(e => e.EmployeTaches)
+                    .ThenInclude(et => et.Tache)
+                .SingleOrDefault(e => e.Email == email);
 
             if (employe != null && PasswordHelper.Verifier(motDePasse, employe.Mdp))
             {

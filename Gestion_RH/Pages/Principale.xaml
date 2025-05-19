@@ -5,6 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
       xmlns:conv="clr-namespace:Gestion_RH.Converters"
       xmlns:local="clr-namespace:Gestion_RH.Pages"
+      xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF" 
+      xmlns:lvc1="clr-namespace:LiveChartsCore.SkiaSharpView;assembly=LiveChartsCore.SkiaSharpView"
+      xmlns:lvcw="clr-namespace:LiveChartsCore;assembly=LiveChartsCore"
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="1080"
       Title="Principale"
@@ -142,28 +145,57 @@ HorizontalAlignment="Right" DockPanel.Dock="Right">
                         <Border.Effect>
                             <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                         </Border.Effect>
-                        <TextBlock Text="🏖️ Congés restants : 10 jours" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="🏖️ Congés restants : 10 jours" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <lvc:CartesianChart 
+                                Series="{Binding ColumnSeries}"
+                                XAxes="{Binding XAxesC}"
+                                YAxes="{Binding YAxesC}"
+                                Height="200"
+                                Width="500" />
+                        </StackPanel>
                     </Border>
 
                     <Border Background="#aeb6bf " CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
                         <Border.Effect>
                             <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                         </Border.Effect>
-                        <TextBlock Text="📊 Dernier bulletin : Avril 2025 - Téléchargeable" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="📊 Statistique de paie" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <lvc:CartesianChart 
+                                Series="{Binding LineSeries}"
+                                XAxes="{Binding XAxesL}"
+                                YAxes="{Binding YAxesL}"
+                                Height="200"
+                                Width="500" />
+                        </StackPanel>
                     </Border>
 
                     <Border Background="White" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
                         <Border.Effect>
                             <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                         </Border.Effect>
-                        <TextBlock Text="✅ Prochaine tâche : Rapport mensuel - avant 17 Mai" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="✅ Statistique de présences / absences du mois" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <lvc:PieChart Series="{Binding PieSeries}" Height="200" Width="500"/>
+                        </StackPanel>
                     </Border>
 
                     <Border Background="#a9cce3 " CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
                         <Border.Effect>
                             <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                         </Border.Effect>
-                        <TextBlock Text="📅 Historique récent : Tâche livrée le 10 Mai" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <StackPanel>
+                            <TextBlock Text="📅 Tâche à livrer cette semaine" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <ListBox x:Name="ChecklistTasksBox" Margin="10" FontSize="20" Background="Transparent">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Nom}" IsChecked="{Binding Statut}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
                     </Border>
                 </WrapPanel>
             </Grid>
