@@ -259,6 +259,7 @@ namespace Gestion_RH.Pages
         public void Rafraichir()
         {
             MessageBox.Show("Il est temps de rafraichir la page");
+            ContenuAccueil.Visibility = Visibility.Visible;
 
             NavigationService.Navigate(new Accueil());
         }
@@ -339,6 +340,7 @@ namespace Gestion_RH.Pages
         {
             if (sender is Button button && button.Tag is string classe)
             {
+                ContenuAccueil.Visibility = Visibility.Collapsed;
                 Afficher(classe);
 
                 switch (classe)
@@ -460,6 +462,7 @@ namespace Gestion_RH.Pages
         private void NewHome_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Accueil());
+            ContenuAccueil.Visibility = Visibility.Visible;
         }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {

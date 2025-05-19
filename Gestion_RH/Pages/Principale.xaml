@@ -6,9 +6,9 @@
       xmlns:conv="clr-namespace:Gestion_RH.Converters"
       xmlns:local="clr-namespace:Gestion_RH.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="750" d:DesignWidth="1080"
       Title="Principale"
-      Background="#f5f7fa">
+      Background="#f5f7fa" >
     <Page.Resources>
         <!-- Style des en-têtes -->
         <Style TargetType="DataGridColumnHeader">
@@ -136,23 +136,37 @@ HorizontalAlignment="Right" DockPanel.Dock="Right">
             <!-- Colonne gauche : actions rapides -->
 
             <!-- Colonne droite : infos dynamiques -->
-            <StackPanel Grid.Column="1" VerticalAlignment="Top">
-                <Border Background="White" CornerRadius="10" Padding="15" Margin="5" BorderBrush="#ccc" BorderThickness="1" >
-                    <TextBlock Text="🏖️ Congés restants : 10 jours" FontSize="16"/>
-                </Border>
+            <Grid Grid.Column="1">
+                <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Border Background="#fae5d3" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                        </Border.Effect>
+                        <TextBlock Text="🏖️ Congés restants : 10 jours" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
 
-                <Border Background="White" CornerRadius="10" Padding="15" Margin="5" BorderBrush="#ccc" BorderThickness="1">
-                    <TextBlock Text="📊 Dernier bulletin : Avril 2025 - Téléchargeable" FontSize="16"/>
-                </Border>
+                    <Border Background="#aeb6bf " CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
+                        <Border.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                        </Border.Effect>
+                        <TextBlock Text="📊 Dernier bulletin : Avril 2025 - Téléchargeable" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
 
-                <Border Background="White" CornerRadius="10" Padding="15" Margin="5" BorderBrush="#ccc" BorderThickness="1">
-                    <TextBlock Text="✅ Prochaine tâche : Rapport mensuel - avant 17 Mai" FontSize="16"/>
-                </Border>
+                    <Border Background="White" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
+                        <Border.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                        </Border.Effect>
+                        <TextBlock Text="✅ Prochaine tâche : Rapport mensuel - avant 17 Mai" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
 
-                <Border Background="White" CornerRadius="10" Padding="15" Margin="5" BorderBrush="#ccc" BorderThickness="1">
-                    <TextBlock Text="📅 Historique récent : Tâche livrée le 10 Mai" FontSize="16"/>
-                </Border>
-            </StackPanel>
+                    <Border Background="#a9cce3 " CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
+                        <Border.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                        </Border.Effect>
+                        <TextBlock Text="📅 Historique récent : Tâche livrée le 10 Mai" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </WrapPanel>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

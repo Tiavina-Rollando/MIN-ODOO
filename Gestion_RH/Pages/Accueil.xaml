@@ -162,7 +162,37 @@
         <!-- ✅ Contenu principal (scrollable) -->
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20">
-                
+                <Grid x:Name="ContenuAccueil" Visibility="Visible">
+                    <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border Background="#fae5d3" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <TextBlock Text="🏖️ Congés restants : 10 jours" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <Border Background="#aeb6bf " CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <TextBlock Text="📊 Dernier bulletin : Avril 2025 - Téléchargeable" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <Border Background="White" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <TextBlock Text="✅ Prochaine tâche : Rapport mensuel - avant 17 Mai" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <Border Background="#a9cce3 " CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <TextBlock Text="📅 Historique récent : Tâche livrée le 10 Mai" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </WrapPanel>
+                </Grid>
                 <!-- 📌 Liste des Employés -->
                 <TextBlock Text="Liste des employés" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" Visibility="{Binding EmployesCardVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
