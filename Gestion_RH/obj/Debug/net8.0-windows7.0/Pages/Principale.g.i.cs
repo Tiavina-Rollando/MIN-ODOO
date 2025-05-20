@@ -81,7 +81,7 @@ namespace Gestion_RH.Pages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Gestion_RH;component/pages/principale.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Gestion_RH;V1.0.0.0;component/pages/principale.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Pages\Principale.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

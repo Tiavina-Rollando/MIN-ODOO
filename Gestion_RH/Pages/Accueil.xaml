@@ -167,21 +167,19 @@
             <StackPanel Margin="20">
                 <Grid x:Name="ContenuAccueil" Visibility="Visible">
                     <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Border Background="#fae5d3" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1">
+                        <Border Background="#fae5d3" Margin="20" CornerRadius="20" BorderBrush="#ccc" BorderThickness="1" Width="1175" Height="300">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                             </Border.Effect>
-                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
-                                <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Text="🏖️ Congés du mois" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <lvc:CartesianChart 
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="🏖️ Congés du mois" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <lvc:CartesianChart 
                                         Series="{Binding LineSeries}"
                                         XAxes="{Binding XAxesL}"
                                         YAxes="{Binding YAxesL}"
                                         Height="200"
-                                        Width="1500" />
-                                </StackPanel>
-                            </ScrollViewer>
+                                        Width="1150"/>
+                            </StackPanel>
                         </Border>
 
                         <Border Background="#aeb6bf " CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="570" Height="300">
