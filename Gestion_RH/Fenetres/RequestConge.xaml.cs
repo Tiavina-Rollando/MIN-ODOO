@@ -65,13 +65,15 @@ namespace Gestion_RH.Fenetres
                 MessageBox.Show("La date de fin ne peut pas être avant la date de début.");
                 return;
             }
-            Conge conge = new Conge();
-            conge.Motif = motif;
-            conge.Debut = dateDebut;
-            conge.Fin = dateFin;
-            conge.EmployeId = user.Id;
+            DemandeConge demande = new DemandeConge();
+            demande.Motif = motif;
+            demande.Debut = dateDebut;
+            demande.Fin = dateFin;
+            demande.EmployeId = user.Id;
+            demande.Statut = 0; 
+            demande.Envoye = DateTime.Now;
             using var db = new ApplicationDbContext();
-            db.Conges.Add(conge);
+            db.DemandesConge.Add(demande);
             db.SaveChanges();
             // Ici, tu peux enregistrer la demande de congé dans ta base
             MessageBox.Show($"Demande envoyée :\nMotif: {motif}\nDu {dateDebut:dd/MM/yyyy} au {dateFin:dd/MM/yyyy}");

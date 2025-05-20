@@ -73,6 +73,11 @@ namespace Gestion_RH.Classes
                 .HasOne(et => et.Tache)
                 .WithMany(t => t.EmployeTaches)
                 .HasForeignKey(et => et.TacheId);
+
+            modelBuilder.Entity<DemandeConge>()
+                .HasOne(d => d.Conge)
+                .WithOne(c => c.Demande)
+                .HasForeignKey<Conge>(c => c.DemandeId);
         }
 
 
@@ -100,6 +105,8 @@ namespace Gestion_RH.Classes
         public DbSet<Pointage> Pointages{ get; set; }
         public DbSet<PrimesEmploye> PrimesEmploye { get; set; }
         public DbSet<RetenuesEmploye> RetenuesEmploye { get; set; }
+        public DbSet<DemandeConge> DemandesConge { get; set; }
+
     }
 
 }

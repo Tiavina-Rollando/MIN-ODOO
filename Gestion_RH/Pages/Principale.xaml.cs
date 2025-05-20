@@ -34,9 +34,10 @@ namespace Gestion_RH.Pages
         public Axis[] YAxesC { get; set; }
         public ISeries[] ColumnSeries { get; set; }
         public ISeries[] PieSeries { get; set; }
-        public List<Tache> tasks = new List<Tache>();
+        public List<Tache> Taches = new List<Tache>();
 
         private Employe user { get; set; } = new Employe();
+
         public Principale(Employe sujet)
         {
             InitializeComponent();
@@ -46,9 +47,9 @@ namespace Gestion_RH.Pages
 
             foreach ( EmployeTache tO in taskOwn)
             {
-                tasks.Add(tO.Tache);
+                Taches.Add(tO.Tache);
             }
-            ChecklistTasksBox.ItemsSource = tasks;
+            ChecklistTasksBox.ItemsSource = Taches;
             BienvenuText.Text = $"Bienvenu(e) dans votre espace, {user.Prenom} {user.Nom} 👋";
 
             LineSeries = new ISeries[]
@@ -157,10 +158,27 @@ namespace Gestion_RH.Pages
                 reqWindow.ShowDialog();
             }
         }
-
+        private void AfficherTaches_Click(object sender, RoutedEventArgs e)
+        {
+            Page.Visibility = Visibility.Collapsed;
+            ListTask.Visibility = Visibility.Visible;
+        }
         private void HistoriquePaie_Click(object sender, RoutedEventArgs e)
         {
             // Ouvre une nouvelle fenêtre pour afficher l'historique
+        }
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+            ListTask.Visibility = Visibility.Collapsed;
+            Page.Visibility = Visibility.Visible;
+        }
+        private void Detail_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null && button.Tag is Tache task)
+            {
+                NavigationService.Navigate(new Detail(task));
+            }
         }
         private void Quitter_Click(object sender, RoutedEventArgs e)
         {

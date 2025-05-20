@@ -10,18 +10,21 @@
 
   <ItemGroup>
     <None Remove="Assets\add-icon.png" />
+    <None Remove="Assets\annule.png" />
     <None Remove="Assets\ca.png" />
     <None Remove="Assets\coche-verte.png" />
     <None Remove="Assets\en-cours.png" />
     <None Remove="Assets\menu.png" />
     <None Remove="Assets\notification.png" />
     <None Remove="Assets\pdpVide.jpg" />
+    <None Remove="Assets\refuser.png" />
     <None Remove="Assets\task.png" />
     <None Remove="Assets\trash-icon.png" />
     <None Remove="Services\script.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\annule.png" />
     <Resource Include="Assets\ca.png" />
     <Resource Include="Assets\coche-verte.png" />
     <Resource Include="Assets\en-cours.png" />
@@ -54,6 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\refuser.png" />
     <Resource Include="Assets\task.png" />
     <Resource Include="Assets\trash-icon.png" />
   </ItemGroup>

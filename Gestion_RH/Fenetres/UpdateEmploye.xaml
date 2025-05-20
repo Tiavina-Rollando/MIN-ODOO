@@ -58,35 +58,35 @@
                             <TextBlock Text="🆔" FontSize="18" VerticalAlignment="Center"/>
                             <TextBlock Text="Nom :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
-                        <TextBox x:Name="NomTextUpdateBox" Height="30" Width="300" Margin="5" IsReadOnly="True"/>
+                        <TextBox x:Name="NomTextUpdateBox" Height="30" Width="300" Margin="5"/>
 
                         <!-- 📌 Prénom -->
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <TextBlock Text="🆔" FontSize="18" VerticalAlignment="Center"/>
                             <TextBlock Text="Prénom :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
-                        <TextBox x:Name="PrenomTextUpdateBox" Height="30" Width="300" Margin="5" IsReadOnly="True"/>
+                        <TextBox x:Name="PrenomTextUpdateBox" Height="30" Width="300" Margin="5"/>
 
                         <!-- 📌 Email -->
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <TextBlock Text="📧" FontSize="18" VerticalAlignment="Center"/>
                             <TextBlock Text="Email :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
-                        <TextBox x:Name="EmailTextUpdateBox" Height="30" Width="300" Margin="5" IsReadOnly="True"/>
+                        <TextBox x:Name="EmailTextUpdateBox" Height="30" Width="300" Margin="5"/>
 
                         <!-- 📌 Téléphone -->
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <TextBlock Text="📞" FontSize="18" VerticalAlignment="Center"/>
                             <TextBlock Text="Téléphone :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
-                        <TextBox x:Name="TelTextUpdateBox" Height="30" Width="300" Margin="5" IsReadOnly="True"/>
+                        <TextBox x:Name="TelTextUpdateBox" Height="30" Width="300" Margin="5"/>
 
                         <!-- 📌 Adresse -->
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <TextBlock Text="📍" FontSize="18" VerticalAlignment="Center"/>
                             <TextBlock Text="Adresse :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
-                        <TextBox x:Name="AdresseTextUpdateBox" Height="30" Width="300" Margin="5" IsReadOnly="True"/>
+                        <TextBox x:Name="AdresseTextUpdateBox" Height="30" Width="300" Margin="5"/>
 
                         <!-- 📌 Poste -->
                         <StackPanel Orientation="Horizontal" Margin="5">
@@ -120,7 +120,7 @@
                             <TextBlock Text="🎂" FontSize="18" VerticalAlignment="Center"/>
                             <TextBlock Text="Date de naissance :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
-                        <DatePicker x:Name="DateNaissanceUpdatePicker" Height="30" Width="300" Margin="5" IsEnabled="False"/>
+                        <DatePicker x:Name="DateNaissanceUpdatePicker" Height="30" Width="300" Margin="5"/>
 
 
                         <!-- 📌 Date d'integration -->
@@ -128,7 +128,7 @@
                             <TextBlock Text="🏢" FontSize="18" VerticalAlignment="Center"/>
                             <TextBlock Text="Date d'intégration :" FontWeight="Bold" Margin="5,5,0,0"/>
                         </StackPanel>
-                        <DatePicker x:Name="DateIntegrationUpdatePicker" Height="30" Width="300" Margin="5" IsEnabled="False"/>
+                        <DatePicker x:Name="DateIntegrationUpdatePicker" Height="30" Width="300" Margin="5"/>
 
 
                     </UniformGrid>

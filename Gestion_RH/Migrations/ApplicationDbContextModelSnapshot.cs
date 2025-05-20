@@ -65,6 +65,9 @@ namespace Gestion_RH.Migrations
                     b.Property<DateTime?>("Debut")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("DemandeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("EmployeId")
                         .HasColumnType("int");
 
@@ -76,6 +79,9 @@ namespace Gestion_RH.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DemandeId")
+                        .IsUnique();
 
                     b.HasIndex("EmployeId");
 
@@ -205,6 +211,40 @@ namespace Gestion_RH.Migrations
                     b.HasIndex("EmployeId");
 
                     b.ToTable("Cvs");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.DemandeConge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("Debut")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("EmployeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Envoye")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("Fin")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Motif")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Statut")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeId");
+
+                    b.ToTable("DemandesConge");
                 });
 
             modelBuilder.Entity("Gestion_RH.Classes.Departement", b =>
@@ -472,6 +512,27 @@ namespace Gestion_RH.Migrations
                     b.ToTable("Primes");
                 });
 
+            modelBuilder.Entity("Gestion_RH.Classes.PrimesEmploye", b =>
+                {
+                    b.Property<int>("EmployeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrimeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("EmployeId", "PrimeId");
+
+                    b.HasIndex("PrimeId");
+
+                    b.ToTable("PrimesEmploye");
+                });
+
             modelBuilder.Entity("Gestion_RH.Classes.Retard", b =>
                 {
                     b.Property<int>("Id")
@@ -514,6 +575,27 @@ namespace Gestion_RH.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Retenues");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.RetenuesEmploye", b =>
+                {
+                    b.Property<int>("EmployeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RetenueId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("EmployeId", "RetenueId");
+
+                    b.HasIndex("RetenueId");
+
+                    b.ToTable("RetenuesEmploye");
                 });
 
             modelBuilder.Entity("Gestion_RH.Classes.Role", b =>
@@ -608,11 +690,19 @@ namespace Gestion_RH.Migrations
 
             modelBuilder.Entity("Gestion_RH.Classes.Conge", b =>
                 {
+                    b.HasOne("Gestion_RH.Classes.DemandeConge", "Demande")
+                        .WithOne("Conge")
+                        .HasForeignKey("Gestion_RH.Classes.Conge", "DemandeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Gestion_RH.Classes.Employe", "Employe")
                         .WithMany("Conges")
                         .HasForeignKey("EmployeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Demande");
 
                     b.Navigation("Employe");
                 });
@@ -715,6 +805,17 @@ namespace Gestion_RH.Migrations
                     b.Navigation("Employe");
                 });
 
+            modelBuilder.Entity("Gestion_RH.Classes.DemandeConge", b =>
+                {
+                    b.HasOne("Gestion_RH.Classes.Employe", "Employe")
+                        .WithMany("DemandesConge")
+                        .HasForeignKey("EmployeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employe");
+                });
+
             modelBuilder.Entity("Gestion_RH.Classes.DocRH", b =>
                 {
                     b.HasOne("Gestion_RH.Classes.Employe", "Employe")
@@ -805,6 +906,25 @@ namespace Gestion_RH.Migrations
                     b.Navigation("Departement");
                 });
 
+            modelBuilder.Entity("Gestion_RH.Classes.PrimesEmploye", b =>
+                {
+                    b.HasOne("Gestion_RH.Classes.Employe", "Employe")
+                        .WithMany("PrimesEmployes")
+                        .HasForeignKey("EmployeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gestion_RH.Classes.Prime", "Prime")
+                        .WithMany("PrimesEmployes")
+                        .HasForeignKey("PrimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employe");
+
+                    b.Navigation("Prime");
+                });
+
             modelBuilder.Entity("Gestion_RH.Classes.Retard", b =>
                 {
                     b.HasOne("Gestion_RH.Classes.Employe", "Employe")
@@ -814,6 +934,25 @@ namespace Gestion_RH.Migrations
                         .IsRequired();
 
                     b.Navigation("Employe");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.RetenuesEmploye", b =>
+                {
+                    b.HasOne("Gestion_RH.Classes.Employe", "Employe")
+                        .WithMany("RetenuesEmployes")
+                        .HasForeignKey("EmployeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gestion_RH.Classes.Retenue", "Retenue")
+                        .WithMany("RetenuesEmployes")
+                        .HasForeignKey("RetenueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employe");
+
+                    b.Navigation("Retenue");
                 });
 
             modelBuilder.Entity("Gestion_RH.Classes.Support", b =>
@@ -836,6 +975,11 @@ namespace Gestion_RH.Migrations
                     b.Navigation("RetenuesAcceptees");
                 });
 
+            modelBuilder.Entity("Gestion_RH.Classes.DemandeConge", b =>
+                {
+                    b.Navigation("Conge");
+                });
+
             modelBuilder.Entity("Gestion_RH.Classes.Employe", b =>
                 {
                     b.Navigation("Absences");
@@ -846,6 +990,8 @@ namespace Gestion_RH.Migrations
 
                     b.Navigation("Cv");
 
+                    b.Navigation("DemandesConge");
+
                     b.Navigation("DocRH");
 
                     b.Navigation("EmployeTaches");
@@ -854,12 +1000,26 @@ namespace Gestion_RH.Migrations
 
                     b.Navigation("Pointages");
 
+                    b.Navigation("PrimesEmployes");
+
                     b.Navigation("Retards");
+
+                    b.Navigation("RetenuesEmployes");
                 });
 
             modelBuilder.Entity("Gestion_RH.Classes.Poste", b =>
                 {
                     b.Navigation("Contrats");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.Prime", b =>
+                {
+                    b.Navigation("PrimesEmployes");
+                });
+
+            modelBuilder.Entity("Gestion_RH.Classes.Retenue", b =>
+                {
+                    b.Navigation("RetenuesEmployes");
                 });
 
             modelBuilder.Entity("Gestion_RH.Classes.Tache", b =>

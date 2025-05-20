@@ -67,6 +67,7 @@ namespace Gestion_RH.Classes
         public ICollection<EmployeTache> EmployeTaches { get; set; } = new List<EmployeTache>();
         public ICollection<Absence> Absences{ get; set; } = new List<Absence>();
         public ICollection<Conge> Conges{ get; set; } = new List<Conge>();
+        public ICollection<DemandeConge> DemandesConge { get; set; } = new List<DemandeConge>();
         public ICollection<Contrat> Contrats { get; set; } = new List<Contrat>();
         public ICollection<HeureSup> HeureSups{ get; set; } = new List<HeureSup>();
         public ICollection<Retard> Retards{ get; set; } = new List<Retard>();

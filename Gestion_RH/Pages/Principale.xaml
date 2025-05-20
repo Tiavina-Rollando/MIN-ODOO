@@ -111,13 +111,16 @@ HorizontalAlignment="Right" DockPanel.Dock="Right">
                     <!-- Bouton Quitter en bas -->
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Column="0"  Background="#2C3E50" Grid.Row="0" VerticalAlignment="Top">
+                    <Button Cursor="Hand" Height="45" Margin="5" Click="Home_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                        <TextBlock Text="🏠 Accueil" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                    </Button>
                     <Button Cursor="Hand" Height="45" Margin="5" Click="DemanderConge_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
                             <TextBlock Text="📅 Demande de congé" VerticalAlignment="Center" HorizontalAlignment="Right" />
                     </Button>
                     <Button Cursor="Hand" Height="45" Margin="5" Click="HistoriquePaie_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
                         <TextBlock Text="📄 Consulter bulletins" VerticalAlignment="Center" HorizontalAlignment="Right" />
                     </Button>
-                    <Button Cursor="Hand" Height="45" Margin="5" Click="DemanderConge_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                    <Button Cursor="Hand" Height="45" Margin="5" Click="AfficherTaches_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
                         <TextBlock Text="🧾 Mes tâches" VerticalAlignment="Center" HorizontalAlignment="Right" />
                     </Button>
 
@@ -140,7 +143,28 @@ HorizontalAlignment="Right" DockPanel.Dock="Right">
 
             <!-- Colonne droite : infos dynamiques -->
             <Grid Grid.Column="1">
-                <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <WrapPanel Name="ListTask" Visibility="Collapsed" Orientation="Horizontal" Margin="10">
+                    <ItemsControl ItemsSource="{Binding Taches}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="130" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
+                                        <TextBlock Text="{Binding DateExpedition}" Foreground="Gray" TextAlignment="Center"/>
+                                        <TextBlock Text="{Binding Deadline}" Foreground="Red" TextAlignment="Center"/>
+                                        <Button Content="Détails"  Style="{StaticResource RoundedButtonStyle}" Click="Detail_Click" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </WrapPanel>
+                <WrapPanel Name="Page" Visibility="Visible" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Border Background="#fae5d3" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300" >
                         <Border.Effect>
                             <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>

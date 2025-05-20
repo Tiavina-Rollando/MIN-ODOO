@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Gestion_RH.Classes;
+using Gestion_RH.Pages;
 
 namespace Gestion_RH.Fenetres
 {
@@ -22,7 +23,8 @@ namespace Gestion_RH.Fenetres
     public partial class UpdateEmploye : Window, INotifyPropertyChanged
     {
         private Employe employe;
-        public UpdateEmploye(Employe emp)
+        private Info _infoPage;
+        public UpdateEmploye(Info InfoPage,Employe emp)
         {
             InitializeComponent();
             employe = emp;
@@ -83,9 +85,8 @@ namespace Gestion_RH.Fenetres
                     {
                         dbContext.SaveChanges();
                         MessageBox.Show("Employé modifié avec succès.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                        //Afficher("employes");
-
+                        this.Close();
+                        _infoPage.Rafraichir();
                     }
                 }
 

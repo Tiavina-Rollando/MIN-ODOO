@@ -18,5 +18,10 @@ namespace Gestion_RH.Classes
         public int EmployeId { get; set; }
         public Employe? Employe { get; set; }
         public string NomEmploye => Employe?.Nom +" "+ Employe?.Prenom ?? string.Empty;
+
+        [ForeignKey("DemandeConge")]
+        public int DemandeId { get; set; }
+        public DemandeConge? Demande { get; set; }
+
     }
 }

@@ -172,7 +172,7 @@
                                 <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
                             </Border.Effect>
                             <StackPanel VerticalAlignment="Center">
-                                <TextBlock Text="🏖️ Congés du mois" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="🏖️ Congés de l'année" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 <lvc:CartesianChart 
                                         Series="{Binding LineSeries}"
                                         XAxes="{Binding XAxesL}"

@@ -8,6 +8,9 @@
       xmlns:conv="clr-namespace:Gestion_RH.Converters"
       xmlns:view="clr-namespace:Gestion_RH.ViewModels"
       xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF" 
+      xmlns:lvc1="clr-namespace:LiveChartsCore.SkiaSharpView;assembly=LiveChartsCore.SkiaSharpView"
+      xmlns:lvcw="clr-namespace:LiveChartsCore;assembly=LiveChartsCore"
       mc:Ignorable="d" 
       Title="Conge">
 
@@ -84,7 +87,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <!-- ✅ Barre de navigation (fixe) -->
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="Auto"/>
             <!-- ✅ Contenu (scrollable) -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -110,13 +113,6 @@
                     </Button>
                     <Separator/>
                     <Calendar Name="calConge" SelectedDatesChanged="calConge_SelectedDatesChanged" />
-                    <Button Cursor="Hand" Height="45" Margin="5" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Icon="ClockOutline" Margin="5" Width="22" HorizontalAlignment="Left" Height="24"/>
-                            <TextBlock Text="Historique" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                        </StackPanel>
-                    </Button>
-                    <!--<Button Cursor="Hand" FontSize="16" x:Name="SupprimerPhotoBoutton" Style="{StaticResource RoundedButtonStyle}"   Content="Supprimer la photo" Click="DeletePhoto_Click" Margin="5" Height="35" Width="200" Visibility="Collapsed"/>-->
                     <Separator/>
 
                 </StackPanel>
@@ -133,10 +129,93 @@
             </Grid>
         </Border>
 
-        <ScrollViewer  Grid.Column="1" VerticalScrollBarVisibility="Auto" Visibility="Visible">
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Visibility="Visible">
             <StackPanel>
-                <!-- 📌 Liste des Employés -->
-                <TextBlock Text="Liste des congés" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" Visibility="{Binding EmployesVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                <Grid x:Name="View" Visibility="Collapsed">
+                    <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Click="Agree_Click" Width="150" Background="GreenYellow" Foreground="Gray" Height="50" FontSize="20" BorderThickness="2" BorderBrush="AliceBlue" Style="{StaticResource RoundedButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
+                            <TextBlock Text="🟢 Appouver" />
+                        </Button>
+                        <Button Click="Disagree_Click" Width="150" Height="50" Background="IndianRed" Foreground="White" FontSize="20" BorderThickness="2" BorderBrush="AliceBlue" Style="{StaticResource RoundedButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+                            <TextBlock Text="⛔ Réfuser" />
+                        </Button>
+                        <Border Background="#fae5d3" Margin="20" CornerRadius="20" BorderBrush="#ccc" BorderThickness="1" Width="1175" Height="300">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="🏖️ Congés de l'année" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <lvc:CartesianChart 
+                                    Series="{Binding LineSeries}"
+                                    XAxes="{Binding XAxesL}"
+                                    YAxes="{Binding YAxesL}"
+                                    Height="200"
+                                    Width="1000"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="White" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="570" Height="300">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="✅ Présences / Absences de l'année" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <lvc:PieChart Series="{Binding PieSeries}" Height="200" Width="500"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#a9cce3" Width="570" Height="300" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock Text="📋 Tâche à livrer dans l'intervalle" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <ListBox x:Name="ChecklistTasksBox" Margin="10" FontSize="20" Background="Transparent">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding Nom}" IsChecked="{Binding Statut}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#abebc6" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="570" Height="300" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock Text="📅 Congés prévus du département " FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <ListBox x:Name="ChecklistCongesBox" Margin="10" FontSize="20" ItemsSource="{Binding ListeDesNoms}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#abebc6" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="570" Height="300" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock Text="👥  Membres du département " FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <ListBox x:Name="ChecklistMembreBox" Margin="10" FontSize="20" ItemsSource="{Binding ListeDesNoms}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+                </Grid>
+
+                <!-- 📌 Liste des Congés -->
+                <TextBlock Text="Historique des congés" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" Visibility="{Binding CongesVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
                 <DataGrid x:Name="CongesDataGrid" AutoGenerateColumns="False"  CanUserAddRows="False" Visibility="{Binding CongesVisible, Converter={StaticResource BoolToVisConverter}}" Margin="0,10,0,30" CanUserSortColumns="True">
                     <DataGrid.Columns>
@@ -170,6 +249,28 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
+                <!-- 📌 Liste des demandes -->
+                <TextBlock Text="Historique des demandes" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" Visibility="{Binding DemandesVisible, Converter={StaticResource BoolToVisConverter}}"/>
+
+                <DataGrid x:Name="DemandesDataGrid" AutoGenerateColumns="False"  CanUserAddRows="False" Visibility="{Binding DemandesVisible, Converter={StaticResource BoolToVisConverter}}" Margin="0,10,0,30" CanUserSortColumns="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Date envoye" Binding="{Binding Envoye}" Width="200" CanUserSort="True"/>
+                        <DataGridTextColumn Header="Motif" Binding="{Binding Motif}" Width="300" CanUserSort="True"/>
+                        <DataGridTextColumn Header="Date début" Binding="{Binding Debut}" Width="200" CanUserSort="True"/>
+                        <DataGridTextColumn Header="Date fin" Binding="{Binding Fin}" Width="200" CanUserSort="True"/>
+                        <DataGridTextColumn Header="Titulaire" Binding="{Binding NomEmploye}" Width="*" CanUserSort="True"/>
+                        <DataGridTemplateColumn Header="Statut" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Width="20" Height="20" Source="{Binding StatutImage}" />
+                                        <TextBlock Text="{Binding TextStatut}" HorizontalAlignment="Center" Foreground="Black"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
         </ScrollViewer>
         
@@ -189,7 +290,7 @@
 
                     <Separator/>
                     <WrapPanel Orientation="Vertical" Margin="10">
-                        <ItemsControl>
+                        <ItemsControl ItemsSource="{Binding Demandes}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Vertical" />
@@ -199,10 +300,10 @@
                                 <DataTemplate>
                                     <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="110" CornerRadius="10" Padding="10" Margin="5">
                                         <StackPanel>
-                                            <TextBlock FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
-                                            <TextBlock Foreground="Gray" TextAlignment="Center"/>
-                                            <TextBlock Foreground="Red" TextAlignment="Center"/>
-                                            <Button Content="Voir"  Style="{StaticResource RoundedButtonStyle}" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Motif}"  FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding NomEmploye}"  Foreground="Gray" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding Envoye}"  Foreground="Red" TextAlignment="Center"/>
+                                            <Button Content="Voir"  Style="{StaticResource RoundedButtonStyle}" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center" Click="View_Click"/>
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>

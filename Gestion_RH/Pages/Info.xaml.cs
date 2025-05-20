@@ -28,12 +28,12 @@ namespace Gestion_RH.Pages
     public partial class Info : Page, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private Employe employe;
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private Employe employe;
         private ObservableCollection<Tache> _taches;
         public ObservableCollection<Tache> Taches
         {
@@ -63,6 +63,10 @@ namespace Gestion_RH.Pages
                 Lista.Add(cv);
             }
 
+        }
+        public void Rafraichir()
+        {
+            NavigationService.Navigate(new Info(employe));
         }
         public Info(Employe emp)
         {
@@ -147,7 +151,7 @@ namespace Gestion_RH.Pages
         }
         private void UpdateEmploye_Click(object sender, RoutedEventArgs e)
         {
-            UpdateEmploye modifWindow = new UpdateEmploye(employe);
+            UpdateEmploye modifWindow = new UpdateEmploye(this,employe);
             modifWindow.ShowDialog();
 
         }
