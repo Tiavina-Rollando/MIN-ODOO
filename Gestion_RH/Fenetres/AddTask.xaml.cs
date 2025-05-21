@@ -60,7 +60,8 @@ namespace Gestion_RH.Fenetres
                 dbContext.Taches.Add(task);
                 dbContext.SaveChanges();
                 MessageBox.Show("Tâche bien enregistrée.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                _accueilPage.Rafraichir();
+                var btn = new Button { Tag = "tachesCard" };
+                _accueilPage.Afficher_Click(btn, new RoutedEventArgs());
                 this.Close();
             }
             else

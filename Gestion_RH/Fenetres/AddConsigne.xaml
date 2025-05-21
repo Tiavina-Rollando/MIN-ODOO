@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gestion_RH.Fenetres"
         mc:Ignorable="d"
-        Title="AddConsigne" Height="450" Width="800">
+        Title="AddConsigne" 
+        SizeToContent="WidthAndHeight">
 
     <Window.Resources>
         <Style x:Key="RoundedButtonStyle" TargetType="Button">

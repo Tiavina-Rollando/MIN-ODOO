@@ -101,8 +101,10 @@ namespace Gestion_RH.Fenetres
                 dbContext.Employes.Add(novice);
                 dbContext.SaveChanges();
                 MessageBox.Show("Employé bien enregistré.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                _accueilPage.Rafraichir();
                 this.Close();
+
+                var btn = new Button { Tag = "employesCard" };
+                _accueilPage.Afficher_Click(btn, new RoutedEventArgs());
                 var resultat = MessageBox.Show("Voulez-vous ajouter un CV pour cet employé ?", "Ajouter CV", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (resultat == MessageBoxResult.Yes)

@@ -322,8 +322,8 @@
                                     <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="110" CornerRadius="10" Padding="10" Margin="5">
                                         <StackPanel>
                                             <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
-                                            <TextBlock Text="{Binding DateExpedition}" Foreground="Gray" TextAlignment="Center"/>
-                                            <TextBlock Text="{Binding Deadline}" Foreground="Red" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding DateExpedition, StringFormat='{}{0:dd/MM/yyyy}'}" Foreground="Gray" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding Deadline, StringFormat='{}{0:dd/MM/yyyy}'}" Foreground="Red" TextAlignment="Center"/>
                                             <Button Content="Détails"  Style="{StaticResource RoundedButtonStyle}" Click="Detail_Click" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Border>

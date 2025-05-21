@@ -241,7 +241,7 @@ namespace Gestion_RH.Pages
                 ChargerTachesDepuisBDD();
             }
         }
-        private void Afficher_Click(object sender, RoutedEventArgs e)
+        public void Afficher_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.Tag is string classe)
             {
@@ -302,36 +302,6 @@ namespace Gestion_RH.Pages
 
                     switch (classe)
                     {
-                        case "departements":
-                            var departement = dbContext.Departements.Find(id);
-                            if (departement != null)
-                            {
-                                dbContext.Departements.Remove(departement);
-                                dbContext.SaveChanges();
-                                MessageBox.Show("Département supprimé avec succès !");
-                            }
-                            break;
-
-                        case "postes":
-                            var poste = dbContext.Postes.Find(id);
-                            if (poste != null)
-                            {
-                                dbContext.Postes.Remove(poste);
-                                dbContext.SaveChanges();
-                                MessageBox.Show("Poste supprimé avec succès !");
-                            }
-                            break;
-
-                        case "nations":
-                            var nation = dbContext.Nations.Find(id);
-                            if (nation != null)
-                            {
-                                dbContext.Nations.Remove(nation);
-                                dbContext.SaveChanges();
-                                MessageBox.Show("Pays supprimé avec succès !");
-                            }
-                            break;
-
                         case "employes":
                             var employe = dbContext.Employes.Find(id);
                             if (employe != null)
@@ -339,10 +309,23 @@ namespace Gestion_RH.Pages
                                 dbContext.Employes.Remove(employe);
                                 dbContext.SaveChanges();
                                 MessageBox.Show("Employé supprimé avec succès !");
+                                var btn = new Button { Tag = "employesCard" };
+                                Afficher_Click(btn, new RoutedEventArgs());
+                            }
+                            break;
+
+                        case "taches":
+                            var tache = dbContext.Taches.Find(id);
+                            if (tache != null)
+                            {
+                                dbContext.Taches.Remove(tache);
+                                dbContext.SaveChanges();
+                                MessageBox.Show("Tâche supprimée avec succès !");
+                                var btn = new Button { Tag = "tachesCard" };
+                                Afficher_Click(btn, new RoutedEventArgs());
                             }
                             break;
                     };
-                    Afficher(classe);
                 }
             }
         }
