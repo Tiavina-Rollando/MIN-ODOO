@@ -4,14 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
       xmlns:conv="clr-namespace:Gestion_RH.Converters"
-      xmlns:local="clr-namespace:Gestion_RH.Pages"
+      xmlns:view="clr-namespace:Gestion_RH.ViewModels"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
       xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF" 
       xmlns:lvc1="clr-namespace:LiveChartsCore.SkiaSharpView;assembly=LiveChartsCore.SkiaSharpView"
-      xmlns:lvcw="clr-namespace:LiveChartsCore;assembly=LiveChartsCore"
+      xmlns:lvcw="clr-namespace:LiveChartsCore;assembly=LiveChartsCore" 
       mc:Ignorable="d" 
-      d:DesignHeight="750" d:DesignWidth="1080"
-      Title="Principale"
-      Background="#f5f7fa" >
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Principale">
+    
     <Page.Resources>
         <!-- Style des en-têtes -->
         <Style TargetType="DataGridColumnHeader">
@@ -47,9 +48,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                        BorderBrush="{TemplateBinding BorderBrush}" 
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="5"  Padding="5"  Cursor="Hand" >
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5"  Padding="5"  Cursor="Hand" >
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -118,7 +119,7 @@ HorizontalAlignment="Right" DockPanel.Dock="Right">
                     <DropShadowEffect Color="Black" ShadowDepth="5"/>
                 </Border.Effect>
 
-                <Grid>
+                <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <!-- Section du menu en haut -->
@@ -160,31 +161,34 @@ HorizontalAlignment="Right" DockPanel.Dock="Right">
 
             </Border>
             
-            <!-- Colonne gauche : actions rapides -->
-
-            <!-- Colonne droite : infos dynamiques -->
             <Grid Grid.Column="1" Background="#ecf0f1" >
-                <WrapPanel Name="ListTask" Visibility="Collapsed" Orientation="Horizontal" Margin="10">
-                    <ItemsControl ItemsSource="{Binding Taches}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="130" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
-                                        <TextBlock Text="{Binding DateExpedition}" Foreground="Gray" TextAlignment="Center"/>
-                                        <TextBlock Text="{Binding Deadline}" Foreground="Red" TextAlignment="Center"/>
-                                        <Button Content="Détails"  Style="{StaticResource RoundedButtonStyle}" Click="Detail_Click" Width="100" Tag="{Binding}" Margin="10,5,0,0" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </WrapPanel>
+
+                <StackPanel Name="ListTask" Visibility="Collapsed">
+                    <TextBlock Text="Liste de mes tâches" FontSize="22" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" Margin="10"/>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="card">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#f2f2f2" BorderBrush="#ccc" BorderThickness="1" Width="200" Height="70" CornerRadius="10" Padding="10" Margin="5" Cursor="Hand">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Nom}" FontWeight="Bold" Foreground="#2C3E50" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding DateExpedition, StringFormat='{}{0:dd/MM/yyyy}'}" Foreground="Gray" TextAlignment="Center"/>
+                                            <TextBlock Text="{Binding Deadline, StringFormat='{}{0:dd/MM/yyyy}'}" Foreground="Red" TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </StackPanel>
+
                 <WrapPanel Name="Page" Visibility="Visible" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Border Background="#fae5d3" CornerRadius="20" Margin="20" BorderBrush="#ccc" BorderThickness="1" Width="500" Height="300" >
                         <Border.Effect>

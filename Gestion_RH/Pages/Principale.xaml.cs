@@ -19,6 +19,15 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gestion_RH.Classes;
 using Gestion_RH.Fenetres;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Gestion_RH.Pages;
+using System.Collections.ObjectModel;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
+
 
 namespace Gestion_RH.Pages
 {
@@ -44,10 +53,15 @@ namespace Gestion_RH.Pages
             user = sujet;
             chargerEmploye(user);
             List<EmployeTache> taskOwn = user.EmployeTaches.ToList();
-
-            foreach ( EmployeTache tO in taskOwn)
+            if (taskOwn != null)
             {
-                Taches.Add(tO.Tache);
+                foreach ( EmployeTache tO in taskOwn)
+                {
+                    if(tO != null && tO.Tache != null)
+                    {
+                        Taches.Add(tO.Tache);
+                    }
+                }
             }
             ChecklistTasksBox.ItemsSource = Taches;
             BienvenuText.Text = $"Bienvenu(e) dans votre espace, {user.Prenom} {user.Nom} 👋";
@@ -102,7 +116,6 @@ namespace Gestion_RH.Pages
             };
 
             DataContext = this;
-
         }
         private BitmapImage ByteArrayToImage(byte[] byteArray)
         {
@@ -162,6 +175,14 @@ namespace Gestion_RH.Pages
         {
             Page.Visibility = Visibility.Collapsed;
             ListTask.Visibility = Visibility.Visible;
+            if(Taches == null)
+            {
+                MessageBox.Show("Il n'y a pas de tâche pour vous pour le moment !");
+            }
+            else
+            {
+                card.ItemsSource = Taches;
+            }
         }
         private void HistoriquePaie_Click(object sender, RoutedEventArgs e)
         {
@@ -171,14 +192,6 @@ namespace Gestion_RH.Pages
         {
             ListTask.Visibility = Visibility.Collapsed;
             Page.Visibility = Visibility.Visible;
-        }
-        private void Detail_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            if (button != null && button.Tag is Tache task)
-            {
-                NavigationService.Navigate(new Detail(task));
-            }
         }
         private void Quitter_Click(object sender, RoutedEventArgs e)
         {
