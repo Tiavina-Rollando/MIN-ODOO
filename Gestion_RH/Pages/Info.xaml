@@ -54,7 +54,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#2C3E50"/>
+                    <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="BorderBrush" Value="DarkGray"/>
                 </Trigger>
@@ -74,7 +74,13 @@
             <!-- ✅ Contenu (scrollable) -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" x:Name="TaskIcon" Visibility="Visible" Background="#2C3E50" Padding="10">
+        <Border Grid.Column="0" x:Name="TaskIcon" Visibility="Visible" Padding="10">
+            <Border.Background>
+                <ImageBrush ImageSource="../Assets/backrgound1.jpg"></ImageBrush>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect Color="Black" ShadowDepth="5"/>
+            </Border.Effect>
             <Grid>
                 <!-- Définition des lignes pour organiser l'affichage -->
                 <Grid.RowDefinitions>
@@ -145,7 +151,7 @@
         </Border>
         
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden">
-            <Border Background="White" CornerRadius="15" Padding="20" Margin="20"
+            <Border Background="#ecf0f1" CornerRadius="15" Padding="20" Margin="20"
             BorderBrush="#D1D1D1" BorderThickness="1">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5"/>
@@ -289,7 +295,13 @@
                 <TranslateTransform Y="-20"/>
             </ScrollViewer.RenderTransform>
 
-            <Border  Background="#2C3E50" Padding="10">
+            <Border Padding="10">
+                <Border.Background>
+                    <ImageBrush ImageSource="../Assets/backrgound1.jpg"></ImageBrush>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" ShadowDepth="5"/>
+                </Border.Effect>
                 <StackPanel>
                     <Button Cursor="Hand" Height="45" Margin="5" Style="{StaticResource RoundedButtonStyle}" Click="TextTasks_Click">
                         <StackPanel Orientation="Horizontal">

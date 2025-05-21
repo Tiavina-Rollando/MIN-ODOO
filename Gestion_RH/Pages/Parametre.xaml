@@ -55,7 +55,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#2C3E50"/>
+                    <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="BorderBrush" Value="DarkGray"/>
                 </Trigger>
@@ -80,7 +80,13 @@
             <!-- ✅ Contenu (scrollable) -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border x:Name="MenuPanel" Visibility="Visible" Grid.Column="0" Background="#2C3E50" Padding="10">
+        <Border x:Name="MenuPanel" Visibility="Visible" Grid.Column="0" Padding="10">
+            <Border.Background>
+                <ImageBrush ImageSource="../Assets/backrgound1.jpg"></ImageBrush>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect Color="Black" ShadowDepth="5"/>
+            </Border.Effect>
             <Grid>
                 <!-- Définition des lignes pour organiser l'affichage -->
                 <Grid.RowDefinitions>
@@ -150,7 +156,7 @@
             </Grid>
         </Border>
 
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Background="#ecf0f1">
             <StackPanel Margin="20">
 
                 <StackPanel Name="DepData" Visibility="Collapsed">

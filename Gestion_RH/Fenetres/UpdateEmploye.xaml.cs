@@ -43,9 +43,9 @@ namespace Gestion_RH.Fenetres
             TelTextUpdateBox.Text = employe.Tel;
             DateIntegrationUpdatePicker.SelectedDate = employe.DateIntegration;
             DateNaissanceUpdatePicker.SelectedDate = employe.DateNaissance;
+            _infoPage = InfoPage;
 
-            //MessageBox.Show($"Date de naissance: {DateNaissanceUpdatePicker.Text}", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-
+            DataContext = this;
         }
 
 
@@ -89,7 +89,6 @@ namespace Gestion_RH.Fenetres
                         _infoPage.Rafraichir();
                     }
                 }
-
             }
             else
             {

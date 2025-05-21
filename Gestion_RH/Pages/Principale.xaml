@@ -57,7 +57,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#2C3E50"/>
+                    <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="BorderBrush" Value="DarkGray"/>
                 </Trigger>
@@ -83,16 +83,25 @@
         </Grid.RowDefinitions>
 
         <!-- HEADER -->
-        <DockPanel Background="#2C3E50" LastChildFill="False">
-            <TextBlock Name="BienvenuText" FontSize="24" FontWeight="Bold" Foreground="White" Margin="30,0" VerticalAlignment="Center"/>
-            <!-- ✅ Image circulaire avec effet d’ombre -->
-            <Ellipse Width="50" Height="50" Stroke="Gray" StrokeThickness="2"
+        <Border Grid.Row="0">
+            <Border.Background>
+                <ImageBrush ImageSource="../Assets/backrgound1.jpg"></ImageBrush>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect Color="Black" ShadowDepth="5"/>
+            </Border.Effect>
+            <DockPanel LastChildFill="False">
+                <TextBlock Name="BienvenuText" FontSize="24" FontWeight="Bold" Foreground="White" Margin="30,0" VerticalAlignment="Center"/>
+                <!-- ✅ Image circulaire avec effet d’ombre -->
+                <Ellipse Width="50" Height="50" Stroke="Gray" StrokeThickness="2"
 HorizontalAlignment="Right" DockPanel.Dock="Right">
-                <Ellipse.Fill>
-                    <ImageBrush x:Name="PhotoBrush" Stretch="UniformToFill"/>
-                </Ellipse.Fill>
-            </Ellipse>
-        </DockPanel>
+                    <Ellipse.Fill>
+                        <ImageBrush x:Name="PhotoBrush" Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </DockPanel>
+        </Border>
+        
 
         <!-- CONTENU PRINCIPAL -->
         <Grid Grid.Row="1" Margin="20">
@@ -101,48 +110,60 @@ HorizontalAlignment="Right" DockPanel.Dock="Right">
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <!-- Section du menu en haut -->
-                    <RowDefinition Height="*"/>
-                    <!-- Espace qui pousse "Quitter" en bas -->
-                    <RowDefinition Height="Auto"/>
-                    <!-- Bouton Quitter en bas -->
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Column="0"  Background="#2C3E50" Grid.Row="0" VerticalAlignment="Top">
-                    <Button Cursor="Hand" Height="45" Margin="5" Click="Home_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
-                        <TextBlock Text="🏠 Accueil" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                    </Button>
-                    <Button Cursor="Hand" Height="45" Margin="5" Click="DemanderConge_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+            <Border Grid.Column="0">
+                <Border.Background>
+                    <ImageBrush ImageSource="../Assets/backrgound1.jpg"></ImageBrush>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" ShadowDepth="5"/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Section du menu en haut -->
+                        <RowDefinition Height="*"/>
+                        <!-- Espace qui pousse "Quitter" en bas -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Bouton Quitter en bas -->
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Column="0"  Grid.Row="0" VerticalAlignment="Top">
+                        <Button Cursor="Hand" Height="45" Margin="5" Click="Home_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                            <TextBlock Text="🏠 Accueil" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </Button>
+                        <Button Cursor="Hand" Height="45" Margin="5" Click="DemanderConge_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
                             <TextBlock Text="📅 Demande de congé" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                    </Button>
-                    <Button Cursor="Hand" Height="45" Margin="5" Click="HistoriquePaie_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
-                        <TextBlock Text="📄 Consulter bulletins" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                    </Button>
-                    <Button Cursor="Hand" Height="45" Margin="5" Click="AfficherTaches_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
-                        <TextBlock Text="🧾 Mes tâches" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                    </Button>
+                        </Button>
+                        <Button Cursor="Hand" Height="45" Margin="5" Click="HistoriquePaie_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                            <TextBlock Text="📄 Consulter bulletins" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </Button>
+                        <Button Cursor="Hand" Height="45" Margin="5" Click="AfficherTaches_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                            <TextBlock Text="🧾 Mes tâches" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </Button>
 
-                </StackPanel>
-                <StackPanel Grid.Row="1"  Background="#2C3E50"/>
-                <StackPanel Grid.Row="2"  Background="#2C3E50">
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" />
+                    <StackPanel Grid.Row="2" >
 
-                    <Button Cursor="Hand" Height="45" Margin="5" Click="ChangerMdp_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
-                        <TextBlock Text="🔒 Modifier mot de passe" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                    </Button>
+                        <Button Cursor="Hand" Height="45" Margin="5" Click="ChangerMdp_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                            <TextBlock Text="🔒 Modifier mot de passe" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </Button>
 
-                    <Button Cursor="Hand" Height="45" Margin="5" Click="Quitter_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
-                        <TextBlock Text="🚪 Déconnexion" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                    </Button>
+                        <Button Cursor="Hand" Height="45" Margin="5" Click="Quitter_Click" FontSize="14" Style="{StaticResource RoundedButtonStyle}">
+                            <TextBlock Text="🚪 Déconnexion" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </Button>
 
-                </StackPanel>
+                    </StackPanel>
 
-            </Grid>
+                </Grid>
+
+            </Border>
+            
             <!-- Colonne gauche : actions rapides -->
 
             <!-- Colonne droite : infos dynamiques -->
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Background="#ecf0f1" >
                 <WrapPanel Name="ListTask" Visibility="Collapsed" Orientation="Horizontal" Margin="10">
                     <ItemsControl ItemsSource="{Binding Taches}">
                         <ItemsControl.ItemsPanel>

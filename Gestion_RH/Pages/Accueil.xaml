@@ -58,7 +58,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#2C3E50"/>
+                    <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="BorderBrush" Value="DarkGray"/>
                 </Trigger>
@@ -83,7 +83,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Background="#2C3E50" Padding="10">
+        <Border Grid.Column="0" Padding="10">
+
+            <Border.Background>
+                <ImageBrush ImageSource="../Assets/backrgound1.jpg"></ImageBrush>
+            </Border.Background>
             <Border.Effect>
                 <DropShadowEffect Color="Black" ShadowDepth="5"/>
             </Border.Effect>
@@ -163,7 +167,7 @@
 
 
         <!-- ✅ Contenu principal (scrollable) -->
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="1" Background="#ecf0f1" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20">
                 <Grid x:Name="ContenuAccueil" Visibility="Visible">
                     <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">

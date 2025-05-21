@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gestion_RH.Classes;
 using Gestion_RH.Fenetres;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
 
 namespace Gestion_RH.Pages
@@ -64,10 +65,7 @@ namespace Gestion_RH.Pages
             }
 
         }
-        public void Rafraichir()
-        {
-            NavigationService.Navigate(new Info(employe));
-        }
+        
         public Info(Employe emp)
         {
             InitializeComponent();
@@ -77,10 +75,26 @@ namespace Gestion_RH.Pages
             {
                 TaskPanel.Visibility = Visibility.Collapsed;
             };
-            employe = emp;
 
-            DataContext = this;
-            
+            var EmployeId = emp.Id;
+
+            using var dbContext = new ApplicationDbContext();
+
+            var employeFound = dbContext.Employes
+                .Include(p => p.EmployeTaches)
+                    .ThenInclude(e => e.Tache)
+                .Include(d => d.Poste.Departement)
+                .Include(d => d.Nation)
+                .Include(d => d.Cv)
+                .Where(c => c.Id == EmployeId)
+                .FirstOrDefault();
+
+            if (employeFound != null)
+            {
+                employe = employeFound;
+            }
+
+
             ChargerCvDepuisBDD(employe);
             
             if (employe?.EmployeTaches != null)
@@ -123,6 +137,8 @@ namespace Gestion_RH.Pages
             {
                 AjouterEmpreinteBoutton.Visibility = Visibility.Visible;
             }
+            
+            DataContext = this;
         }
 
         private void BtnTasks_Click(object sender, RoutedEventArgs e)
@@ -149,6 +165,11 @@ namespace Gestion_RH.Pages
                 return bitmap;
             }
         }
+        public void Rafraichir()
+        {
+            NavigationService.Navigate(new Info(employe));
+        }
+
         private void UpdateEmploye_Click(object sender, RoutedEventArgs e)
         {
             UpdateEmploye modifWindow = new UpdateEmploye(this,employe);

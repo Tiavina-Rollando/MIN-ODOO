@@ -172,7 +172,6 @@ namespace Gestion_RH.Pages
 
         public void Rafraichir()
         {
-            MessageBox.Show("Il est temps de rafraichir la page");
             ContenuAccueil.Visibility = Visibility.Visible;
 
             NavigationService.Navigate(new Accueil());
