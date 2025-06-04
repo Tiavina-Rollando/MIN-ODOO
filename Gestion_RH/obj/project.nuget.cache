@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HhYdaI9+hIk=",
+  "dgSpecHash": "XKigKisBwXY=",
   "success": true,
-  "projectFilePath": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Gestion_RH.csproj",
+  "projectFilePath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tiavi\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Tiavi\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
@@ -119,16 +119,12 @@
   ],
   "logs": [
     {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Une erreur s’est produite lors de l’obtention des données de vulnérabilité du package : Impossible de charger l'index de service pour la source https://api.nuget.org/v3/index.json."
-    },
-    {
       "code": "NU1701",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Le package 'FontAwesome.WPF 4.7.0.9' a été restauré en utilisant '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' au lieu du framework cible du projet 'net8.0-windows7.0'. Ce package n'est peut-être pas totalement compatible avec votre projet.",
+      "projectPath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
       "libraryId": "FontAwesome.WPF",
       "targetGraphs": [
         "net8.0-windows7.0"
@@ -137,8 +133,10 @@
     {
       "code": "NU1701",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Le package 'OpenTK 3.3.1' a été restauré en utilisant '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' au lieu du framework cible du projet 'net8.0-windows7.0'. Ce package n'est peut-être pas totalement compatible avec votre projet.",
+      "projectPath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
       "libraryId": "OpenTK",
       "targetGraphs": [
         "net8.0-windows7.0"
@@ -147,8 +145,10 @@
     {
       "code": "NU1701",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Le package 'OpenTK.GLWpfControl 3.3.0' a été restauré en utilisant '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' au lieu du framework cible du projet 'net8.0-windows7.0'. Ce package n'est peut-être pas totalement compatible avec votre projet.",
+      "projectPath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
       "libraryId": "OpenTK.GLWpfControl",
       "targetGraphs": [
         "net8.0-windows7.0"
@@ -157,8 +157,10 @@
     {
       "code": "NU1701",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Le package 'SkiaSharp.Views.WPF 3.116.1' a été restauré en utilisant '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' au lieu du framework cible du projet 'net8.0-windows7.0'. Ce package n'est peut-être pas totalement compatible avec votre projet.",
+      "projectPath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
       "libraryId": "SkiaSharp.Views.WPF",
       "targetGraphs": [
         "net8.0-windows7.0"

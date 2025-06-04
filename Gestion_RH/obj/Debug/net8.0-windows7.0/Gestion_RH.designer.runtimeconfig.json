@@ -14,7 +14,7 @@
     "additionalProbingPaths": [
       "C:\\Users\\Tiavi\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\Tiavi\\.nuget\\packages",
-      "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      "D:\\IDE\\VisualStudio\\PF(x86)\\MVS\\Shared\\NuGetPackages"
     ],
     "configProperties": {
       "System.Reflection.NullabilityInfoContext.IsSupported": true,

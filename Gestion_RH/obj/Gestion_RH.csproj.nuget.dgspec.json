@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Gestion_RH.csproj": {}
+    "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj": {}
   },
   "projects": {
-    "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Gestion_RH.csproj": {
+    "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Gestion_RH.csproj",
+        "projectUniqueName": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
         "projectName": "Gestion_RH",
-        "projectPath": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\Gestion_RH.csproj",
+        "projectPath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\Gestion_RH.csproj",
         "packagesPath": "C:\\Users\\Tiavi\\.nuget\\packages\\",
-        "outputPath": "D:\\Tiavina\\Projet\\C#\\source\\repos\\2025\\Gestion_RH\\obj\\",
+        "outputPath": "D:\\Repositories\\GitHub\\MIN-ODOO\\Gestion_RH\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "D:\\IDE\\VisualStudio\\PF(x86)\\MVS\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\Tiavi\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -125,7 +124,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
